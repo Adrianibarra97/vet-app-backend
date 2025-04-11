@@ -8,6 +8,6 @@ class MedicalShift {
     var id: Int = 0
     var patient: Pet = Pet()
     var vet: User? = null
-    var date: LocalDateTime = LocalDateTime.now()
+    var date: LocalDateTime? = null
 
 }

@@ -16,6 +16,7 @@ class Pet {
     var sterilized: Boolean = false
     var photo: String = ""
     var medicalShift: MutableList<MedicalShift> = mutableListOf<MedicalShift>()
+    var pendingVaccines: MutableList<Vaccine> = mutableListOf<Vaccine>()
 }
 
 

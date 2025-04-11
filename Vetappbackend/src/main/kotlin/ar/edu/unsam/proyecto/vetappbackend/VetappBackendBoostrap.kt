@@ -73,6 +73,34 @@ class VetappBackendBoostrap: InitializingBean {
             this.photo = "assets/noah.jpg"
         }
 
+        // Vaccines
+        val vaccine1 = Vaccine().apply {
+            this.id = 1
+            this.name = "Rabia"
+            this.completed = false // Vacuna pendiente
+        }
+
+        val vaccine2 = Vaccine().apply {
+            this.id = 2
+            this.name = "Desparasitaria"
+            this.completed = true // Vacuna completada
+        }
+
+        val vaccine3 = Vaccine().apply {
+            this.id = 3
+            this.name = "Parvovirus"
+            this.completed = false
+        }
+
+        val vaccine4 = Vaccine().apply {
+            this.id = 4
+            this.name = "Hepatitis"
+            this.completed = true
+        }
+
+        oli.pendingVaccines.addAll(listOf(vaccine1, vaccine2))
+        noah.pendingVaccines.addAll(listOf(vaccine3,vaccine4))
+
         //MedicalShifts
         val shift1 = MedicalShift().apply {
             this.id = 1

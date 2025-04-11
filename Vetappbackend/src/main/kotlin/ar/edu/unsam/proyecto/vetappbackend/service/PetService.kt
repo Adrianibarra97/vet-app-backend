@@ -39,4 +39,8 @@ class PetService: BaseService<Pet> {
     fun getAllByShiftToday(date: LocalDate): List<Pet> {
         return petRepository.getAllByShiftToday(date)
     }
+
+    fun getAllPendingVaccines(pendingVaccine: Boolean): List<Pet> {
+        return petRepository.getAllPendingVaccines(pendingVaccine)
+    }
 }

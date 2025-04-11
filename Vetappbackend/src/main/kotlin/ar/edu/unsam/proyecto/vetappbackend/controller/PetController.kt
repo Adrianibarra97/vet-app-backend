@@ -31,4 +31,9 @@ class PetController {
         val localDate = LocalDate.parse(todayDate) // Convertir String a LocalDate
         return petService.getAllByShiftToday(localDate).map { PetDTO.toJSON(it) }
     }
+
+    @GetMapping("/pet/filter/get-all-pending-vaccine/{pendingVaccine}")
+    fun getAllPendingVaccines(@PathVariable pendingVaccine: Boolean): List<PetDTO> {
+        return petService.getAllPendingVaccines(pendingVaccine).map { PetDTO.toJSON(it) }
+    }
 }
