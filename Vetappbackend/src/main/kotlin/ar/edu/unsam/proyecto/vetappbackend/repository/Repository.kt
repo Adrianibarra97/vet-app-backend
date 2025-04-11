@@ -10,6 +10,8 @@ class PetRepository {
 
     private val pets = mutableListOf<Pet>()
 
+    private val medicalShifts = mutableListOf<MedicalShift>()
+
     fun getAll(): List<Pet> {
         return pets
     }
@@ -22,27 +24,20 @@ class PetRepository {
         pets.add(pet)
     }
 
+    fun saveMedicalShift(medicalShift: MedicalShift) {
+        medicalShifts.add(medicalShift)
+    }
+
+    fun saveMedicalShifts(medicalShiftsToAdd: List<MedicalShift>) {
+        medicalShifts.addAll(medicalShiftsToAdd)
+    }
+
     fun saveAll(petsToAdd: List<Pet>) {
         pets.addAll(petsToAdd)
     }
-}
-
-
-@Repository
-class MedicalShiftRepository {
-
-    private val shifts = mutableListOf<MedicalShift>()
-
-    fun save(shift: MedicalShift) {
-        shifts.add(shift)
-    }
-
-    fun saveAll(shiftList: List<MedicalShift>) {
-        shifts.addAll(shiftList)
-    }
 
     fun getAllByShiftToday(appointmentDate: LocalDate): List<Pet> {
-        return shifts.filter { it.date.toLocalDate().isEqual(appointmentDate) }
+        return medicalShifts.filter { it.date.toLocalDate().isEqual(appointmentDate) }
             .map { it.patient }
     }
 }

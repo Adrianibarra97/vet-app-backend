@@ -15,6 +15,7 @@ class Pet {
     var weight: Double = 0.0
     var sterilized: Boolean = false
     var photo: String = ""
+    var medicalShift: MutableList<MedicalShift> = mutableListOf<MedicalShift>()
 }
 
 

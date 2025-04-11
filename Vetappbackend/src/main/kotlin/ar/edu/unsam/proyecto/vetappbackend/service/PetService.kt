@@ -1,7 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
-import ar.edu.unsam.proyecto.vetappbackend.repository.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -12,9 +11,6 @@ class PetService: BaseService<Pet> {
 
     @Autowired
     lateinit var petRepository: PetRepository
-
-    @Autowired
-    lateinit var medicalShift: MedicalShiftRepository
 
 
     override fun getAll(): List<Pet> =
@@ -40,8 +36,7 @@ class PetService: BaseService<Pet> {
     fun getAllByName(name: String): List<Pet> =
         this.petRepository.getAllByName(name)
 
-    fun getAllByShiftToday(todayDate: LocalDate): List<Pet> {
-        return this.medicalShift.getAllByShiftToday(todayDate)
+    fun getAllByShiftToday(date: LocalDate): List<Pet> {
+        return petRepository.getAllByShiftToday(date)
     }
-
 }

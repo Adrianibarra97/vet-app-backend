@@ -19,5 +19,10 @@ class PetOwner : User() {
 }
 
 class Vet : User() {
-    var licence: String? = ""
+    var licence: String = ""
+    var jobTelephone: String = ""
+    var speciality: String = ""
+    var jobAdress: String = ""
+    var professionalEmail: String = ""
+    var businessHours: String = ""
 }

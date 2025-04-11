@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
+import java.time.LocalDate
 
 
 @RestController
@@ -18,10 +19,16 @@ class PetController {
 
     @GetMapping("/pet/get-all")
     fun getAll(): List<PetDTO> =
-        this.petService.getAll().map { PetDTO.fromPet(it) }
+        this.petService.getAll().map { PetDTO.toJSON(it) }
 
 
     @GetMapping("/pet/filter/get-all-by-name/{name}")
     fun getAllByName(@PathVariable name: String): List<PetDTO> =
-        this.petService.getAllByName(name).map { PetDTO.fromPet(it) }
+        this.petService.getAllByName(name).map { PetDTO.toJSON(it) }
+
+    @GetMapping("/shifts/today/{todayDate}")
+    fun getPetsByShiftToday(@PathVariable todayDate: String): List<PetDTO> {
+        val localDate = LocalDate.parse(todayDate) // Convertir String a LocalDate
+        return petService.getAllByShiftToday(localDate).map { PetDTO.toJSON(it) }
+    }
 }

@@ -15,7 +15,7 @@ data class PetDTO(
     val photo: String
 ) {
     companion object {
-        fun fromPet(pet: Pet): PetDTO {
+        fun toJSON(pet: Pet): PetDTO {
             return PetDTO(
                 id = pet.id,
                 name = pet.name,

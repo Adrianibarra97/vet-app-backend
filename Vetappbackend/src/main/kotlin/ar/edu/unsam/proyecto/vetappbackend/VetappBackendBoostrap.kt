@@ -1,7 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.*
-import ar.edu.unsam.proyecto.vetappbackend.repository.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,9 +12,6 @@ class VetappBackendBoostrap: InitializingBean {
 
     @Autowired
     lateinit var petRepository: PetRepository
-
-    @Autowired
-    lateinit var medicalShiftRepository: MedicalShiftRepository
 
     override fun afterPropertiesSet() {
 
@@ -42,8 +38,13 @@ class VetappBackendBoostrap: InitializingBean {
             this.address = "Blanco Encalada 1122"
             this.username = "birra97"
             this.password = "birra1234"
+            this.licence = "123455435"
+            this.jobTelephone = "412344445"
+            this.speciality = "surgery"
+            this.jobAdress = "Monroe 1243"
+            this.professionalEmail = "adri-vetapp@gmail.com"
+            this.businessHours = "7 a 14 hs"
         }
-
 
         //Pets
         val oli: Pet = Pet().apply {
@@ -77,8 +78,10 @@ class VetappBackendBoostrap: InitializingBean {
             this.id = 1
             this.patient = oli
             this.vet = ezequiel
-            this.date = LocalDateTime.now()
+            this.date = LocalDateTime.of(2025,4,10,0,0)
         }
+
+        oli.medicalShift.add(shift1)
 
         val shift2 = MedicalShift().apply {
             this.id = 2
@@ -87,8 +90,13 @@ class VetappBackendBoostrap: InitializingBean {
             this.date = LocalDateTime.of(2025,4,11,0,0,0)
         }
 
+        noah.medicalShift.add(shift2)
+
+
         //Repositorios
         petRepository.saveAll(listOf(oli, noah))
-        medicalShiftRepository.saveAll(listOf(shift1,shift2))
+        petRepository.saveMedicalShift(shift1)
+        petRepository.saveMedicalShift(shift2)
+
     }
 }
