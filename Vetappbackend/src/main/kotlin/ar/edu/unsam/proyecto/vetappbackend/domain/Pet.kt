@@ -6,15 +6,15 @@ import java.time.LocalDate
 class Pet {
 
     var id: Int = 0
+    var photo: String = ""
     var name: String = ""
     var age: Int = 0
-    var birth: LocalDate? = null
-    var sex: String = ""
     var breed: String = ""
-    var specie: String = ""
+    var sex: String = ""
     var weight: Double = 0.0
     var sterilized: Boolean = false
-    var photo: String = ""
+    var specie: String = ""
+    var birth: LocalDate? = null
     var medicalShift: MutableList<MedicalShift> = mutableListOf<MedicalShift>()
     var pendingVaccines: MutableList<Vaccine> = mutableListOf<Vaccine>()
 }

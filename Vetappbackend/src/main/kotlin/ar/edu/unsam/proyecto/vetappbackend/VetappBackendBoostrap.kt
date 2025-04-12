@@ -49,28 +49,28 @@ class VetappBackendBoostrap: InitializingBean {
         //Pets
         val oli: Pet = Pet().apply {
             this.id = 1
+            this.photo = "assets/oli.jpeg"
             this.name = "Oli"
             this.age = 4
-            this.birth = LocalDate.of(2021,2,13)
-            this.sex = "Macho"
             this.breed = "Mestizo"
-            this.specie = "Perro"
+            this.sex = "Macho"
             this.weight = 14.0
             this.sterilized = true
-            this.photo = "assets/oli.jpeg"
+            this.specie = "Perro"
+            this.birth = LocalDate.of(2021,2,13)
         }
 
         val noah: Pet = Pet().apply {
             this.id = 2
+            this.photo = "assets/noah.jpg"
             this.name = "Noah"
             this.age = 5
-            this.birth = LocalDate.of(2020,3,10)
-            this.sex = "Macho"
             this.breed = "Mestizo"
-            this.specie = "Perro"
+            this.sex = "Macho"
             this.weight = 25.5
             this.sterilized = true
-            this.photo = "assets/noah.jpg"
+            this.specie = "Perro"
+            this.birth = LocalDate.of(2020,3,10)
         }
 
         // Vaccines
