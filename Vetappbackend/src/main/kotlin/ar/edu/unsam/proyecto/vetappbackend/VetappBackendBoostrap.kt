@@ -5,7 +5,7 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 @Service
 class VetappBackendBoostrap: InitializingBean {
@@ -51,7 +51,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.id = 1
             this.name = "Oli"
             this.age = 4
-            this.birth = LocalDateTime.of(2021,2,13,19,0,0)
+            this.birth = LocalDate.of(2021,2,13)
             this.sex = "Macho"
             this.breed = "Mestizo"
             this.specie = "Perro"
@@ -64,7 +64,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.id = 2
             this.name = "Noah"
             this.age = 5
-            this.birth = LocalDateTime.of(2020,3,10,19,0,0)
+            this.birth = LocalDate.of(2020,3,10)
             this.sex = "Macho"
             this.breed = "Mestizo"
             this.specie = "Perro"
@@ -106,7 +106,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.id = 1
             this.patient = oli
             this.vet = ezequiel
-            this.date = LocalDateTime.of(2025,4,10,0,0)
+            this.date = LocalDate.of(2025,4,10)
         }
 
         oli.medicalShift.add(shift1)
@@ -115,7 +115,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.id = 2
             this.patient = noah
             this.vet = adrian
-            this.date = LocalDateTime.of(2025,4,11,0,0,0)
+            this.date = LocalDate.of(2025,4,11)
         }
 
         noah.medicalShift.add(shift2)
