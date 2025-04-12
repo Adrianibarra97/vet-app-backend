@@ -27,7 +27,12 @@ class PetRepository {
     }
 
     fun update(pet: Pet) {
-        pets[pet.id] = pet
+        val index = pets.indexOfFirst { it.id == pet.id }
+        pets[index] = pet
+    }
+
+    fun delete(pet: Pet) {
+        pets.remove(pet)
     }
 
 

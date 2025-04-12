@@ -19,13 +19,13 @@ class PetService: BaseService<Pet> {
     }
 
 
-    private fun checkIdPet(idPet: Int): Pet {
+    override fun getOneById(idPet: Int): Pet {
         return this.petRepository.findById(idPet)
             ?: throw NotFoundException("No se encontró el chofer indicado: $idPet")
     }
 
     override fun update(petUpdate: Pet) {
-        val pet: Pet = checkIdPet(petUpdate.id)
+        val pet: Pet = this.getOneById(petUpdate.id)
         pet.apply {
             this.id = petUpdate.id
             this.name = petUpdate.name
@@ -43,16 +43,13 @@ class PetService: BaseService<Pet> {
         this.petRepository.update(pet)
     }
 
+    override fun delete(petDelete: Pet) {
+        this.petRepository.delete(petDelete)
+    }
+
+
     override fun create(newPet: Pet) {
         this.petRepository.save(newPet)
-    }
-
-    override fun getOneById(objectId: Int): Pet {
-        TODO("Not yet implemented")
-    }
-
-    override fun delete(anObject: Pet) {
-        TODO("Not yet implemented")
     }
 
 

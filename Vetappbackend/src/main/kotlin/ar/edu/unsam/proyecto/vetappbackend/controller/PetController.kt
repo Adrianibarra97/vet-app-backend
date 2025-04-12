@@ -1,5 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.controller
 
+import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
 import ar.edu.unsam.proyecto.vetappbackend.service.*
 import org.springframework.beans.factory.annotation.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
@@ -40,9 +41,15 @@ class PetController {
       this.petService.create(newPetDTO.fromJSON(newPetDTO))
     }
 
-    @PutMapping("/pet/editar-pet")
+    @PutMapping("/pet/update-pet")
     fun update(@RequestBody newPetDTO: PetDTO) {
         this.petService.update(newPetDTO.fromJSON(newPetDTO))
+    }
+
+    @DeleteMapping("/pet/delete-pet")
+    fun delete(@RequestParam idPet: Int) {
+        val petForDelete: Pet = this.petService.getOneById(idPet.toInt())
+        this.petService.delete(petForDelete)
     }
 
 }
