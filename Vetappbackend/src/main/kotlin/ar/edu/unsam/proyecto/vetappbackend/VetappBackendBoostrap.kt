@@ -47,7 +47,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         //Pets
-
         val nala: Pet = Pet().apply {
             this.id = 0
             this.photo = "assets/nala.jpg"
@@ -85,13 +84,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.sterilized = true
             this.specie = "Perro"
             this.birth = LocalDate.of(2012,2,19)
-        }
-
-        // Vaccines
-        val vaccine1 = Vaccine().apply {
-            this.id = 1
-            this.name = "Rabia"
-            this.completed = false // Vacuna pendiente
         }
 
         val rocky: Pet = Pet().apply {
@@ -198,6 +190,13 @@ class VetappBackendBoostrap: InitializingBean {
             this.birth = LocalDate.of(2019,10,30)
         }
 
+        // Vaccines
+        val vaccine1 = Vaccine().apply {
+            this.id = 1
+            this.name = "Rabia"
+            this.completed = false // Vacuna pendiente
+        }
+
         val vaccine2 = Vaccine().apply {
             this.id = 2
             this.name = "Desparasitaria"
@@ -216,8 +215,17 @@ class VetappBackendBoostrap: InitializingBean {
             this.completed = true
         }
 
+        nala.pendingVaccines.addAll(listOf(vaccine1,vaccine4))
         oli.pendingVaccines.addAll(listOf(vaccine1, vaccine2))
         owie.pendingVaccines.addAll(listOf(vaccine3,vaccine4))
+        rocky.pendingVaccines.addAll(listOf(vaccine3,vaccine2))
+        pipi.pendingVaccines.addAll(listOf(vaccine2,vaccine4))
+        morena.pendingVaccines.addAll(listOf(vaccine2,vaccine4))
+        mileva.pendingVaccines.addAll(listOf(vaccine1))
+        napoleon.pendingVaccines.addAll(listOf(vaccine2))
+        burpee.pendingVaccines.addAll(listOf(vaccine3))
+        freya.pendingVaccines.addAll(listOf(vaccine4))
+        cleopatra.pendingVaccines.addAll(listOf(vaccine4,vaccine2,vaccine3))
 
         //MedicalShifts
         val shift1 = MedicalShift().apply {
@@ -227,8 +235,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.date = LocalDate.of(2025,4,10)
         }
 
-        oli.medicalShift.add(shift1)
-
         val shift2 = MedicalShift().apply {
             this.id = 2
             this.patient = owie
@@ -236,6 +242,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.date = LocalDate.of(2025,4,11)
         }
 
+        oli.medicalShift.add(shift1)
         owie.medicalShift.add(shift2)
 
 
