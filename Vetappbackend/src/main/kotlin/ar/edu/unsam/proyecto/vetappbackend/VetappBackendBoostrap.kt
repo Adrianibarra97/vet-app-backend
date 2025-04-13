@@ -47,6 +47,20 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         //Pets
+
+        val nala: Pet = Pet().apply {
+            this.id = 0
+            this.photo = "assets/nala.jpg"
+            this.name = "Nala"
+            this.age = 9
+            this.breed = "Mestizo"
+            this.sex = "Hembra"
+            this.weight = 17.0
+            this.sterilized = true
+            this.specie = "Perro"
+            this.birth = LocalDate.of(2015,10,15)
+        }
+
         val oli: Pet = Pet().apply {
             this.id = 1
             this.photo = "assets/oli.jpeg"
@@ -57,20 +71,20 @@ class VetappBackendBoostrap: InitializingBean {
             this.weight = 14.0
             this.sterilized = true
             this.specie = "Perro"
-            this.birth = LocalDate.of(2021,2,13)
+            this.birth = LocalDate.of(2021,2,20)
         }
 
-        val noah: Pet = Pet().apply {
+        val owie: Pet = Pet().apply {
             this.id = 2
-            this.photo = "assets/noah.jpg"
-            this.name = "Noah"
-            this.age = 5
+            this.photo = "assets/owie.jpg"
+            this.name = "Owie"
+            this.age = 13
             this.breed = "Mestizo"
-            this.sex = "Macho"
-            this.weight = 25.5
+            this.sex = "Hembra"
+            this.weight = 15.0
             this.sterilized = true
             this.specie = "Perro"
-            this.birth = LocalDate.of(2020,3,10)
+            this.birth = LocalDate.of(2012,2,19)
         }
 
         // Vaccines
@@ -78,6 +92,110 @@ class VetappBackendBoostrap: InitializingBean {
             this.id = 1
             this.name = "Rabia"
             this.completed = false // Vacuna pendiente
+        }
+
+        val rocky: Pet = Pet().apply {
+            this.id = 3
+            this.photo = "assets/rocky.jpg"
+            this.name = "Rocky"
+            this.age = 5
+            this.breed = "Mestizo"
+            this.sex = "Macho"
+            this.weight = 25.0
+            this.sterilized = false
+            this.specie = "Perro"
+            this.birth = LocalDate.of(2020,7,2)
+        }
+
+        val pipi: Pet = Pet().apply {
+            this.id = 4
+            this.photo = "assets/pipi.jpg"
+            this.name = "Pipi"
+            this.age = 5
+            this.breed = "Torcaza"
+            this.sex = "Hembra"
+            this.weight = 0.119
+            this.sterilized = false
+            this.specie = "Ave"
+            this.birth = LocalDate.of(2020,1,1)
+        }
+
+        val morena: Pet = Pet().apply {
+            this.id = 5
+            this.photo = "assets/morena.jpg"
+            this.name = "Morena"
+            this.age = 14
+            this.breed = "Mestizo"
+            this.sex = "Hembra"
+            this.weight = 15.0
+            this.sterilized = true
+            this.specie = "Perro"
+            this.birth = LocalDate.of(2011,5,20)
+        }
+
+        val mileva: Pet = Pet().apply {
+            this.id = 6
+            this.photo = "assets/mileva.jpg"
+            this.name = "Mileva"
+            this.age = 4
+            this.breed = "Mestizo"
+            this.sex = "Hembra"
+            this.weight = 2.9
+            this.sterilized = true
+            this.specie = "Gato"
+            this.birth = LocalDate.of(2020,9,26)
+        }
+
+        val napoleon: Pet = Pet().apply {
+            this.id = 7
+            this.photo = "assets/napoleon.jpg"
+            this.name = "Napoleón"
+            this.age = 9
+            this.breed = "Mestizo"
+            this.sex = "Macho"
+            this.weight = 6.0
+            this.sterilized = true
+            this.specie = "Gato"
+            this.birth = LocalDate.of(2015,9,11)
+        }
+
+        val burpee: Pet = Pet().apply {
+            this.id = 8
+            this.photo = "assets/burpee.jpg"
+            this.name = "Burpee"
+            this.age = 8
+            this.breed = "Sharpei"
+            this.sex = "Macho"
+            this.weight = 19.0
+            this.sterilized = true
+            this.specie = "Perro"
+            this.birth = LocalDate.of(2016,10,1)
+        }
+
+        val freya: Pet = Pet().apply {
+            this.id = 9
+            this.photo = "assets/freya.jpg"
+            this.name = "Freya"
+            this.age = 5
+            this.breed = "Mestizo"
+            this.sex = "Hembra"
+            this.weight = 5.0
+            this.sterilized = true
+            this.specie = "Gato"
+            this.birth = LocalDate.of(2019,10,30)
+        }
+
+        val cleopatra: Pet = Pet().apply {
+            this.id = 10
+            this.photo = "assets/cleopatra.jpg"
+            this.name = "Cleopatra"
+            this.age = 5
+            this.breed = "Mestizo"
+            this.sex = "Hembra"
+            this.weight = 4.0
+            this.sterilized = true
+            this.specie = "Gato"
+            this.birth = LocalDate.of(2019,10,30)
         }
 
         val vaccine2 = Vaccine().apply {
@@ -99,7 +217,7 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         oli.pendingVaccines.addAll(listOf(vaccine1, vaccine2))
-        noah.pendingVaccines.addAll(listOf(vaccine3,vaccine4))
+        owie.pendingVaccines.addAll(listOf(vaccine3,vaccine4))
 
         //MedicalShifts
         val shift1 = MedicalShift().apply {
@@ -113,16 +231,16 @@ class VetappBackendBoostrap: InitializingBean {
 
         val shift2 = MedicalShift().apply {
             this.id = 2
-            this.patient = noah
+            this.patient = owie
             this.vet = adrian
             this.date = LocalDate.of(2025,4,11)
         }
 
-        noah.medicalShift.add(shift2)
+        owie.medicalShift.add(shift2)
 
 
         //Repositorios
-        petRepository.saveAll(listOf(oli, noah))
+        petRepository.saveAll(listOf(nala,oli,owie,rocky,pipi,morena,mileva,napoleon,burpee,freya,cleopatra,))
         petRepository.saveMedicalShift(shift1)
         petRepository.saveMedicalShift(shift2)
 
