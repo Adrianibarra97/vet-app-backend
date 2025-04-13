@@ -3,28 +3,32 @@ package ar.edu.unsam.proyecto.vetappbackend.service
 import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
+import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 
 @Service
-class PetService: BaseService<Pet> {
+class PetService : BaseService<Pet> {
 
     @Autowired
     lateinit var petRepository: PetRepository
 
-
     override fun getAll(): List<Pet> {
-        return this.petRepository.getAll().toList()
+        // Utiliza el método findAll() proporcionado por CrudRepository
+        return this.petRepository.findAll().toList()
     }
-
 
     override fun getOneById(idPet: Int): Pet {
-        return this.petRepository.findById(idPet)
-            ?: throw NotFoundException("No se encontró el chofer indicado: $idPet")
+        // Usa findById(), que devuelve un Optional, y lanza una excepción personalizada si no encuentra la entidad
+        return this.petRepository.findById(idPet).orElseThrow {
+            NotFoundException("No se encontró la mascota indicada: $idPet")
+        }
     }
 
+    @Transactional
     override fun update(petUpdate: Pet) {
+        // Verifica primero si la entidad existe
         val pet: Pet = this.getOneById(petUpdate.id)
         pet.apply {
             this.id = petUpdate.id
@@ -37,31 +41,39 @@ class PetService: BaseService<Pet> {
             this.weight = petUpdate.weight
             this.sterilized = petUpdate.sterilized
             this.photo = petUpdate.photo
-            this.medicalShift = petUpdate.medicalShift
-            this.pendingVaccines = petUpdate.pendingVaccines
+            this.medicalHistory = petUpdate.medicalHistory
         }
-        this.petRepository.update(pet)
+        // Save es suficiente aquí, ya que CrudRepository se encarga de actualizar la entidad si ya existe
+        this.petRepository.save(pet)
     }
 
     override fun delete(petDelete: Pet) {
+        // Usa delete() directamente
         this.petRepository.delete(petDelete)
     }
 
-
     override fun create(newPet: Pet) {
+        // Usa save() para guardar una nueva entidad
         this.petRepository.save(newPet)
     }
 
-
-    fun getAllByName(name: String): List<Pet> =
-        this.petRepository.getAllByName(name)
+    fun getAllByName(name: String): List<Pet> {
+        // Usa la función personalizada definida en el repositorio
+        return this.petRepository.findByNameContainingIgnoreCase(name)
+    }
 
     fun getAllByShiftToday(date: LocalDate): List<Pet> {
-        return petRepository.getAllByShiftToday(date)
+        // Usa la función personalizada definida en el repositorio
+        return this.petRepository.findByMedicalHistory_MedicalShift_Date(date)
     }
 
     fun getAllPendingVaccines(pendingVaccine: Boolean): List<Pet> {
-        return petRepository.getAllPendingVaccines(pendingVaccine)
+        return if (pendingVaccine) {
+            // Mascotas con vacunas pendientes
+            this.petRepository.findByMedicalHistory_VaccinesCompletedFalse()
+        } else {
+            // Mascotas con todas las vacunas completadas
+            this.petRepository.findByMedicalHistory_VaccinesCompletedTrue()
+        }
     }
-
 }

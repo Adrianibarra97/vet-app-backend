@@ -1,7 +1,24 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain
 
+import com.fasterxml.jackson.annotation.JsonSubTypes
+import com.fasterxml.jackson.annotation.JsonTypeInfo
+import jakarta.persistence.*
+
+
+@Entity
+/*@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)*
+
+ */
+@JsonSubTypes(
+    JsonSubTypes.Type(value = PetOwner::class, name =  "Pet_Owner"),
+    JsonSubTypes.Type(value = Vet::class, name =  "Vet")
+)
+@Inheritance(strategy= InheritanceType.JOINED)
 abstract class User {
+    @Id
+    @get:GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int = 0
+
     var name: String = ""
     var surname: String = ""
     var dni: Int = 0
@@ -10,14 +27,14 @@ abstract class User {
     var address: String = ""
     var username: String = ""
     var password: String = ""
-
-
 }
 
+@Entity
 class PetOwner : User() {
 
 }
 
+@Entity
 class Vet : User() {
     var licence: String = ""
     var jobTelephone: String = ""
@@ -25,4 +42,8 @@ class Vet : User() {
     var jobAdress: String = ""
     var professionalEmail: String = ""
     var businessHours: String = ""
+
+    @OneToMany
+    var medicalShift: MutableList<MedicalShift> = mutableListOf()
+
 }
