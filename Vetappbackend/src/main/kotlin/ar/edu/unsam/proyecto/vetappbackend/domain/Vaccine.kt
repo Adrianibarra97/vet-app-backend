@@ -9,7 +9,7 @@ class Vaccine {
 
     @Id
     @get:GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    var id: Int? = null
 
     var name: String = ""
     var description: String = ""

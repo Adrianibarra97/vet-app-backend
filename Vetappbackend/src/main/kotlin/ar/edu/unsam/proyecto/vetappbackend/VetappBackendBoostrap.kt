@@ -1,7 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.*
-import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.*
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -11,13 +11,35 @@ import java.time.LocalDate
 class VetappBackendBoostrap: InitializingBean {
 
     @Autowired
+    private lateinit var medicalHistoryRepository: MedicalHistoryRepository
+
+    @Autowired
     lateinit var petRepository: PetRepository
+
+    @Autowired
+    lateinit var userDataRepository: UserDataRepository
+
+    @Autowired
+    lateinit var vaccineRepository: VaccineRepository
+
+    @Autowired
+    lateinit var studyResultRepository: StudyResultRepository
+
+    @Autowired
+    lateinit var recipeRepository: RecipeRepository
+
+    @Autowired
+    lateinit var preExistenceDiseaseRepository: PreExistenceDiseaseRepository
+
+    @Autowired
+    lateinit var medicalShiftRepository: MedicalShiftRepository
+
+
 
     override fun afterPropertiesSet() {
 
         //Users
         val ezequiel: PetOwner = PetOwner().apply {
-            this.id = 0
             this.name = "Ezequiel"
             this.surname = "Iozzia"
             this.dni = 36594529
@@ -29,7 +51,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val lucas: PetOwner = PetOwner().apply {
-            this.id = 0
             this.name = "Lucas"
             this.surname = "Cejas"
             this.dni = 40567890
@@ -41,7 +62,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val adrian: Vet = Vet().apply {
-            this.id = 1
             this.name = "Adrian"
             this.surname = "Ibarra"
             this.dni = 40333221
@@ -59,7 +79,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val carolina: Vet = Vet().apply {
-            this.id = 1
             this.name = "Carolina"
             this.surname = "Coronel"
             this.dni = 36548989
@@ -79,57 +98,48 @@ class VetappBackendBoostrap: InitializingBean {
 
         //PreExistingDisease
             val hepatitis = PreExistenceDisease().apply {
-                this.id = 0
                 this.name = "Hepatitis"
                 this.description = "Inflamación del higado"
             }
 
             val diabetes = PreExistenceDisease().apply {
-                this.id = 1
                 this.name = "Diabetes"
                 this.description = "Glucosa alta"
             }
 
             val moquillo = PreExistenceDisease().apply {
-                this.id = 2
                 this.name = "Moquillo"
                 this.description = "Virus respiratorio, gastrointestitanl y nervioso"
             }
 
             val parvovirus = PreExistenceDisease().apply {
-                this.id = 3
                 this.name = "Parvovirus"
                 this.description = "Globulos blancos defectuosos"
             }
 
         //StudyResult
             val estudioHepatitis = StudyResult().apply {
-                this.id = 0
                 this.name = "Estudio Hepatitis"
                 this.description = "Positivo"
             }
 
             val estudioDiabetes = StudyResult().apply {
-                this.id = 1
                 this.name = "Estudio Diabetes"
                 this.description = "Negativo"
             }
 
             val estudioMoquillo = StudyResult().apply {
-                this.id = 2
                 this.name = "Estudio Moquillo"
                 this.description = "Negativo"
             }
 
             val estudioParvovirus = StudyResult().apply {
-                this.id = 3
                 this.name = "Estudio Parvovirus"
                 this.description = "Positivo"
             }
 
         //Vaccines
             val vacunaHepatitis = Vaccine().apply {
-                this.id = 0
                 this.name = "Vacuna Hepatitis"
                 this.description = "Las vacunas contra la hepatitis A y la hepatitis B protegen contra infecciones hepáticas causadas por virus"
                 this.batchNumber = 21234534
@@ -139,7 +149,6 @@ class VetappBackendBoostrap: InitializingBean {
             }
 
             val vacunaAntirrabica = Vaccine().apply {
-                this.id = 1
                 this.name = "Vacuna Antirrabica"
                 this.description = "Vacuna contra la rabia"
                 this.batchNumber = 1123444
@@ -149,7 +158,6 @@ class VetappBackendBoostrap: InitializingBean {
             }
 
             val vacunaMoquillo = Vaccine().apply {
-                this.id = 2
                 this.name = "Vacuna Moquillo"
                 this.description = "Vacuna contra el moquillo"
                 this.batchNumber = 34444443
@@ -159,7 +167,6 @@ class VetappBackendBoostrap: InitializingBean {
             }
 
             val vacunaParvovirus = Vaccine().apply {
-                this.id = 3
                 this.name = "Vacuna Parvovirus"
                 this.description = "Vacuna contra el Parvovirus"
                 this.batchNumber = 54431312
@@ -171,7 +178,6 @@ class VetappBackendBoostrap: InitializingBean {
         //MedicalHistory
 
         val medicalHistoryNala = MedicalHistory().apply {
-            this.id = 0
             this.notes = "Seguir con la dieta balanceada."
             this.preExistingDisease = mutableListOf(diabetes, moquillo)
             this.studiesReuslt = mutableListOf(estudioDiabetes,estudioMoquillo)
@@ -179,7 +185,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryOli = MedicalHistory().apply {
-            this.id = 1
             this.notes = "Oli se encuentra bien."
             this.preExistingDisease = mutableListOf(moquillo, parvovirus)
             this.studiesReuslt = mutableListOf(estudioParvovirus,estudioMoquillo)
@@ -187,7 +192,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryOwie = MedicalHistory().apply {
-            this.id = 2
             this.notes = "Owie está en excelente estado."
             this.preExistingDisease = mutableListOf(hepatitis,moquillo)
             this.studiesReuslt = mutableListOf(estudioHepatitis,estudioMoquillo)
@@ -195,7 +199,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryRocky= MedicalHistory().apply {
-            this.id = 3
             this.notes = "Rocky esta en la lona"
             this.preExistingDisease = mutableListOf(parvovirus,moquillo,diabetes,hepatitis)
             this.studiesReuslt = mutableListOf(estudioDiabetes,estudioMoquillo,estudioParvovirus,estudioHepatitis)
@@ -203,7 +206,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryPipi = MedicalHistory().apply {
-            this.id = 4
             this.notes = "Pipi está estable."
             this.preExistingDisease = mutableListOf(moquillo)
             this.studiesReuslt = mutableListOf(estudioMoquillo)
@@ -211,7 +213,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryMorena = MedicalHistory().apply {
-            this.id = 5
             this.notes = "More se encuentra muy bien"
             this.preExistingDisease = mutableListOf(hepatitis, moquillo, parvovirus)
             this.studiesReuslt = mutableListOf(estudioHepatitis,estudioMoquillo, estudioParvovirus)
@@ -219,7 +220,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryMileva = MedicalHistory().apply {
-            this.id = 6
             this.notes = "Mileva tiene que hacer dieta"
             this.preExistingDisease = mutableListOf(diabetes)
             this.studiesReuslt = mutableListOf(estudioDiabetes)
@@ -227,7 +227,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryNapoleon = MedicalHistory().apply {
-            this.id = 7
             this.notes = "A napoleón hay que cortarles las uñas."
             this.preExistingDisease = mutableListOf(diabetes)
             this.studiesReuslt = mutableListOf(estudioDiabetes)
@@ -235,7 +234,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryBurpee = MedicalHistory().apply {
-            this.id = 8
             this.notes = "Burpee se encuentra bien de salud"
             this.preExistingDisease = mutableListOf(moquillo)
             this.studiesReuslt = mutableListOf(estudioMoquillo)
@@ -243,7 +241,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryFreya = MedicalHistory().apply {
-            this.id = 9
             this.notes = "Freya tiene que comer más"
             this.preExistingDisease = mutableListOf(parvovirus, moquillo)
             this.studiesReuslt = mutableListOf(estudioParvovirus,estudioMoquillo)
@@ -251,7 +248,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalHistoryCleopatra = MedicalHistory().apply {
-            this.id = 10
             this.notes = "Seguir con la dieta balanceada."
             this.preExistingDisease = mutableListOf(moquillo)
             this.studiesReuslt = mutableListOf(estudioMoquillo)
@@ -260,7 +256,6 @@ class VetappBackendBoostrap: InitializingBean {
 
         //Pets
         val nala: Pet = Pet().apply {
-            this.id = 0
             this.photo = "assets/nala.jpg"
             this.name = "Nala"
             this.age = 9
@@ -274,7 +269,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val oli: Pet = Pet().apply {
-            this.id = 1
             this.photo = "assets/oli.jpeg"
             this.name = "Oli"
             this.age = 4
@@ -288,7 +282,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val owie: Pet = Pet().apply {
-            this.id = 2
             this.photo = "assets/owie.jpg"
             this.name = "Owie"
             this.age = 13
@@ -302,7 +295,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val rocky: Pet = Pet().apply {
-            this.id = 3
             this.photo = "assets/rocky.jpg"
             this.name = "Rocky"
             this.age = 5
@@ -316,7 +308,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val pipi: Pet = Pet().apply {
-            this.id = 4
             this.photo = "assets/pipi.jpg"
             this.name = "Pipi"
             this.age = 5
@@ -330,7 +321,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val morena: Pet = Pet().apply {
-            this.id = 5
             this.photo = "assets/morena.jpg"
             this.name = "Morena"
             this.age = 14
@@ -344,7 +334,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val mileva: Pet = Pet().apply {
-            this.id = 6
             this.photo = "assets/mileva.jpg"
             this.name = "Mileva"
             this.age = 4
@@ -358,7 +347,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val napoleon: Pet = Pet().apply {
-            this.id = 7
             this.photo = "assets/napoleon.jpg"
             this.name = "Napoleón"
             this.age = 9
@@ -372,7 +360,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val burpee: Pet = Pet().apply {
-            this.id = 8
             this.photo = "assets/burpee.jpg"
             this.name = "Burpee"
             this.age = 8
@@ -386,7 +373,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val freya: Pet = Pet().apply {
-            this.id = 9
             this.photo = "assets/freya.jpg"
             this.name = "Freya"
             this.age = 5
@@ -400,7 +386,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val cleopatra: Pet = Pet().apply {
-            this.id = 10
             this.photo = "assets/cleopatra.jpg"
             this.name = "Cleopatra"
             this.age = 5
@@ -416,21 +401,16 @@ class VetappBackendBoostrap: InitializingBean {
 
         //Recipe
             val recipeNala = Recipe().apply {
-                this.id = 0
                 this.descripcion = "Tenes que aplicar la vacuna de la rabia"
             }
 
             val recipeOli = Recipe().apply {
-                this.id = 0
                 this.descripcion = "Oli tiene que bajar de peso"
             }
 
 
-
-
         //MedicalShifts
         val medicalShiftNala = MedicalShift().apply {
-            this.id = 1
             this.patient = nala
             this.vet = carolina
             this.petOwner = ezequiel
@@ -439,7 +419,6 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
         val medicalShiftOli = MedicalShift().apply {
-            this.id = 2
             this.patient = oli
             this.vet = adrian
             this.petOwner = lucas
@@ -447,8 +426,80 @@ class VetappBackendBoostrap: InitializingBean {
             this.recipes.add(recipeOli)
         }
 
+        val allUsers = listOf(
+            ezequiel,
+            lucas,
+            adrian,
+            carolina
+        )
+
+        val allPets = listOf(
+            nala,
+            oli,
+            owie,
+            rocky,
+            pipi,
+            morena,
+            mileva,
+            napoleon,
+            burpee,
+            freya,
+            cleopatra
+        )
+
+        val allPreExistingDisease = listOf(
+            hepatitis,
+            moquillo,
+            diabetes,
+            parvovirus
+        )
+
+        val allStudyResult = listOf(
+            estudioDiabetes,
+            estudioMoquillo,
+            estudioHepatitis,
+            estudioParvovirus
+        )
+
+        val allVaccine = listOf(
+            vacunaAntirrabica,
+            vacunaParvovirus,
+            vacunaMoquillo,
+            vacunaHepatitis
+        )
+
+        val allMedicalHistory = listOf(
+            medicalHistoryNala,
+            medicalHistoryBurpee,
+            medicalHistoryMileva,
+            medicalHistoryMorena,
+            medicalHistoryRocky,
+            medicalHistoryFreya,
+            medicalHistoryOwie,
+            medicalHistoryPipi,
+            medicalHistoryNapoleon,
+            medicalHistoryCleopatra,
+            medicalHistoryOli
+        )
+
+        val allRecipe = listOf(
+            recipeOli,
+            recipeNala
+        )
+
+        val allMedicalShift = listOf(
+            medicalShiftNala,
+            medicalShiftOli
+        )
 
         //Repositorios
-        petRepository.saveAll(listOf(nala,oli,owie,rocky,pipi,morena,mileva,napoleon,burpee,freya,cleopatra))
+        userDataRepository.saveAll(allUsers)
+        petRepository.saveAll(allPets)
+        preExistenceDiseaseRepository.saveAll(allPreExistingDisease)
+        vaccineRepository.saveAll(allVaccine)
+        medicalHistoryRepository.saveAll(allMedicalHistory)
+        studyResultRepository.saveAll(allStudyResult)
+        recipeRepository.saveAll(allRecipe)
+        medicalShiftRepository.saveAll(allMedicalShift)
     }
 }

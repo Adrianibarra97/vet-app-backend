@@ -12,10 +12,8 @@ interface PetRepository : CrudRepository<Pet, Int> {
     fun findByNameContainingIgnoreCase(name: String): List<Pet>
 
     // Encuentra todas las mascotas asociadas a turnos en una fecha específica
-    fun findByMedicalHistory_MedicalShift_Date(date: LocalDate): List<Pet>
+    fun findByMedicalHistory_MedicalShifts_Date(date: LocalDate): List<Pet>
 
-    // Encuentra mascotas con vacunas pendientes
-    fun findByMedicalHistory_VaccinesCompletedFalse(): List<Pet>
 
     // Encuentra mascotas con todas sus vacunas completadas
     fun findByMedicalHistory_VaccinesCompletedTrue(): List<Pet>

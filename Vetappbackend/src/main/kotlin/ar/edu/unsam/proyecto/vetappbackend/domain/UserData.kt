@@ -4,20 +4,19 @@ import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import jakarta.persistence.*
 
-
 @Entity
-/*@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)*
-
- */
+@Table(name = "user_data")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes(
-    JsonSubTypes.Type(value = PetOwner::class, name =  "Pet_Owner"),
-    JsonSubTypes.Type(value = Vet::class, name =  "Vet")
+    JsonSubTypes.Type(value = PetOwner::class, name =  "PETOWNER"),
+    JsonSubTypes.Type(value = Vet::class, name =  "VET")
 )
 @Inheritance(strategy= InheritanceType.JOINED)
-abstract class User {
+abstract class UserData {
+
     @Id
     @get:GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    var id: Int? = null
 
     var name: String = ""
     var surname: String = ""
@@ -30,12 +29,12 @@ abstract class User {
 }
 
 @Entity
-class PetOwner : User() {
+class PetOwner : UserData() {
 
 }
 
 @Entity
-class Vet : User() {
+class Vet : UserData() {
     var licence: String = ""
     var jobTelephone: String = ""
     var speciality: String = ""

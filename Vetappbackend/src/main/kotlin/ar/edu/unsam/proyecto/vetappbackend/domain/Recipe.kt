@@ -8,7 +8,7 @@ class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    var id: Int? = null
     var descripcion: String = ""
 
 }

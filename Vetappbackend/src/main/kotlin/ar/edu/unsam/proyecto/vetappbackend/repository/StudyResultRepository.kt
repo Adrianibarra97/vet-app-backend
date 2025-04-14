@@ -1,0 +1,9 @@
+package ar.edu.unsam.proyecto.vetappbackend.repository
+
+import ar.edu.unsam.proyecto.vetappbackend.domain.StudyResult
+import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface StudyResultRepository: CrudRepository<StudyResult, Int> {
+}

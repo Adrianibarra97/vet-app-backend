@@ -9,7 +9,7 @@ class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    var id: Int? = null
 
     var photo: String = ""
     var name: String = ""

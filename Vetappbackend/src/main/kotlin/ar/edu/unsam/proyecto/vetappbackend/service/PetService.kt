@@ -29,7 +29,7 @@ class PetService : BaseService<Pet> {
     @Transactional
     override fun update(petUpdate: Pet) {
         // Verifica primero si la entidad existe
-        val pet: Pet = this.getOneById(petUpdate.id)
+        val pet: Pet = this.getOneById(petUpdate.id!!)
         pet.apply {
             this.id = petUpdate.id
             this.name = petUpdate.name
@@ -64,13 +64,13 @@ class PetService : BaseService<Pet> {
 
     fun getAllByShiftToday(date: LocalDate): List<Pet> {
         // Usa la función personalizada definida en el repositorio
-        return this.petRepository.findByMedicalHistory_MedicalShift_Date(date)
+        return this.petRepository.findByMedicalHistory_MedicalShifts_Date(date)
     }
 
     fun getAllPendingVaccines(pendingVaccine: Boolean): List<Pet> {
         return if (pendingVaccine) {
             // Mascotas con vacunas pendientes
-            this.petRepository.findByMedicalHistory_VaccinesCompletedFalse()
+            this.petRepository.findByMedicalHistory_VaccinesCompletedTrue()
         } else {
             // Mascotas con todas las vacunas completadas
             this.petRepository.findByMedicalHistory_VaccinesCompletedTrue()

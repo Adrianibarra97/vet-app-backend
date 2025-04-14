@@ -9,10 +9,14 @@ class MedicalShift {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    var id: Int? = null
 
     @OneToOne
     var patient: Pet = Pet()
+
+    @ManyToOne
+    @JoinColumn(name = "medical_history_id")
+    var medicalHistory: MedicalHistory? = null
 
     @ManyToOne
     @JoinColumn(name = "vet_id")

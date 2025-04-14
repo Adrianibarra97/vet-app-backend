@@ -8,8 +8,11 @@ class MedicalHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int = 0
+    var id: Int? = null
     var notes: String = ""
+
+    @OneToMany(mappedBy = "medicalHistory", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var medicalShifts: MutableList<MedicalShift> = mutableListOf()
 
     @OneToMany(mappedBy = "medicalHistory", cascade = [CascadeType.ALL], orphanRemoval = true)
     var preExistingDisease: MutableList<PreExistenceDisease> = mutableListOf()

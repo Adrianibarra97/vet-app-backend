@@ -2,7 +2,7 @@ package ar.edu.unsam.proyecto.vetappbackend.controller
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
 import ar.edu.unsam.proyecto.vetappbackend.service.*
-import org.springframework.beans.factory.annotation.*
+import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate

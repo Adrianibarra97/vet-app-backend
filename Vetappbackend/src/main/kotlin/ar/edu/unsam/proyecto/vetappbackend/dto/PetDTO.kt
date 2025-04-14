@@ -18,7 +18,7 @@ data class PetDTO(
 
 fun Pet.toJSON(): PetDTO {
     return PetDTO(
-        id = this.id,
+        id = this.id!!,
         photo = this.photo,
         name = this.name,
         age = this.age,
