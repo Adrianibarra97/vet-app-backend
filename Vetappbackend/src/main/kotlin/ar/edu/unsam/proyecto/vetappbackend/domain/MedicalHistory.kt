@@ -17,10 +17,15 @@ class MedicalHistory {
     @OneToMany(mappedBy = "medicalHistory", cascade = [CascadeType.ALL], orphanRemoval = true)
     var preExistingDisease: MutableList<PreExistenceDisease> = mutableListOf()
 
-    @OneToMany(mappedBy = "medicalHistory", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "medicalHistory", cascade = [CascadeType.ALL], orphanRemoval = true)
     var studiesReuslt: MutableList<StudyResult> = mutableListOf()
 
-    @OneToMany(mappedBy = "medicalHistory", cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "medical_history_vaccine",
+        joinColumns = [JoinColumn(name = "medical_history_id")],
+        inverseJoinColumns = [JoinColumn(name = "vaccine_id")]
+    )
     var vaccines: MutableList<Vaccine> = mutableListOf()
 
 }

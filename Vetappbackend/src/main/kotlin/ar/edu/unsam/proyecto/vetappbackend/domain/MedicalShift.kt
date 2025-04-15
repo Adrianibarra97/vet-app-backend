@@ -18,6 +18,7 @@ class MedicalShift {
     @JoinColumn(name = "medical_history_id")
     var medicalHistory: MedicalHistory? = null
 
+
     @ManyToOne
     @JoinColumn(name = "vet_id")
     var vet: Vet? = null

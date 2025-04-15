@@ -25,5 +25,3 @@ class Pet {
     @JoinColumn(name = "id_medical_history", referencedColumnName = "id", unique = true)
     var medicalHistory: MedicalHistory? = null
 }
-
-

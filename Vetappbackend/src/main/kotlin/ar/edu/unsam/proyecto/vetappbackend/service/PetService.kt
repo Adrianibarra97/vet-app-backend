@@ -70,10 +70,11 @@ class PetService : BaseService<Pet> {
     fun getAllPendingVaccines(pendingVaccine: Boolean): List<Pet> {
         return if (pendingVaccine) {
             // Mascotas con vacunas pendientes
-            this.petRepository.findByMedicalHistory_VaccinesCompletedTrue()
+            this.petRepository.findPetsWithPendingVaccines()
         } else {
             // Mascotas con todas las vacunas completadas
-            this.petRepository.findByMedicalHistory_VaccinesCompletedTrue()
+
+            this.petRepository.findPetsWithCompletedVaccines()
         }
     }
 }

@@ -8,7 +8,7 @@ import java.time.LocalDate
 class Vaccine {
 
     @Id
-    @get:GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
     var name: String = ""
@@ -17,9 +17,5 @@ class Vaccine {
     var applicationDate: LocalDate = LocalDate.now()
     var expirationDate: LocalDate? = null
     var completed: Boolean = false
-
-    @ManyToOne
-    @JoinColumn(name = "vaccines_id") // Relación hacia MedicalHistory
-    var medicalHistory: MedicalHistory? = null
 
 }

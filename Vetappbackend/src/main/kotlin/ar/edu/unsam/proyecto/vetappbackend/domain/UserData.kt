@@ -15,7 +15,7 @@ import jakarta.persistence.*
 abstract class UserData {
 
     @Id
-    @get:GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
     var name: String = ""
