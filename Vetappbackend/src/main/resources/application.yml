@@ -7,7 +7,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5433/postgres  # Cambié el puerto a 5433
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

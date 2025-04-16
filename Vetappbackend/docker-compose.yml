@@ -7,7 +7,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - '5433:5432'  # Puerto para PostgreSQL cambiado a 5433
     volumes:
       - db:/var/lib/postgresql/data
       - ./Docker/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
@@ -17,7 +17,7 @@ services:
     container_name: pgadmin4_container_vetapp
     restart: always
     ports:
-      - "5050:80"
+      - "5051:80"  # Puerto de pgAdmin cambiado a 5051
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@phm.edu.ar
       PGADMIN_DEFAULT_PASSWORD: admin
