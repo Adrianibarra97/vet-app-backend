@@ -10,6 +10,10 @@ plugins {
 group = "ar.edu.unsam.proyecto"
 version = "0.0.1-SNAPSHOT"
 
+allOpen {
+    annotation("jakarta.persistence.Entity")
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
