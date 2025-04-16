@@ -17,6 +17,8 @@ class VetappBackendBoostrap: InitializingBean {
 
     @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
 
+    @Autowired lateinit var recipeRepository: RecipeRepository
+
     // PetOwner
     var tamara = PetOwner()
     var ezequiel = PetOwner()
@@ -204,7 +206,7 @@ class VetappBackendBoostrap: InitializingBean {
         this.createVaccine()
 
         medicalHistoryNala.apply {
-            this.notes = "Seguir con la dieta balanceada."
+            this.notes = "Nala tiene que seguir con la dieta balanceada."
             this.preExistingDiseases = mutableListOf(diabetes, moquillo)
             this.studyResults = mutableListOf(estudioDiabetes, estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo)
@@ -246,7 +248,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.vaccines = mutableListOf(vacunaMoquillo)
         }
         medicalHistoryNapoleon.apply {
-            this.notes = "A Napoleón hay que cortarle las uñas."
+            this.notes = "Napoleón hay que cortarle las uñas."
             this.preExistingDiseases = mutableListOf(diabetes)
             this.studyResults = mutableListOf(estudioDiabetes)
             this.vaccines = mutableListOf(vacunaMoquillo)
@@ -264,7 +266,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.vaccines = mutableListOf(vacunaParvovirus, vacunaMoquillo)
         }
         medicalHistoryCleopatra.apply {
-            this.notes = "Seguir con la dieta balanceada."
+            this.notes = "Cleopatra, sos una reina pero... A seguir con la dieta balanceada."
             this.preExistingDiseases = mutableListOf(moquillo)
             this.studyResults = mutableListOf(estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo)
@@ -476,17 +478,6 @@ class VetappBackendBoostrap: InitializingBean {
         userDataRepository.saveAll(allVet)
     }
 
-    fun createRecipe() {
-        recipeNala.apply {
-            this.descripcion = "Tenes que aplicar la vacuna de la rabia"
-            this.medicalShift = medicalShiftNala
-        }
-        recipeOli.apply {
-            this.descripcion = "Oli tiene que bajar de peso"
-            this.medicalShift = medicalShiftOli
-        }
-    }
-
     fun createMedicalShift() {
         medicalShiftNala.apply {
             this.patient = nala
@@ -500,7 +491,19 @@ class VetappBackendBoostrap: InitializingBean {
         }
         var allMedicalShift = listOf(medicalShiftNala,medicalShiftOli)
         this.medicalShiftRepository.saveAll(allMedicalShift)
-        this.createRecipe()
+    }
+
+    fun createRecipe() {
+        recipeNala.apply {
+            this.descripcion = "Tenes que aplicar la vacuna de la rabia"
+            this.medicalShift = medicalShiftNala
+        }
+        recipeOli.apply {
+            this.descripcion = "Oli tiene que bajar de peso"
+            this.medicalShift = medicalShiftOli
+        }
+        var allRecipe = listOf(recipeNala,recipeOli)
+        recipeRepository.saveAll(allRecipe)
     }
 
     override fun afterPropertiesSet() {
@@ -509,5 +512,6 @@ class VetappBackendBoostrap: InitializingBean {
         this.createPet()
         this.createVet()
         this.createMedicalShift()
+        this.createRecipe()
     }
 }

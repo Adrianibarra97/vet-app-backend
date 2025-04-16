@@ -23,12 +23,11 @@ class MedicalHistory {
     var studyResults: MutableList<StudyResult> = mutableListOf()
 
     @ManyToMany(cascade = [CascadeType.ALL])
-    @JoinTable(name = "medical_history_vaccine",
+    @JoinTable(name = "medical_history_vaccine", // Asegúrate de que el nombre de la tabla intermedia es único.
         joinColumns = [JoinColumn(name = "medical_history_id")],
         inverseJoinColumns = [JoinColumn(name = "vaccine_id")]
     )
     var vaccines: MutableList<Vaccine> = mutableListOf()
 
     var notes: String = ""
-
 }
