@@ -1,14 +1,12 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain
-
 import jakarta.persistence.*
 import java.time.LocalDate
 
 @Entity
-@Table(name = "Vaccines")
+@Table(name = "vaccine")
 class Vaccine {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
     var name: String = ""

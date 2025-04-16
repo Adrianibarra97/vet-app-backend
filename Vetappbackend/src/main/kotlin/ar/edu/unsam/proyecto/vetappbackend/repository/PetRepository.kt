@@ -13,26 +13,18 @@ interface PetRepository : CrudRepository<Pet, Int> {
     fun findByNameContainingIgnoreCase(name: String): List<Pet>
 
     // Encuentra todas las mascotas asociadas a turnos en una fecha específica
-    fun findByMedicalHistory_MedicalShifts_Date(date: LocalDate): List<Pet>
-
-
+    //fun findByMedicalHistory_MedicalShifts_Date(date: LocalDate): List<Pet>
 
     // Encuentra mascotas con todas sus vacunas pendientes
-    @Query("""
-SELECT DISTINCT p FROM Pet p 
-JOIN p.medicalHistory mh 
-JOIN mh.vaccines v 
-WHERE v.completed = false
-""")
+    @Query( """ SELECT DISTINCT p FROM Pet p JOIN p.medicalHistory mh 
+            JOIN mh.vaccines v WHERE v.completed = false """
+    )
     fun findPetsWithPendingVaccines(): List<Pet>
 
     // Encuentra mascotas con todas sus vacunas completadas
-    @Query("""
-SELECT p FROM Pet p 
-JOIN p.medicalHistory mh 
-LEFT JOIN mh.vaccines v 
-GROUP BY p.id, mh.id 
-HAVING SUM(CASE WHEN v.completed = false THEN 1 ELSE 0 END) = 0
-""")
+    @Query( """ SELECT p FROM Pet p JOIN p.medicalHistory mh 
+            LEFT JOIN mh.vaccines v GROUP BY p.id, mh.id 
+            HAVING SUM(CASE WHEN v.completed = false THEN 1 ELSE 0 END) = 0 """
+    )
     fun findPetsWithCompletedVaccines(): List<Pet>
 }

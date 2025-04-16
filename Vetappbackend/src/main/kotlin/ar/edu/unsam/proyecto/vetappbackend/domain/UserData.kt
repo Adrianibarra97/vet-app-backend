@@ -13,36 +13,37 @@ import jakarta.persistence.*
 )
 @Inheritance(strategy= InheritanceType.JOINED)
 abstract class UserData {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
-
     var name: String = ""
     var surname: String = ""
-    var dni: Int = 0
-    var email: String = ""
-    var telephone: String = ""
-    var address: String = ""
     var username: String = ""
     var password: String = ""
 }
 
 @Entity
 class PetOwner : UserData() {
-
+    var dni: Int = 0
+    var email: String = ""
+    var telephone: String = ""
+    var address: String = ""
 }
 
 @Entity
 class Vet : UserData() {
     var licence: String = ""
-    var jobTelephone: String = ""
     var speciality: String = ""
-    var jobAdress: String = ""
-    var professionalEmail: String = ""
     var businessHours: String = ""
+    var professionalEmail: String = ""
+    var professionalAdress: String = ""
+    var professionalTelephone: String = ""
 
-    @OneToMany
-    var medicalShift: MutableList<MedicalShift> = mutableListOf()
-
+    @ManyToMany
+    @JoinTable(
+        name = "vet_pet",
+        joinColumns = [JoinColumn(name = "vet_id")],
+        inverseJoinColumns = [JoinColumn(name = "pet_id")]
+    )
+    var patients: MutableSet<Pet> = mutableSetOf()
 }

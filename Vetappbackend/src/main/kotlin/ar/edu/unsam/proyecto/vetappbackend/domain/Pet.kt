@@ -1,14 +1,12 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain
-
 import jakarta.persistence.*
 import java.time.LocalDate
 
 @Entity
-@Table(name = "Pet")
+@Table(name = "pet")
 class Pet {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
     var photo: String = ""
@@ -22,6 +20,11 @@ class Pet {
     var birth: LocalDate? = null
 
     @OneToOne
-    @JoinColumn(name = "id_medical_history", referencedColumnName = "id", unique = true)
+    @JoinColumn(name = "id_medical_history", referencedColumnName = "id")
     var medicalHistory: MedicalHistory? = null
+
+    @ManyToOne
+    @JoinColumn(name = "id_pet_owner", referencedColumnName = "id")
+    var petOwner: PetOwner? = null
+
 }
