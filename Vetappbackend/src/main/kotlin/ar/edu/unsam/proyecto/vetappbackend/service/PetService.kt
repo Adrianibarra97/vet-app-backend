@@ -73,7 +73,6 @@ class PetService : BaseService<Pet> {
             this.petRepository.findPetsWithPendingVaccines()
         } else {
             // Mascotas con todas las vacunas completadas
-
             this.petRepository.findPetsWithCompletedVaccines()
         }
     }

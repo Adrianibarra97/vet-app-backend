@@ -20,7 +20,7 @@ class MedicalHistory {
     @OneToMany(mappedBy = "medicalHistory", cascade = [CascadeType.ALL], orphanRemoval = true)
     var studiesReuslt: MutableList<StudyResult> = mutableListOf()
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToMany(cascade = [CascadeType.ALL])
     @JoinTable(
         name = "medical_history_vaccine",
         joinColumns = [JoinColumn(name = "medical_history_id")],

@@ -182,9 +182,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(diabetes, moquillo)
             this.studiesReuslt = mutableListOf(estudioDiabetes, estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryOli = MedicalHistory().apply {
@@ -192,9 +189,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(moquillo, parvovirus)
             this.studiesReuslt = mutableListOf(estudioParvovirus, estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo, vacunaParvovirus)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryOwie = MedicalHistory().apply {
@@ -202,9 +196,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(hepatitis, moquillo)
             this.studiesReuslt = mutableListOf(estudioHepatitis, estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryRocky = MedicalHistory().apply {
@@ -212,9 +203,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(parvovirus, moquillo, diabetes, hepatitis)
             this.studiesReuslt = mutableListOf(estudioDiabetes, estudioMoquillo, estudioParvovirus, estudioHepatitis)
             this.vaccines = mutableListOf(vacunaMoquillo, vacunaAntirrabica, vacunaParvovirus, vacunaHepatitis)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryPipi = MedicalHistory().apply {
@@ -222,9 +210,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(moquillo)
             this.studiesReuslt = mutableListOf(estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryMorena = MedicalHistory().apply {
@@ -232,9 +217,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(hepatitis, moquillo, parvovirus)
             this.studiesReuslt = mutableListOf(estudioHepatitis, estudioMoquillo, estudioParvovirus)
             this.vaccines = mutableListOf(vacunaHepatitis, vacunaMoquillo, vacunaParvovirus)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryMileva = MedicalHistory().apply {
@@ -242,9 +224,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(diabetes)
             this.studiesReuslt = mutableListOf(estudioDiabetes)
             this.vaccines = mutableListOf(vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryNapoleon = MedicalHistory().apply {
@@ -252,9 +231,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(diabetes)
             this.studiesReuslt = mutableListOf(estudioDiabetes)
             this.vaccines = mutableListOf(vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryBurpee = MedicalHistory().apply {
@@ -262,9 +238,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(moquillo)
             this.studiesReuslt = mutableListOf(estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryFreya = MedicalHistory().apply {
@@ -272,9 +245,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(parvovirus, moquillo)
             this.studiesReuslt = mutableListOf(estudioParvovirus, estudioMoquillo)
             this.vaccines = mutableListOf(vacunaParvovirus, vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         val medicalHistoryCleopatra = MedicalHistory().apply {
@@ -282,9 +252,6 @@ class VetappBackendBoostrap: InitializingBean {
             this.preExistingDisease = mutableListOf(moquillo)
             this.studiesReuslt = mutableListOf(estudioMoquillo)
             this.vaccines = mutableListOf(vacunaMoquillo)
-
-            // Configurar la relación inversa en las vacunas
-            //this.vaccines.forEach { vaccine -> vaccine.medicalHistory = this }
         }
 
         //Pets
@@ -432,6 +399,8 @@ class VetappBackendBoostrap: InitializingBean {
         }
 
 
+
+
         //Recipe
             val recipeNala = Recipe().apply {
                 this.descripcion = "Tenes que aplicar la vacuna de la rabia"
@@ -460,6 +429,13 @@ class VetappBackendBoostrap: InitializingBean {
             this.recipes.add(recipeOli)
             this.medicalHistory = medicalHistoryOli
         }
+
+        val allVaccines = listOf(
+            vacunaMoquillo,
+            vacunaAntirrabica,
+            vacunaParvovirus,
+            vacunaHepatitis,
+        )
 
         val allUsers = listOf(
             ezequiel,
