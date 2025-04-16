@@ -2,6 +2,7 @@ package ar.edu.unsam.proyecto.vetappbackend.service
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
+import ar.edu.unsam.proyecto.vetappbackend.repository.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,8 +12,8 @@ import java.time.LocalDate
 @Service
 class PetService : BaseService<Pet> {
 
-    @Autowired
-    lateinit var petRepository: PetRepository
+    @Autowired lateinit var petRepository: PetRepository
+    @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
 
     override fun getAll(): List<Pet> {
         // Utiliza el método findAll() proporcionado por CrudRepository
@@ -64,7 +65,7 @@ class PetService : BaseService<Pet> {
 
     fun getAllByShiftToday(date: LocalDate): List<Pet> {
         // Usa la función personalizada definida en el repositorio
-        return this.petRepository.findByMedicalHistory_MedicalShifts_Date(date)
+        return this.medicalShiftRepository.findByDate(date).mapNotNull { it.patient }.distinctBy { it.id }
     }
 
     fun getAllPendingVaccines(pendingVaccine: Boolean): List<Pet> {
