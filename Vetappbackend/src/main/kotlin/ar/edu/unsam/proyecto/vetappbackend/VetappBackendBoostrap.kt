@@ -324,7 +324,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.sterilized = true
             this.specie = "Perro"
             this.birth = LocalDate.of(2012,2,19)
-            this.petOwner = ezequiel
+            this.petOwner = caroline
             this.medicalHistory = medicalHistoryOwie
         }
         rocky.apply {
@@ -337,7 +337,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.sterilized = false
             this.specie = "Perro"
             this.birth = LocalDate.of(2020,7,2)
-            this.petOwner = tamara
+            this.petOwner = ezequiel
             this.medicalHistory = medicalHistoryRocky
         }
         pipi.apply {

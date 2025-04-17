@@ -48,7 +48,7 @@ class PetController {
 
     @DeleteMapping("/pet/delete-pet")
     fun delete(@RequestParam idPet: Int) {
-        val petForDelete: Pet = this.petService.getOneById(idPet.toInt())
+        val petForDelete: Pet = this.petService.getOneById(idPet)
         this.petService.delete(petForDelete)
     }
 
