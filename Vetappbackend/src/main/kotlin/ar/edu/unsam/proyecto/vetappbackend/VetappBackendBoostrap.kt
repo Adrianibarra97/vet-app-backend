@@ -92,6 +92,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "eze.iozzia@gmail.com"
             this.telephone = "4534-2234"
             this.address = "Olazabal 2243"
+            this.pets = mutableSetOf(oli,rocky)
         }
         caroline.apply {
             this.name = "Caroline"
@@ -102,6 +103,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "caro.coronel@gmail.com"
             this.telephone = "4834-2234"
             this.address = "Centenario 2243"
+            this.pets = mutableSetOf(pipi,owie,mileva)
         }
         tamara.apply {
             this.name = "Tamara"
@@ -112,6 +114,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "tam.mecozzi@gmail.com"
             this.telephone = "4739-2234"
             this.address = "Moreno 2243"
+            this.pets = mutableSetOf(cleopatra,napoleon,nala,burpee,freya)
         }
         lucasRdz.apply {
             this.name = "Lucas"
@@ -122,6 +125,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "lucas.rodriguez@gmail.com"
             this.telephone = "4739-2234"
             this.address = "9 de Julio 7589"
+            this.pets = mutableSetOf(morena)
         }
         var allPetOwner = listOf(ezequiel, caroline, tamara, lucasRdz)
         userDataRepository.saveAll(allPetOwner)

@@ -26,5 +26,5 @@ class Pet {
     @ManyToOne
     @JoinColumn(name = "id_pet_owner", referencedColumnName = "id")
     var petOwner: PetOwner? = null
-
 }
+
