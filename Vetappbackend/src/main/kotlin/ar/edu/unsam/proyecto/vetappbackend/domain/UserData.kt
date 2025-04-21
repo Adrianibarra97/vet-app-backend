@@ -28,6 +28,9 @@ class PetOwner : UserData() {
     var email: String = ""
     var telephone: String = ""
     var address: String = ""
+
+    @OneToMany(mappedBy = "petOwner", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var pets: MutableSet<Pet> = mutableSetOf()
 }
 
 @Entity
