@@ -9,25 +9,33 @@ import java.time.LocalDate
 
 interface VetRepository : CrudRepository<Vet, Int> {
 
+    @Query(""" 
+        SELECT p 
+        FROM Vet v 
+        JOIN v.patients p 
+        WHERE v.id = :idVet """)
+    fun findAllPetsByVetId(
+        @Param("idVet") idVet: Int
+    ): List<Pet>
+
     @Query("""
-        SELECT p FROM Vet v
+    SELECT DISTINCT p
+    FROM Vet v
         JOIN v.patients p
-        WHERE v.id = :idVet
-    """)
-    fun findAllPetsByVetId(@Param("idVet") idVet: Int): List<Pet>
-
-
-    @Query("""
-    SELECT DISTINCT ms.patient FROM MedicalShift ms
-    JOIN ms.vet v
+        JOIN p.medicalHistory mh
+        LEFT JOIN mh.vaccines vac
     WHERE v.id = :idVet
-    AND (:name IS NULL OR ms.patient.name LIKE CONCAT('%', :name, '%'))
-    AND (:shiftDate IS NULL OR ms.date = :shiftDate)
-""")
+        AND (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%')))
+        AND (:hasPendingVaccine IS NULL OR
+            (:hasPendingVaccine = FALSE) OR 
+            (:hasPendingVaccine = TRUE AND vac.completed = FALSE)
+        )
+    """)
     fun getAllByFilter(
         @Param("idVet") idVet: Int,
         @Param("name") name: String?,
-        @Param("shiftDate") shiftDate: LocalDate?
+        @Param("hasPendingVaccine") hasPendingVaccine: Boolean?
     ): List<Pet>
+
 }
 

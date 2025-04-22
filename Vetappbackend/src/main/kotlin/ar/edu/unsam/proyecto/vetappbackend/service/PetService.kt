@@ -1,7 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
-import ar.edu.unsam.proyecto.vetappbackend.domain.PetFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository

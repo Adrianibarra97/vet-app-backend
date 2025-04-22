@@ -45,8 +45,8 @@ class VetController {
     }
 
     @PostMapping("/vet/filter/get-all-by-filter/{vetId}")
-    fun getAllByFilter(@RequestBody petFilterDTO: PetFilterDTO, @PathVariable vetId: Int): List<PetDTO> {
-        val petFilter = petFilterDTO.fromJSON(petFilterDTO)
-        return vetService.getAllByFilter(petFilter, vetId).map { it.toJSON() }
+    fun getAllByFilter(@RequestBody vetFilterPetDTO: VetFilterPetDTO, @PathVariable vetId: Int): List<PetDTO> {
+        val vetFilterPet: VetFilterPet = vetFilterPetDTO.fromJSON(vetFilterPetDTO)
+        return vetService.getAllPetsFilter(vetFilterPet, vetId).map { it.toJSON() }
     }
 }
