@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 8080 #Cambie al puerto 8080, para no usar el 9000 de la otra app
   error:
     whitelabel:
       enabled: false

@@ -76,11 +76,14 @@ class VetappBackendBoostrap: InitializingBean {
     // MedicalShift
     var medicalShiftNala = MedicalShift()
     var medicalShiftOli = MedicalShift()
+    var medicalShiftMileva = MedicalShift()
+    var medicalShiftNapoleon = MedicalShift()
 
     // Recipe
     var recipeNala = Recipe()
     var recipeOli = Recipe()
-
+    var recipeMileva = Recipe()
+    var recipeNapoleon = Recipe()
 
     fun createPetOwner() {
         ezequiel.apply {
@@ -463,7 +466,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.professionalEmail = "adri-vetapp@gmail.com"
             this.professionalAdress = "Monroe 1243"
             this.professionalTelephone = "412344445"
-            this.patients = mutableSetOf(nala,cleopatra,napoleon,burpee,freya)
+            this.patients = mutableSetOf(nala, oli, owie, rocky, pipi, morena)
         }
         lucasCjs.apply {
             this.name = "Lucas"
@@ -476,7 +479,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.professionalEmail = "lucas-vetapp@gmail.com"
             this.professionalAdress = "25 de Mayo 7898"
             this.professionalTelephone = "412344445"
-            this.patients = mutableSetOf(nala,oli,owie,napoleon,burpee,freya)
+            this.patients = mutableSetOf(mileva, napoleon, burpee, freya, cleopatra)
         }
         var allVet = listOf(adrian, lucasCjs)
         userDataRepository.saveAll(allVet)
@@ -485,26 +488,44 @@ class VetappBackendBoostrap: InitializingBean {
     fun createMedicalShift() {
         medicalShiftNala.apply {
             this.patient = nala
-            this.vet = lucasCjs
-            this.date = LocalDate.of(2025,4,10)
+            this.vet = adrian
+            this.date = LocalDate.of(2025,6,10)
         }
         medicalShiftOli.apply {
             this.patient = oli
             this.vet = adrian
-            this.date = LocalDate.of(2025,4,11)
+            this.date = LocalDate.of(2025,8,11)
         }
-        var allMedicalShift = listOf(medicalShiftNala,medicalShiftOli)
+        medicalShiftMileva.apply {
+            this.patient = mileva
+            this.vet = lucasCjs
+            this.date = LocalDate.of(2025,7,10)
+        }
+        medicalShiftNapoleon.apply {
+            this.patient = napoleon
+            this.vet = lucasCjs
+            this.date = LocalDate.of(2025,8,11)
+        }
+        var allMedicalShift = listOf(medicalShiftNala, medicalShiftOli, medicalShiftMileva, medicalShiftNapoleon)
         this.medicalShiftRepository.saveAll(allMedicalShift)
     }
 
     fun createRecipe() {
         recipeNala.apply {
-            this.descripcion = "Tenes que aplicar la vacuna de la rabia"
+            this.descripcion = "Nala debe que aplicarse la vacuna de la rabia"
             this.medicalShift = medicalShiftNala
         }
         recipeOli.apply {
-            this.descripcion = "Oli tiene que bajar de peso"
+            this.descripcion = "Oli tiene que bajar de peso, y hacer ejercicio"
             this.medicalShift = medicalShiftOli
+        }
+        recipeMileva.apply {
+            this.descripcion = "Mileva tiene que ponerse la pipeta para las pulgas"
+            this.medicalShift = medicalShiftMileva
+        }
+        recipeNapoleon.apply {
+            this.descripcion = "Napoleon tiene que limarse las uñas"
+            this.medicalShift = medicalShiftNapoleon
         }
         var allRecipe = listOf(recipeNala,recipeOli)
         recipeRepository.saveAll(allRecipe)
