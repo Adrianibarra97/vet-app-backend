@@ -19,4 +19,6 @@ class MedicalShift {
     @ManyToOne
     @JoinColumn(name = "id_pet", referencedColumnName = "id")
     var patient: Pet? = null
+
 }
+

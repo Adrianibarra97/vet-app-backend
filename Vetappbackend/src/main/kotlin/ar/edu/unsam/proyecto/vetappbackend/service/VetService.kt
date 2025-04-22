@@ -2,6 +2,7 @@ package ar.edu.unsam.proyecto.vetappbackend.service
 
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
+import ar.edu.unsam.proyecto.vetappbackend.domain.PetFilter
 import ar.edu.unsam.proyecto.vetappbackend.domain.Vet
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.VetRepository
@@ -54,5 +55,16 @@ class VetService: BaseService<Vet> {
             this.professionalTelephone = vetUpdate.professionalTelephone
         }
         this.vetRepository.save(vet)
+    }
+
+    fun getAllByFilter(petFilter: PetFilter, vettId: Int): List<Pet> {
+        val vet: Vet = this.getOneById(vettId)
+
+        return vetRepository.getAllByFilter(
+            vet.id!!,
+            petFilter.name,
+            petFilter.shiftDate
+            //petFilter.pendingVaccine
+        )
     }
 }
