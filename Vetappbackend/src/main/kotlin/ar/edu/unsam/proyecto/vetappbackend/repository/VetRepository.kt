@@ -9,11 +9,7 @@ import java.time.LocalDate
 
 interface VetRepository : CrudRepository<Vet, Int> {
 
-    @Query(""" 
-        SELECT p 
-        FROM Vet v 
-        JOIN v.patients p 
-        WHERE v.id = :idVet """)
+    @Query(""" SELECT p FROM Vet v JOIN v.patients p WHERE v.id = :idVet """)
     fun findAllPetsByVetId(
         @Param("idVet") idVet: Int
     ): List<Pet>
@@ -24,18 +20,25 @@ interface VetRepository : CrudRepository<Vet, Int> {
         JOIN v.patients p
         JOIN p.medicalHistory mh
         LEFT JOIN mh.vaccines vac
+        LEFT JOIN MedicalShift ms ON ms.patient.id = p.id AND ms.vet.id = :idVet
     WHERE v.id = :idVet
         AND (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%')))
-        AND (:hasPendingVaccine IS NULL OR
-            (:hasPendingVaccine = FALSE) OR 
-            (:hasPendingVaccine = TRUE AND vac.completed = FALSE)
+        AND (:hasPendingVaccine IS NULL 
+            OR (:hasPendingVaccine = FALSE) 
+            OR (:hasPendingVaccine = TRUE AND vac.completed = FALSE)
+        )
+        AND (:hasMedicalShift IS NULL OR  
+            (:hasMedicalShift = FALSE) OR 
+            (:hasMedicalShift = TRUE AND ms IS NOT NULL)
         )
     """)
     fun getAllByFilter(
         @Param("idVet") idVet: Int,
         @Param("name") name: String?,
+        @Param("hasMedicalShift") hasMedicalShift: Boolean?,
         @Param("hasPendingVaccine") hasPendingVaccine: Boolean?
     ): List<Pet>
+
 
 }
 

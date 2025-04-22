@@ -54,8 +54,8 @@ class VetService: BaseService<Vet> {
         return vetRepository.getAllByFilter(
             vet.id!!,
             vetFilterPet.name,
+            vetFilterPet.hasMedicalShift,
             vetFilterPet.hasPendingVaccine
-            //vetFilterPet.hasMedicalShift,
         )
     }
 }

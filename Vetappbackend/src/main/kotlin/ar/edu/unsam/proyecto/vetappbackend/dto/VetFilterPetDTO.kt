@@ -1,5 +1,4 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto
-import java.time.LocalDate
 
 class VetFilterPet {
     var name: String? = null
@@ -12,7 +11,6 @@ data class VetFilterPetDTO(
     val hasMedicalShift: Boolean?,
     val hasPendingVaccine: Boolean?
 )
-
 
 fun VetFilterPet.toJSON(): VetFilterPetDTO {
     return VetFilterPetDTO(
