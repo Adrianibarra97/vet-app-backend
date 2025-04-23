@@ -1,12 +1,11 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 
-
-import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
-import ar.edu.unsam.proyecto.vetappbackend.domain.Vet
-import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.VetRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
+import ar.edu.unsam.proyecto.vetappbackend.domain.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.*
 
 @Service
 class VetService: BaseService<Vet> {
@@ -14,10 +13,11 @@ class VetService: BaseService<Vet> {
     @Autowired
     lateinit var vetRepository: VetRepository
 
-    override fun getAll(): List<Vet> {
-        // Utiliza el método findAll() proporcionado por CrudRepository
-        return this.vetRepository.findAll().toList()
-    }
+    override fun getAll(): List<Vet> = this.vetRepository.findAll().toList()
+
+    override fun delete(vetDelete: Vet) { this.vetRepository.delete(vetDelete) }
+
+    override fun create(newVet: Vet) { this.vetRepository.save(newVet) }
 
     override fun getOneById(idVet: Int): Vet {
         return this.vetRepository.findById(idVet).orElseThrow {
@@ -25,21 +25,8 @@ class VetService: BaseService<Vet> {
         }
     }
 
-    fun getAllPets(idVet: Int): List<Pet> {
-        val vet: Vet = this.getOneById(idVet)
-        return this.vetRepository.findAllPetsByVetId(vet.id!!)
-    }
-
-    override fun create(newVet: Vet) {
-        this.vetRepository.save(newVet)
-    }
-
-    override fun delete(vetDelete: Vet) {
-        this.vetRepository.delete(vetDelete)
-    }
-
     override fun update(vetUpdate: Vet) {
-       val vet: Vet = getOneById(vetUpdate.id!!)
+        val vet: Vet = getOneById(vetUpdate.id!!)
         vet.apply {
             this.id = vetUpdate.id
             this.name = vetUpdate.name
@@ -54,5 +41,21 @@ class VetService: BaseService<Vet> {
             this.professionalTelephone = vetUpdate.professionalTelephone
         }
         this.vetRepository.save(vet)
+    }
+
+    fun getAllPets(idVet: Int): List<Pet> {
+        val vet: Vet = this.getOneById(idVet)
+        return this.vetRepository.findAllPetsByVetId(vet.id!!)
+    }
+
+    fun getAllPetsFilter(vetFilterPet: VetFilterPet, vettId: Int): List<Pet> {
+        val vet: Vet = this.getOneById(vettId)
+
+        return vetRepository.getAllByFilter(
+            vet.id!!,
+            vetFilterPet.name,
+            vetFilterPet.hasMedicalShift,
+            vetFilterPet.hasPendingVaccine
+        )
     }
 }

@@ -2,6 +2,9 @@ package ar.edu.unsam.proyecto.vetappbackend.service
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.PetOwner
+import ar.edu.unsam.proyecto.vetappbackend.domain.Vet
+import ar.edu.unsam.proyecto.vetappbackend.dto.PetOwnerFilterPet
+import ar.edu.unsam.proyecto.vetappbackend.dto.VetFilterPet
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.PetOwnerRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +23,7 @@ class PetOwnerService : BaseService<PetOwner> {
 
     override fun getOneById(idPetOwner: Int): PetOwner {
         return this.petOwnerRepository.findById(idPetOwner).orElseThrow {
-            NotFoundException("No se encontró al veterinario indicado: $idPetOwner")
+            NotFoundException("No se encontró al petOwner indicado: $idPetOwner")
         }
     }
 
@@ -51,5 +54,16 @@ class PetOwnerService : BaseService<PetOwner> {
             this.address = petOwnerUpdate.address
         }
         this.petOwnerRepository.save(petOwner)
+    }
+
+    fun getAllPetsFilter(petOwnerFilterPet: PetOwnerFilterPet, petOwnerId: Int): List<Pet> {
+        val petOwner: PetOwner = this.getOneById(petOwnerId)
+
+        return petOwnerRepository.getAllByFilter(
+            petOwner.id!!,
+            petOwnerFilterPet.name,
+            petOwnerFilterPet.hasMedicalShift,
+            petOwnerFilterPet.hasPendingVaccine
+        )
     }
 }

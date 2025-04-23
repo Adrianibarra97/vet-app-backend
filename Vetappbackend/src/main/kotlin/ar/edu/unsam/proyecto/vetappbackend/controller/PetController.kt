@@ -5,7 +5,6 @@ import ar.edu.unsam.proyecto.vetappbackend.service.*
 import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
 
 
 @RestController
@@ -18,22 +17,6 @@ class PetController {
     @GetMapping("/pet/get-all")
     fun getAll(): List<PetDTO> {
         return this.petService.getAll().map { it.toJSON() }
-    }
-
-    @GetMapping("/pet/filter/get-all-by-name/{name}")
-    fun getAllByName(@PathVariable name: String): List<PetDTO> {
-        return this.petService.getAllByName(name).map { it.toJSON() }
-    }
-
-    @GetMapping("/shifts/today/{todayDate}")
-    fun getPetsByShiftToday(@PathVariable todayDate: String): List<PetDTO> {
-        val localDate = LocalDate.parse(todayDate) // Convertir String a LocalDate
-        return this.petService.getAllByShiftToday(localDate).map { it.toJSON() }
-    }
-
-    @GetMapping("/pet/filter/get-all-pending-vaccine/{pendingVaccine}")
-    fun getAllPendingVaccines(@PathVariable pendingVaccine: Boolean): List<PetDTO> {
-        return this.petService.getAllPendingVaccines(pendingVaccine).map { it.toJSON() }
     }
 
     @PostMapping("/pet/create-pet")

@@ -7,6 +7,7 @@ import ar.edu.unsam.proyecto.vetappbackend.service.PetOwnerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
+
 @RestController
 @CrossOrigin("*")
 class PetOwnerController {
@@ -43,5 +44,11 @@ class PetOwnerController {
     @PostMapping("/pet-owner/create-pet-owner")
     fun create(@RequestBody petOwnerDTO: PetOwnerDTO) {
         this.petOwnerService.create(petOwnerDTO.fromJSON(petOwnerDTO))
+    }
+
+    @PostMapping("/pet-owner/filter/get-all-by-filter/{petOwnerId}")
+    fun getAllByFilter(@RequestBody petOwnerFilterPetDTO: PetOwnerFilterPetDTO, @PathVariable petOwnerId: Int): List<PetDTO> {
+        val petOwnerFilterPet: PetOwnerFilterPet = petOwnerFilterPetDTO.fromJSON(petOwnerFilterPetDTO)
+        return petOwnerService.getAllPetsFilter(petOwnerFilterPet, petOwnerId).map { it.toJSON() }
     }
 }

@@ -14,6 +14,9 @@ class Vaccine {
     var batchNumber: Int = 0
     var applicationDate: LocalDate = LocalDate.now()
     var expirationDate: LocalDate? = null
+
+    /*Recordar que se puede refactorizar y en vez de tener un booleano,
+    que se calcule por fecha de aplicación y fecha de vencimiento en un método en el medical history*/
     var completed: Boolean = false
 
 }

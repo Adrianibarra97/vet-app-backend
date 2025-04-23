@@ -1,10 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.controller
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.Vet
-import ar.edu.unsam.proyecto.vetappbackend.dto.PetDTO
-import ar.edu.unsam.proyecto.vetappbackend.dto.VetDTO
-import ar.edu.unsam.proyecto.vetappbackend.dto.fromJSON
-import ar.edu.unsam.proyecto.vetappbackend.dto.toJSON
+import ar.edu.unsam.proyecto.vetappbackend.dto.*
 import ar.edu.unsam.proyecto.vetappbackend.service.VetService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -45,5 +42,11 @@ class VetController {
     @PostMapping("/vet/create-vet")
     fun create(@RequestBody vetDTO: VetDTO) {
         this.vetService.create(vetDTO.fromJSON(vetDTO))
+    }
+
+    @PostMapping("/vet/filter/get-all-by-filter/{vetId}")
+    fun getAllByFilter(@RequestBody vetFilterPetDTO: VetFilterPetDTO, @PathVariable vetId: Int): List<PetDTO> {
+        val vetFilterPet: VetFilterPet = vetFilterPetDTO.fromJSON(vetFilterPetDTO)
+        return vetService.getAllPetsFilter(vetFilterPet, vetId).map { it.toJSON() }
     }
 }
