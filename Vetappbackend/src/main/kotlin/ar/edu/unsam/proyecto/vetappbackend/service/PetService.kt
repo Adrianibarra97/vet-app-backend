@@ -7,7 +7,6 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.time.LocalDate
 
 @Service
 class PetService : BaseService<Pet> {
@@ -56,25 +55,5 @@ class PetService : BaseService<Pet> {
     override fun create(newPet: Pet) {
         // Usa save() para guardar una nueva entidad
         this.petRepository.save(newPet)
-    }
-
-    fun getAllByName(name: String): List<Pet> {
-        // Usa la función personalizada definida en el repositorio
-        return this.petRepository.findByNameContainingIgnoreCase(name)
-    }
-
-    fun getAllByShiftToday(date: LocalDate): List<Pet> {
-        // Usa la función personalizada definida en el repositorio
-        return this.medicalShiftRepository.findByDate(date).mapNotNull { it.patient }.distinctBy { it.id }
-    }
-
-    fun getAllPendingVaccines(pendingVaccine: Boolean): List<Pet> {
-        return if (pendingVaccine) {
-            // Mascotas con vacunas pendientes
-            this.petRepository.findPetsWithPendingVaccines()
-        } else {
-            // Mascotas con todas las vacunas completadas
-            this.petRepository.findPetsWithCompletedVaccines()
-        }
     }
 }
