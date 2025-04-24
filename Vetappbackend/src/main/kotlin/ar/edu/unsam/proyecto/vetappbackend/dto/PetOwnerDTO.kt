@@ -1,6 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto
-
-import ar.edu.unsam.proyecto.vetappbackend.domain.PetOwner
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 
 data class PetOwnerDTO (
     var id: Int?,
@@ -8,6 +7,7 @@ data class PetOwnerDTO (
     var surname: String,
     var username: String,
     var password: String,
+    var typeOfUser: String,
     var dni: Int,
     var email: String,
     var telephone: String,
@@ -15,17 +15,18 @@ data class PetOwnerDTO (
 
 )
 
-fun PetOwner.toJSON(): PetOwnerDTO {
+fun PetOwner.toDTO(): PetOwnerDTO {
     return PetOwnerDTO(
         id = this.id!!,
         name = this.name,
         surname = this.surname,
         username = this.username,
         password = this.password,
+        typeOfUser = this.typeOfUser.toString(),
         dni = this.dni,
         email = this.email,
         telephone = this.telephone,
-        address = this.address,
+        address = this.address
     )
 }
 
@@ -36,6 +37,7 @@ fun PetOwnerDTO.fromJSON(petOwnerDTO: PetOwnerDTO): PetOwner {
     petOwner.surname = petOwnerDTO.surname
     petOwner.username = petOwnerDTO.username
     petOwner.password = petOwnerDTO.password
+    petOwner.typeOfUser = TypeOfUser.valueOf(petOwnerDTO.typeOfUser)
     petOwner.dni = petOwnerDTO.dni
     petOwner.email = petOwnerDTO.email
     petOwner.telephone = petOwnerDTO.telephone

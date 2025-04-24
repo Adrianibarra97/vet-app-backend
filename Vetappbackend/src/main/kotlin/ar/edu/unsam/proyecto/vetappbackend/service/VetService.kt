@@ -1,11 +1,13 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.error.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.*
 
 import ar.edu.unsam.proyecto.vetappbackend.repository.VetRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
-import ar.edu.unsam.proyecto.vetappbackend.domain.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.*
+
 
 @Service
 class VetService: BaseService<Vet> {

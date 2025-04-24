@@ -1,33 +1,29 @@
 package ar.edu.unsam.proyecto.vetappbackend.controller
 
-
-import ar.edu.unsam.proyecto.vetappbackend.domain.PetOwner
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.service.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
-import ar.edu.unsam.proyecto.vetappbackend.service.PetOwnerService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-
+import org.springframework.beans.factory.annotation.*
 
 @RestController
 @CrossOrigin("*")
 class PetOwnerController {
-
-    @Autowired
-    private lateinit var petOwnerService: PetOwnerService
+    @Autowired private lateinit var petOwnerService: PetOwnerService
 
     @GetMapping("/pet-owner/get-all")
     fun getAll(): List<PetOwnerDTO> {
-        return this.petOwnerService.getAll().map { it.toJSON() }
+        return this.petOwnerService.getAll().map { it.toDTO() }
     }
 
     @GetMapping("/pet-owner/get-one-by-id/{id}")
     fun getOneById(@PathVariable id: Int): PetOwnerDTO {
-        return this.petOwnerService.getOneById(id).toJSON()
+        return this.petOwnerService.getOneById(id).toDTO()
     }
 
     @GetMapping("/pet-owner/get-all-pets/{id}")
     fun getAllPets(@PathVariable id: Int): List<PetDTO> {
-        return this.petOwnerService.getAllPets(id).map { it.toJSON() }
+        return this.petOwnerService.getAllPets(id).map { it.toDTO() }
     }
 
     @PutMapping("/pet-owner/update/{id}")
@@ -49,6 +45,6 @@ class PetOwnerController {
     @PostMapping("/pet-owner/filter/get-all-by-filter/{petOwnerId}")
     fun getAllByFilter(@RequestBody petOwnerFilterPetDTO: PetOwnerFilterPetDTO, @PathVariable petOwnerId: Int): List<PetDTO> {
         val petOwnerFilterPet: PetOwnerFilterPet = petOwnerFilterPetDTO.fromJSON(petOwnerFilterPetDTO)
-        return petOwnerService.getAllPetsFilter(petOwnerFilterPet, petOwnerId).map { it.toJSON() }
+        return petOwnerService.getAllPetsFilter(petOwnerFilterPet, petOwnerId).map { it.toDTO() }
     }
 }

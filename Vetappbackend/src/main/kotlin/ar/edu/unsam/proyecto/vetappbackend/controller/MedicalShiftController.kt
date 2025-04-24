@@ -1,32 +1,31 @@
 package ar.edu.unsam.proyecto.vetappbackend.controller
-import ar.edu.unsam.proyecto.vetappbackend.dto.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.*
+
 import ar.edu.unsam.proyecto.vetappbackend.service.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.beans.factory.annotation.Autowired
 
 @RestController
 @CrossOrigin("*")
 class MedicalShiftController {
-    @Autowired
-    private lateinit var medicalShiftService: MedicalShiftService
+    @Autowired private lateinit var medicalShiftService: MedicalShiftService
 
-    @Autowired
-    private lateinit var vetService: VetService
+    @Autowired private lateinit var vetService: VetService
 
-    @Autowired
-    private lateinit var petService: PetService
-
+    @Autowired private lateinit var petService: PetService
 
     @GetMapping("/medical-shift/get-all")
     fun getAll(): List<MedicalShiftResponseDTO> {
-        return this.medicalShiftService.getAll().map { it.toJSON() }
+        return this.medicalShiftService.getAll().map { it.toDTO() }
     }
 
     @PostMapping("/medical-shift/create")
     fun create(@RequestBody newMedicalShiftRequestDTO: MedicalShiftRequestDTO) {
         val vet: Vet = vetService.getOneById(newMedicalShiftRequestDTO.vetId)
-        val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.patientId)
+        val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.petId)
         val medicalShift: MedicalShift = newMedicalShiftRequestDTO.fromJSON(vet, pet, newMedicalShiftRequestDTO)
         this.medicalShiftService.create(medicalShift)
     }
@@ -34,7 +33,7 @@ class MedicalShiftController {
     @PutMapping("/medical-shift/update")
     fun update(@RequestBody newMedicalShiftRequestDTO: MedicalShiftRequestDTO) {
         val vet: Vet = vetService.getOneById(newMedicalShiftRequestDTO.vetId)
-        val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.patientId)
+        val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.petId)
         val medicalShift: MedicalShift = newMedicalShiftRequestDTO.fromJSON(vet, pet, newMedicalShiftRequestDTO)
         this.medicalShiftService.update(medicalShift)
     }
@@ -44,5 +43,5 @@ class MedicalShiftController {
         val medicalShiftForDelete: MedicalShift = this.medicalShiftService.getOneById(idMedicalShift)
         this.medicalShiftService.delete(medicalShiftForDelete)
     }
-}
 
+}

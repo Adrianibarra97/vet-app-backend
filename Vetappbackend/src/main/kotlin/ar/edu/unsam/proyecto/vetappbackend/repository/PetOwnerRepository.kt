@@ -1,7 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.repository
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
-import ar.edu.unsam.proyecto.vetappbackend.domain.PetOwner
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
@@ -19,9 +19,9 @@ interface PetOwnerRepository : CrudRepository<PetOwner, Int> {
     SELECT DISTINCT p
     FROM PetOwner po
         JOIN po.pets p
-        JOIN p.medicalHistory mh
-        LEFT JOIN mh.vaccines vac
-        LEFT JOIN MedicalShift ms ON ms.patient.id = p.id
+        LEFT JOIN MedicalHistory mh ON mh.pet.id = p.id  
+        LEFT JOIN Vaccine vac ON vac.medicalHistory.id = mh.id
+        LEFT JOIN MedicalShift ms ON ms.pet.id = p.id 
     WHERE po.id = :idOwner
         AND (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%')))
         AND (:hasPendingVaccine IS NULL 

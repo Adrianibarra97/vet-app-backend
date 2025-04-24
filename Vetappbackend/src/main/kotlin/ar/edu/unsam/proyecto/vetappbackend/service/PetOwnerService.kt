@@ -1,23 +1,18 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
-import ar.edu.unsam.proyecto.vetappbackend.domain.PetOwner
-import ar.edu.unsam.proyecto.vetappbackend.domain.Vet
-import ar.edu.unsam.proyecto.vetappbackend.dto.PetOwnerFilterPet
-import ar.edu.unsam.proyecto.vetappbackend.dto.VetFilterPet
-import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
-import ar.edu.unsam.proyecto.vetappbackend.repository.PetOwnerRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.error.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class PetOwnerService : BaseService<PetOwner> {
-
-    @Autowired
-    lateinit var petOwnerRepository: PetOwnerRepository
+    @Autowired lateinit var petOwnerRepository: PetOwnerRepository
 
     override fun getAll(): List<PetOwner> {
-        // Utiliza el método findAll() proporcionado por CrudRepository
         return this.petOwnerRepository.findAll().toList()
     }
 

@@ -1,38 +1,35 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import java.time.*
+import kotlin.*
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.*
-import java.time.LocalDate
-import java.time.LocalTime
-import kotlin.Int
-import kotlin.toString
-
-// Este es para mostrarlo
 data class MedicalShiftResponseDTO(
     val id: Int,
     val date: String,
     val hour: String,
     val nameVet: String,
-    val namePatient: String
+    val namePet: String
 )
 
-fun MedicalShift.toJSON(): MedicalShiftResponseDTO {
+fun MedicalShift.toDTO(): MedicalShiftResponseDTO {
     return MedicalShiftResponseDTO(
         id = this.id!!,
-        date = this.date.toString(),
-        hour = this.hour.toString(),
+        date = this.date?.toString() ?: throw IllegalArgumentException("La fecha del turno no puede ser nula"),
+        hour = this.hour?.toString() ?: throw IllegalArgumentException("La hora del turno no puede ser nula"),
         nameVet = this.vet!!.name,
-        namePatient = this.patient!!.name
+        namePet = this.pet!!.name
     )
 }
 
 
-//UPDATE - CREATE -> IDs busca el objeto vet o pet, los convierte en Domain
 data class MedicalShiftRequestDTO(
     val id: Int,
     val date: String,
     val hour: String,
     val vetId: Int,
-    val patientId: Int
+    val petId: Int
 )
 
 fun MedicalShiftRequestDTO.fromJSON(vet: Vet, patient: Pet, medicalShiftDTO: MedicalShiftRequestDTO): MedicalShift {
@@ -41,6 +38,6 @@ fun MedicalShiftRequestDTO.fromJSON(vet: Vet, patient: Pet, medicalShiftDTO: Med
     medicalShift.date = medicalShiftDTO.date.let { LocalDate.parse(it) }
     medicalShift.hour = medicalShiftDTO.hour.let { LocalTime.parse(it) }
     medicalShift.vet = vet
-    medicalShift.patient = patient
+    medicalShift.pet = patient
     return medicalShift
 }

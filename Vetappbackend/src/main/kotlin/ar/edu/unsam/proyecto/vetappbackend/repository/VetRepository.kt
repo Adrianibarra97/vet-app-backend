@@ -1,11 +1,10 @@
 package ar.edu.unsam.proyecto.vetappbackend.repository
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.Pet
-import ar.edu.unsam.proyecto.vetappbackend.domain.Vet
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
-import java.time.LocalDate
 
 interface VetRepository : CrudRepository<Vet, Int> {
 
@@ -18,9 +17,9 @@ interface VetRepository : CrudRepository<Vet, Int> {
     SELECT DISTINCT p
     FROM Vet v
         JOIN v.patients p
-        JOIN p.medicalHistory mh
-        LEFT JOIN mh.vaccines vac
-        LEFT JOIN MedicalShift ms ON ms.patient.id = p.id AND ms.vet.id = :idVet
+        LEFT JOIN MedicalHistory mh ON mh.pet.id = p.id  
+        LEFT JOIN Vaccine vac ON vac.medicalHistory.id = mh.id
+        LEFT JOIN MedicalShift ms ON ms.pet.id = p.id AND ms.vet.id = :idVet
     WHERE v.id = :idVet
         AND (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%')))
         AND (:hasPendingVaccine IS NULL 
@@ -38,7 +37,6 @@ interface VetRepository : CrudRepository<Vet, Int> {
         @Param("hasMedicalShift") hasMedicalShift: Boolean?,
         @Param("hasPendingVaccine") hasPendingVaccine: Boolean?
     ): List<Pet>
-
 
 }
 
