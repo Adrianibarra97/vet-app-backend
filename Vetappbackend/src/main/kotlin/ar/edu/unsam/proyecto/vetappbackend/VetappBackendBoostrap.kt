@@ -6,6 +6,7 @@ import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.time.LocalDate
+import java.time.LocalTime
 
 @Service
 class VetappBackendBoostrap: InitializingBean {
@@ -489,21 +490,25 @@ class VetappBackendBoostrap: InitializingBean {
         medicalShiftNala.apply {
             this.patient = nala
             this.vet = adrian
+            this.hour = LocalTime.of(11, 0)
             this.date = LocalDate.of(2025,6,10)
         }
         medicalShiftOli.apply {
             this.patient = oli
             this.vet = adrian
+            this.hour = LocalTime.of(13, 0)
             this.date = LocalDate.of(2025,8,11)
         }
         medicalShiftMileva.apply {
             this.patient = mileva
             this.vet = lucasCjs
+            this.hour = LocalTime.of(11, 0)
             this.date = LocalDate.of(2025,7,10)
         }
         medicalShiftNapoleon.apply {
             this.patient = napoleon
             this.vet = lucasCjs
+            this.hour = LocalTime.of(15, 0)
             this.date = LocalDate.of(2025,8,11)
         }
         var allMedicalShift = listOf(medicalShiftNala, medicalShiftOli, medicalShiftMileva, medicalShiftNapoleon)
