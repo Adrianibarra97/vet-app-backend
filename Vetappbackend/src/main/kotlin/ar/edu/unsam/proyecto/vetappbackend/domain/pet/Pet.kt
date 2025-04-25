@@ -27,6 +27,6 @@ class Pet {
 
 }
 
-enum class TypeOfSex { MACHO, HEMBRA, HERMAFRODITA }
+enum class TypeOfSex { Macho, Hembra }
 
 enum class TypeOfSpecie{ AVE, PEZ, GATO, PERRO, GRANJA, ROEDOR, REPTIL, CABALLO}

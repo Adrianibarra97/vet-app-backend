@@ -16,23 +16,18 @@ class PetOwnerService : BaseService<PetOwner> {
         return this.petOwnerRepository.findAll().toList()
     }
 
-    override fun getOneById(idPetOwner: Int): PetOwner {
-        return this.petOwnerRepository.findById(idPetOwner).orElseThrow {
-            NotFoundException("No se encontró al petOwner indicado: $idPetOwner")
-        }
-    }
-
-    fun getAllPets(idPetOwner: Int): List<Pet> {
-        val petOwner: PetOwner = this.getOneById(idPetOwner)
-        return this.petOwnerRepository.findAllPetsByOwnerId(petOwner.id!!)
-    }
-
     override fun create(newPetOwner: PetOwner) {
         this.petOwnerRepository.save(newPetOwner)
     }
 
     override fun delete(petOwnerDelete: PetOwner) {
         this.petOwnerRepository.delete(petOwnerDelete)
+    }
+
+    override fun getOneById(idPetOwner: Int): PetOwner {
+        return this.petOwnerRepository.findById(idPetOwner).orElseThrow {
+            NotFoundException("No se encontró al petOwner indicado: $idPetOwner")
+        }
     }
 
     override fun update(petOwnerUpdate: PetOwner) {
@@ -51,9 +46,13 @@ class PetOwnerService : BaseService<PetOwner> {
         this.petOwnerRepository.save(petOwner)
     }
 
+    fun getAllPets(idPetOwner: Int): List<Pet> {
+        val petOwner: PetOwner = this.getOneById(idPetOwner)
+        return this.petOwnerRepository.findAllPetsByOwnerId(petOwner.id!!)
+    }
+
     fun getAllPetsFilter(petOwnerFilterPet: PetOwnerFilterPet, petOwnerId: Int): List<Pet> {
         val petOwner: PetOwner = this.getOneById(petOwnerId)
-
         return petOwnerRepository.getAllByFilter(
             petOwner.id!!,
             petOwnerFilterPet.name,
@@ -61,4 +60,5 @@ class PetOwnerService : BaseService<PetOwner> {
             petOwnerFilterPet.hasPendingVaccine
         )
     }
+
 }

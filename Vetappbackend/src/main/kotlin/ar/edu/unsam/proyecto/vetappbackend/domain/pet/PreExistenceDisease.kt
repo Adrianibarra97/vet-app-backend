@@ -24,6 +24,6 @@ class PreExistenceDisease {
     var type: TypeOfPreExistinceDisease? = null
 }
 
-enum class TypeOfSeverity { ESTABLE, LEVE, MODERADA, GRAVE }
+enum class TypeOfSeverity { Estable, Moderado, Grave, Crítico }
 
 enum class TypeOfPreExistinceDisease { ASMA, DIABETES, MOQUILLO, PARVOVIRUS, EPILEPSIA, LEUCEMIA }

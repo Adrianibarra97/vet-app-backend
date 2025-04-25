@@ -8,25 +8,26 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/pet")
 class PetController {
     @Autowired private lateinit var petService: PetService
 
-    @GetMapping("/pet/get-all")
+    @GetMapping("/get-all")
     fun getAll(): List<PetDTO> {
         return this.petService.getAll().map { it.toDTO() }
     }
 
-    @PostMapping("/pet/create-pet")
+    @PostMapping("/create")
     fun create(@RequestBody newPetDTO: PetDTO) {
       this.petService.create(newPetDTO.fromJSON(newPetDTO))
     }
 
-    @PutMapping("/pet/update-pet")
+    @PutMapping("/update")
     fun update(@RequestBody newPetDTO: PetDTO) {
         this.petService.update(newPetDTO.fromJSON(newPetDTO))
     }
 
-    @DeleteMapping("/pet/delete-pet")
+    @DeleteMapping("delete")
     fun delete(@RequestParam idPet: Int) {
         val petForDelete: Pet = this.petService.getOneById(idPet)
         this.petService.delete(petForDelete)

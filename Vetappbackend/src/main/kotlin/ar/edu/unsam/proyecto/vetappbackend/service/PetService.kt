@@ -11,12 +11,6 @@ import jakarta.transaction.Transactional
 class PetService : BaseService<Pet> {
     @Autowired lateinit var petRepository: PetRepository
 
-    override fun getOneById(idPet: Int): Pet {
-        return this.petRepository.findById(idPet).orElseThrow {
-            NotFoundException("No se encontró la mascota indicada: $idPet")
-        }
-    }
-
     override fun getAll(): List<Pet> {
         return this.petRepository.findAll().toList()
     }
@@ -27,6 +21,12 @@ class PetService : BaseService<Pet> {
 
     override fun delete(petDelete: Pet) {
         this.petRepository.delete(petDelete)
+    }
+
+    override fun getOneById(idPet: Int): Pet {
+        return this.petRepository.findById(idPet).orElseThrow {
+            NotFoundException("No se encontró la mascota indicada: $idPet")
+        }
     }
 
     @Transactional

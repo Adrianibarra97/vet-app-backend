@@ -5,15 +5,14 @@ import ar.edu.unsam.proyecto.vetappbackend.error.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
 
 import ar.edu.unsam.proyecto.vetappbackend.repository.VetRepository
+import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 
 @Service
 class VetService: BaseService<Vet> {
-
-    @Autowired
-    lateinit var vetRepository: VetRepository
+    @Autowired lateinit var vetRepository: VetRepository
 
     override fun getAll(): List<Vet> = this.vetRepository.findAll().toList()
 
@@ -27,6 +26,7 @@ class VetService: BaseService<Vet> {
         }
     }
 
+    @Transactional
     override fun update(vetUpdate: Vet) {
         val vet: Vet = getOneById(vetUpdate.id!!)
         vet.apply {
@@ -52,7 +52,6 @@ class VetService: BaseService<Vet> {
 
     fun getAllPetsFilter(vetFilterPet: VetFilterPet, vettId: Int): List<Pet> {
         val vet: Vet = this.getOneById(vettId)
-
         return vetRepository.getAllByFilter(
             vet.id!!,
             vetFilterPet.name,
@@ -60,4 +59,5 @@ class VetService: BaseService<Vet> {
             vetFilterPet.hasPendingVaccine
         )
     }
+
 }

@@ -10,19 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/medical-shift")
 class MedicalShiftController {
     @Autowired private lateinit var medicalShiftService: MedicalShiftService
-
     @Autowired private lateinit var vetService: VetService
-
     @Autowired private lateinit var petService: PetService
 
-    @GetMapping("/medical-shift/get-all")
+
+    @GetMapping("/get-all")
     fun getAll(): List<MedicalShiftResponseDTO> {
         return this.medicalShiftService.getAll().map { it.toDTO() }
     }
 
-    @PostMapping("/medical-shift/create")
+    @PostMapping("/create")
     fun create(@RequestBody newMedicalShiftRequestDTO: MedicalShiftRequestDTO) {
         val vet: Vet = vetService.getOneById(newMedicalShiftRequestDTO.vetId)
         val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.petId)
@@ -30,7 +30,7 @@ class MedicalShiftController {
         this.medicalShiftService.create(medicalShift)
     }
 
-    @PutMapping("/medical-shift/update")
+    @PutMapping("/update")
     fun update(@RequestBody newMedicalShiftRequestDTO: MedicalShiftRequestDTO) {
         val vet: Vet = vetService.getOneById(newMedicalShiftRequestDTO.vetId)
         val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.petId)
@@ -38,7 +38,7 @@ class MedicalShiftController {
         this.medicalShiftService.update(medicalShift)
     }
 
-    @DeleteMapping("/medical-shift/delete")
+    @DeleteMapping("/delete")
     fun delete(@RequestParam idMedicalShift: Int) {
         val medicalShiftForDelete: MedicalShift = this.medicalShiftService.getOneById(idMedicalShift)
         this.medicalShiftService.delete(medicalShiftForDelete)

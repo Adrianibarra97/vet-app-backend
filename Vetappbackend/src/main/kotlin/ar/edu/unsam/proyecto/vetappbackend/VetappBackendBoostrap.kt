@@ -180,7 +180,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 17.0
             this.birth = LocalDate.of(2015,10,15)
-            this.sex = TypeOfSex.HEMBRA
+            this.sex = TypeOfSex.Hembra
             this.specie = TypeOfSpecie.PERRO
         }
         oli.apply {
@@ -191,7 +191,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 14.0
             this.birth = LocalDate.of(2021,2,20)
-            this.sex = TypeOfSex.MACHO
+            this.sex = TypeOfSex.Macho
             this.specie = TypeOfSpecie.PERRO
         }
         owie.apply {
@@ -202,7 +202,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 15.0
             this.birth = LocalDate.of(2012,2,19)
-            this.sex = TypeOfSex.MACHO
+            this.sex = TypeOfSex.Macho
             this.specie = TypeOfSpecie.PERRO
         }
         rocky.apply {
@@ -213,7 +213,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 25.0
             this.birth = LocalDate.of(2020,7,2)
-            this.sex = TypeOfSex.MACHO
+            this.sex = TypeOfSex.Macho
             this.specie = TypeOfSpecie.PERRO
         }
         pipi.apply {
@@ -224,7 +224,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Torcaza"
             this.weight = 0.119
             this.birth = LocalDate.of(2020,1,1)
-            this.sex = TypeOfSex.HEMBRA
+            this.sex = TypeOfSex.Hembra
             this.specie = TypeOfSpecie.AVE
         }
         morena.apply {
@@ -235,7 +235,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 15.0
             this.birth = LocalDate.of(2011,5,20)
-            this.sex = TypeOfSex.HEMBRA
+            this.sex = TypeOfSex.Hembra
             this.specie = TypeOfSpecie.PERRO
         }
         mileva.apply {
@@ -246,7 +246,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 2.9
             this.birth = LocalDate.of(2020,9,26)
-            this.sex = TypeOfSex.HEMBRA
+            this.sex = TypeOfSex.Hembra
             this.specie = TypeOfSpecie.GATO
         }
         napoleon.apply {
@@ -257,7 +257,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 6.0
             this.birth = LocalDate.of(2015,9,11)
-            this.sex = TypeOfSex.MACHO
+            this.sex = TypeOfSex.Macho
             this.specie = TypeOfSpecie.GATO
         }
         burpee.apply {
@@ -268,7 +268,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Sharpei"
             this.weight = 19.0
             this.birth = LocalDate.of(2016,10,1)
-            this.sex = TypeOfSex.MACHO
+            this.sex = TypeOfSex.Macho
             this.specie = TypeOfSpecie.PERRO
         }
         freya.apply {
@@ -279,7 +279,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 5.0
             this.birth = LocalDate.of(2019,10,30)
-            this.sex = TypeOfSex.HEMBRA
+            this.sex = TypeOfSex.Hembra
             this.specie = TypeOfSpecie.GATO
         }
         cleopatra.apply {
@@ -290,7 +290,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.breed = "Mestizo"
             this.weight = 4.0
             this.birth = LocalDate.of(2019,10,30)
-            this.sex = TypeOfSex.HEMBRA
+            this.sex = TypeOfSex.Hembra
             this.specie = TypeOfSpecie.GATO
         }
         val allPets = listOf(
@@ -398,7 +398,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.isActive = true
             this.observation = "Esta mejorando levemente Nala"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.MODERADA
+            this.severity = TypeOfSeverity.Moderado
             this.type = TypeOfPreExistinceDisease.MOQUILLO
         }
         preExistingDiseaseOli.apply {
@@ -406,7 +406,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.isActive = true
             this.observation = "Esta mejorando OLi"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.LEVE
+            this.severity = TypeOfSeverity.Estable
             this.type = TypeOfPreExistinceDisease.PARVOVIRUS
         }
 
@@ -415,31 +415,31 @@ class VetappBackendBoostrap: InitializingBean {
             this.isActive = false
             this.observation = "Corregido Owie"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.LEVE
+            this.severity = TypeOfSeverity.Moderado
             this.type = TypeOfPreExistinceDisease.EPILEPSIA
         }
         preExistingDiseaseRocky.apply {
             this.medicalHistory = medicalHistoryRocky
             this.isActive = false
-            this.observation = "Viene bien Rocky"
+            this.observation = "Esta grave Rocky"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.LEVE
+            this.severity = TypeOfSeverity.Grave
             this.type = TypeOfPreExistinceDisease.ASMA
         }
         preExistingDiseasePipi.apply {
             this.medicalHistory = medicalHistoryPipi
             this.isActive = true
-            this.observation = "Levemente corregido Pipi"
+            this.observation = "El estado es critico Pipi"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.MODERADA
-            this.type = TypeOfPreExistinceDisease.ASMA
+            this.severity = TypeOfSeverity.Crítico
+            this.type = TypeOfPreExistinceDisease.LEUCEMIA
         }
         preExistingDiseaseMorena.apply {
             this.medicalHistory = medicalHistoryMorena
             this.isActive = true
             this.observation = "Trabajo en proceso Morena"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.MODERADA
+            this.severity = TypeOfSeverity.Moderado
             this.type = TypeOfPreExistinceDisease.EPILEPSIA
         }
         preExistingDiseaseMileva.apply {
@@ -447,7 +447,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.isActive = true
             this.observation = "Trabajando con Mileva"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.GRAVE
+            this.severity = TypeOfSeverity.Grave
             this.type = TypeOfPreExistinceDisease.MOQUILLO
         }
         preExistingDiseaseNapoleon.apply {
@@ -455,7 +455,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.isActive = false
             this.observation = "Corregido Napoleon, todo ok"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.ESTABLE
+            this.severity = TypeOfSeverity.Estable
             this.type = TypeOfPreExistinceDisease.DIABETES
         }
         preExistingDiseaseBurpee.apply {
@@ -463,15 +463,15 @@ class VetappBackendBoostrap: InitializingBean {
             this.isActive = true
             this.observation = "Con tratamientos Burpee"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.MODERADA
+            this.severity = TypeOfSeverity.Crítico
             this.type = TypeOfPreExistinceDisease.LEUCEMIA
         }
         preExistingDiseaseFreya.apply {
             this.medicalHistory = medicalHistoryFreya
             this.isActive = false
-            this.observation = "Corregido por el momento Freya"
+            this.observation = "Situación dificil Freya"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.ESTABLE
+            this.severity = TypeOfSeverity.Grave
             this.type = TypeOfPreExistinceDisease.PARVOVIRUS
         }
         preExistingDiseaseCleopatra.apply {
@@ -479,7 +479,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.isActive = true
             this.observation = "Corregido, pero con tratamiento Cleopatra"
             this.diagnosisDate = LocalDate.now()
-            this.severity = TypeOfSeverity.LEVE
+            this.severity = TypeOfSeverity.Moderado
             this.type = TypeOfPreExistinceDisease.ASMA
         }
         val allPreExistenceDisease = listOf(
@@ -597,8 +597,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.medicalHistory = medicalHistoryNala
             this.description = "Vacuna contra la rabia para Nala"
             this.batchNumber = 1123444
-            this.applicationDate = LocalDate.of(2024, 3, 14)
-            this.expirationDate = LocalDate.of(2025, 3, 14)
+            this.applicationDate = LocalDate.of(2024, 8, 14)
+            this.expirationDate = LocalDate.of(2026, 8, 14)
             this.completed = false
             this.type = TypeOfVaccine.ANTIRRÁBICA
         }
@@ -606,32 +606,32 @@ class VetappBackendBoostrap: InitializingBean {
             this.medicalHistory = medicalHistoryOli
             this.description = "Vacuna contra el moquillo para Oli"
             this.batchNumber = 1123445
-            this.applicationDate = LocalDate.of(2024, 4, 10)
-            this.expirationDate = LocalDate.of(2025, 4, 10)
-            this.completed = true
+            this.applicationDate = LocalDate.of(2025, 7, 10)
+            this.expirationDate = LocalDate.of(2026, 7, 10)
+            this.completed = false
             this.type = TypeOfVaccine.MOQUILLO
         }
         vaccineOwie.apply {
             this.medicalHistory = medicalHistoryOwie
             this.description = "Vacuna contra el parvovirus para Owie"
             this.batchNumber = 1123446
-            this.applicationDate = LocalDate.of(2024, 5, 1)
-            this.expirationDate = LocalDate.of(2025, 5, 1)
-            this.completed = true
+            this.applicationDate = LocalDate.of(2025, 5, 13)
+            this.expirationDate = LocalDate.of(2026, 5, 13)
+            this.completed = false
             this.type = TypeOfVaccine.PARVOVIRUS
         }
         vaccineRocky.apply {
             this.medicalHistory = medicalHistoryRocky
-            this.description = "Vacuna contra la hepatitis para Rocky"
+            this.description = "Vacunado contra la hepatitis Rocky"
             this.batchNumber = 1123447
             this.applicationDate = LocalDate.of(2024, 6, 5)
             this.expirationDate = LocalDate.of(2025, 6, 5)
-            this.completed = false
+            this.completed = true
             this.type = TypeOfVaccine.HEPATITIS
         }
         vaccinePipi.apply {
             this.medicalHistory = medicalHistoryPipi
-            this.description = "Vacuna contra la leptospirosis para Pipi"
+            this.description = "Vacunado contra la leptospirosis Pipi"
             this.batchNumber = 1123448
             this.applicationDate = LocalDate.of(2024, 7, 15)
             this.expirationDate = LocalDate.of(2025, 7, 15)
@@ -640,7 +640,7 @@ class VetappBackendBoostrap: InitializingBean {
         }
         vaccineMorena.apply {
             this.medicalHistory = medicalHistoryMorena
-            this.description = "Vacuna contra la parainfluenza para Morena"
+            this.description = "Vacuna contra la parainfluenza Morena"
             this.batchNumber = 1123449
             this.applicationDate = LocalDate.of(2024, 8, 20)
             this.expirationDate = LocalDate.of(2025, 8, 20)
@@ -662,7 +662,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.batchNumber = 1123451
             this.applicationDate = LocalDate.of(2024, 10, 2)
             this.expirationDate = LocalDate.of(2025, 10, 2)
-            this.completed = false
+            this.completed = true
             this.type = TypeOfVaccine.PARVOVIRUS
         }
         vaccineBurpee.apply {
@@ -671,7 +671,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.batchNumber = 1123452
             this.applicationDate = LocalDate.of(2024, 11, 12)
             this.expirationDate = LocalDate.of(2025, 11, 12)
-            this.completed = true
+            this.completed = false
             this.type = TypeOfVaccine.LEPTOSPIROSIS
         }
         vaccineFreya.apply {
@@ -680,7 +680,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.batchNumber = 1123453
             this.applicationDate = LocalDate.of(2024, 12, 5)
             this.expirationDate = LocalDate.of(2025, 12, 5)
-            this.completed = false
+            this.completed = true
             this.type = TypeOfVaccine.HEPATITIS
         }
         vaccineCleopatra.apply {
@@ -689,7 +689,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.batchNumber = 1123454
             this.applicationDate = LocalDate.of(2025, 1, 8)
             this.expirationDate = LocalDate.of(2026, 1, 8)
-            this.completed = true
+            this.completed = false
             this.type = TypeOfVaccine.MOQUILLO
         }
         val allVaccines = listOf(

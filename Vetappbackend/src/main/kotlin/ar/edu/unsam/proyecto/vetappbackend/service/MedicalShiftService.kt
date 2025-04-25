@@ -7,17 +7,16 @@ import org.springframework.stereotype.Service
 
 @Service
 class MedicalShiftService: BaseService<MedicalShift> {
-    @Autowired
-    lateinit var medicalShiftRepository: MedicalShiftRepository
-
-    override fun getAll(): List<MedicalShift> {
-        return medicalShiftRepository.findAll().toList()
-    }
+    @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
 
     override fun getOneById(medicalShiftId: Int): MedicalShift {
         return this.medicalShiftRepository.findById(medicalShiftId).orElseThrow {
             NotFoundException("No se encontró el turno indicado: $medicalShiftId")
         }
+    }
+
+    override fun getAll(): List<MedicalShift> {
+        return medicalShiftRepository.findAll().toList()
     }
 
     override fun create(newMedicalShift: MedicalShift) {
