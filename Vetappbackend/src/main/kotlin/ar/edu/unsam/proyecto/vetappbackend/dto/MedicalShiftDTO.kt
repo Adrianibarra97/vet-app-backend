@@ -4,6 +4,7 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
 import java.time.*
 import kotlin.*
+
 //Serializar a DTO
 data class MedicalShiftResponseDTO(
     val id: Int,
