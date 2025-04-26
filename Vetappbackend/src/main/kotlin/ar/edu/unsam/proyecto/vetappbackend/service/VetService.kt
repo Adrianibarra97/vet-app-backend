@@ -1,6 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.error.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
 
@@ -8,11 +9,15 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.VetRepository
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.time.DayOfWeek
+import java.time.LocalDate
 
 
 @Service
 class VetService: BaseService<Vet> {
     @Autowired lateinit var vetRepository: VetRepository
+
+    @Autowired lateinit var medicalShiftService: MedicalShiftService
 
     override fun getAll(): List<Vet> = this.vetRepository.findAll().toList()
 
@@ -50,14 +55,45 @@ class VetService: BaseService<Vet> {
         return this.vetRepository.findAllPetsByVetId(vet.id!!)
     }
 
-    fun getAllPetsFilter(vetFilterPet: VetFilterPet, vettId: Int): List<Pet> {
-        val vet: Vet = this.getOneById(vettId)
-        return vetRepository.getAllByFilter(
+    fun getAllPetsFilter(vetFilterPet: VetFilterPet, vetId: Int): List<Pet> {
+        val vet: Vet = this.getOneById(vetId)
+        return vetRepository.getAllByFilterPets(
             vet.id!!,
             vetFilterPet.name,
             vetFilterPet.hasMedicalShift,
             vetFilterPet.hasPendingVaccine
         )
     }
+
+    fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, vetId: Int): List<MedicalShift> {
+        val vet: Vet = this.getOneById(vetId)
+        val day: LocalDate? = medicalShiftFilter.day?.takeIf { it.isNotBlank() }?.let { LocalDate.parse(it) }
+        val today: LocalDate? = getToday(medicalShiftFilter.today!!)
+        val (beginingOfWeek, endingOfWeek) = getWeekRange(medicalShiftFilter.thisWeek!!)
+
+        if(medicalShiftFilter.thisWeek == true && medicalShiftFilter.today == true){
+            return this.medicalShiftService.getMedicalShiftVetFilter(vet.id!!, day, null, beginingOfWeek, endingOfWeek )
+        }
+        if(day!! > beginingOfWeek!! && day < endingOfWeek){
+            return this.medicalShiftService.getMedicalShiftVetFilter(vet.id!!, null, null, beginingOfWeek, endingOfWeek )
+        }
+        else {
+            return this.medicalShiftService.getMedicalShiftVetFilter(vet.id!!, day, today, beginingOfWeek, endingOfWeek)
+        }
+    }
+
+    private fun getToday(isToday: Boolean): LocalDate? = if (isToday) LocalDate.now() else null
+
+    private fun getWeekRange(isThisWeek: Boolean): Pair<LocalDate?, LocalDate?> {
+        return if (isThisWeek) {
+            val today = LocalDate.now()
+            val startOfWeek = today.with(DayOfWeek.MONDAY)
+            val endOfWeek = today.with(DayOfWeek.SUNDAY)
+            Pair(startOfWeek, endOfWeek)
+        } else {
+            Pair(null, null)
+        }
+    }
+
 
 }
