@@ -9,8 +9,6 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.VetRepository
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.time.DayOfWeek
-import java.time.LocalDate
 
 
 @Service
@@ -67,33 +65,7 @@ class VetService: BaseService<Vet> {
 
     fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, vetId: Int): List<MedicalShift> {
         val vet: Vet = this.getOneById(vetId)
-        val day: LocalDate? = medicalShiftFilter.day?.takeIf { it.isNotBlank() }?.let { LocalDate.parse(it) }
-        val today: LocalDate? = getToday(medicalShiftFilter.today!!)
-        val (beginingOfWeek, endingOfWeek) = getWeekRange(medicalShiftFilter.thisWeek!!)
-
-        if(medicalShiftFilter.thisWeek == true && medicalShiftFilter.today == true){
-            return this.medicalShiftService.getMedicalShiftVetFilter(vet.id!!, day, null, beginingOfWeek, endingOfWeek )
-        }
-        if(day!! > beginingOfWeek!! && day < endingOfWeek){
-            return this.medicalShiftService.getMedicalShiftVetFilter(vet.id!!, null, null, beginingOfWeek, endingOfWeek )
-        }
-        else {
-            return this.medicalShiftService.getMedicalShiftVetFilter(vet.id!!, day, today, beginingOfWeek, endingOfWeek)
-        }
+        return this.medicalShiftService.getMedicalShiftFilterVet(medicalShiftFilter, vet.id!!)
     }
-
-    private fun getToday(isToday: Boolean): LocalDate? = if (isToday) LocalDate.now() else null
-
-    private fun getWeekRange(isThisWeek: Boolean): Pair<LocalDate?, LocalDate?> {
-        return if (isThisWeek) {
-            val today = LocalDate.now()
-            val startOfWeek = today.with(DayOfWeek.MONDAY)
-            val endOfWeek = today.with(DayOfWeek.SUNDAY)
-            Pair(startOfWeek, endOfWeek)
-        } else {
-            Pair(null, null)
-        }
-    }
-
 
 }

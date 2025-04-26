@@ -1,10 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto
-
-class MedicalShiftFilter {
-    var day: String? = null
-    var today: Boolean? = null
-    var thisWeek: Boolean? = null
-}
+import java.time.DayOfWeek
+import java.time.LocalDate
 
 data class MedicalShiftFilterDTO(
     val day: String?,
@@ -12,19 +8,34 @@ data class MedicalShiftFilterDTO(
     val thisWeek: Boolean?
 )
 
-
-fun MedicalShiftFilter.toJSON(): MedicalShiftFilterDTO {
-    return MedicalShiftFilterDTO(
-        day = this.day,
-        today = this.today,
-        thisWeek = this.thisWeek
-    )
+class MedicalShiftFilter {
+    var day: LocalDate? = null
+    var today: LocalDate? = null
+    var beginningOfWeek: LocalDate? = null
+    var endingOfWeek: LocalDate? = null
 }
 
 fun MedicalShiftFilterDTO.fromJSON(medicalShiftFilterDTO: MedicalShiftFilterDTO): MedicalShiftFilter {
     val medicalShiftFilter = MedicalShiftFilter()
-    medicalShiftFilter.day = medicalShiftFilterDTO.day
-    medicalShiftFilter.today = medicalShiftFilterDTO.today
-    medicalShiftFilter.thisWeek = medicalShiftFilterDTO.thisWeek
+    medicalShiftFilter.day = convertDate(medicalShiftFilterDTO.day)
+    medicalShiftFilter.today = convertToday(medicalShiftFilterDTO.today)
+    medicalShiftFilter.beginningOfWeek = convertBeginningOfWeek(medicalShiftFilterDTO.thisWeek)
+    medicalShiftFilter.endingOfWeek = convertEndingOfWeek(medicalShiftFilterDTO.thisWeek)
     return medicalShiftFilter
+}
+
+private fun convertDate(day: String?): LocalDate? {
+    return day?.takeIf { it.isNotBlank() }?.let { LocalDate.parse(it) }
+}
+
+private fun convertToday(isToday: Boolean?): LocalDate? {
+    return if (isToday == true) LocalDate.now() else null
+}
+
+private fun convertBeginningOfWeek(isThisWeek: Boolean?): LocalDate? {
+    return if (isThisWeek == true) LocalDate.now().with(DayOfWeek.MONDAY) else null
+}
+
+private fun convertEndingOfWeek(isThisWeek: Boolean?): LocalDate? {
+    return if (isThisWeek == true) LocalDate.now().with(DayOfWeek.SUNDAY) else null
 }

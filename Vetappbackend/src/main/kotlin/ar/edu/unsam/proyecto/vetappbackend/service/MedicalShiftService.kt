@@ -1,11 +1,10 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.MedicalShiftRepository
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.cglib.core.Local
 import org.springframework.stereotype.Service
-import java.time.LocalDate
 
 @Service
 class MedicalShiftService: BaseService<MedicalShift> {
@@ -41,13 +40,13 @@ class MedicalShiftService: BaseService<MedicalShift> {
         this.medicalShiftRepository.save(medicalShift)
     }
 
-    fun getMedicalShiftVetFilter(idVet: Int, day: LocalDate?, today: LocalDate?, beginingOfWeek: LocalDate?, endingOfWeek: LocalDate?): List<MedicalShift>{
+    fun getMedicalShiftFilterVet(medicalShiftFilter: MedicalShiftFilter, idVet: Int): List<MedicalShift> {
         return medicalShiftRepository.getAllByFilterMedicalShift(
             idVet,
-            day,
-            today,
-            beginingOfWeek,
-            endingOfWeek
+            medicalShiftFilter.day,
+            medicalShiftFilter.today,
+            medicalShiftFilter.beginningOfWeek,
+            medicalShiftFilter.endingOfWeek
         )
     }
 
