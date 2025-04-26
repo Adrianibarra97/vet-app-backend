@@ -3,6 +3,7 @@ package ar.edu.unsam.proyecto.vetappbackend.service
 import ar.edu.unsam.proyecto.vetappbackend.repository.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.error.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class PetOwnerService : BaseService<PetOwner> {
+
     @Autowired lateinit var petOwnerRepository: PetOwnerRepository
+    @Autowired lateinit var medicalShiftService: MedicalShiftService
 
     override fun getAll(): List<PetOwner> {
         return this.petOwnerRepository.findAll().toList()
@@ -59,6 +62,11 @@ class PetOwnerService : BaseService<PetOwner> {
             petOwnerFilterPet.hasMedicalShift,
             petOwnerFilterPet.hasPendingVaccine
         )
+    }
+
+    fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, petOwnerId: Int): List<MedicalShift> {
+        val petOwner: PetOwner = this.getOneById(petOwnerId)
+        return this.medicalShiftService.getMedicalShiftFilterPetOwner(medicalShiftFilter, petOwner.id!!)
     }
 
 }

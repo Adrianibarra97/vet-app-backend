@@ -49,4 +49,10 @@ class PetOwnerController {
         return petOwnerService.getAllPetsFilter(filterPet, idPetOwner).map { it.toDTO() }
     }
 
+    @PostMapping("/get-all-medical-shift-by-filter-pet-owner")
+    fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam petOwnerId: Int): List<MedicalShiftResponseDTO> {
+        val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON(medicalShiftFilterDTO,)
+        return petOwnerService.getAllMedicalShiftFilter(medicalShiftFilter, petOwnerId).map { it.toDTO() }
+    }
+
 }

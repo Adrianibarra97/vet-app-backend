@@ -41,8 +41,18 @@ class MedicalShiftService: BaseService<MedicalShift> {
     }
 
     fun getMedicalShiftFilterVet(medicalShiftFilter: MedicalShiftFilter, idVet: Int): List<MedicalShift> {
-        return medicalShiftRepository.getAllByFilterMedicalShift(
+        return medicalShiftRepository.getAllByFilterMedicalShiftVet(
             idVet,
+            medicalShiftFilter.day,
+            medicalShiftFilter.today,
+            medicalShiftFilter.beginningOfWeek,
+            medicalShiftFilter.endingOfWeek
+        )
+    }
+
+    fun getMedicalShiftFilterPetOwner(medicalShiftFilter: MedicalShiftFilter, petOwerId: Int): List<MedicalShift> {
+        return medicalShiftRepository.getAllByFilterMedicalShiftPetOwner(
+            petOwerId,
             medicalShiftFilter.day,
             medicalShiftFilter.today,
             medicalShiftFilter.beginningOfWeek,
