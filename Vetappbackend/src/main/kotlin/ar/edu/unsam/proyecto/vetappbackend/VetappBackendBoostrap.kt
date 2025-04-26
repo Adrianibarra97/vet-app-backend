@@ -109,6 +109,7 @@ class VetappBackendBoostrap: InitializingBean {
     // MedicalShift
     var medicalShiftNala = MedicalShift()
     var medicalShiftOli = MedicalShift()
+    var medicalShiftRocky = MedicalShift()
     var medicalShiftMileva = MedicalShift()
     var medicalShiftNapoleon = MedicalShift()
 
@@ -746,27 +747,33 @@ class VetappBackendBoostrap: InitializingBean {
             this.pet = nala
             this.vet = adrian
             this.hour = LocalTime.of(11, 0)
-            this.date = LocalDate.of(2025,6,10)
+            this.date = LocalDate.now()
         }
         medicalShiftOli.apply {
             this.pet = oli
             this.vet = adrian
             this.hour = LocalTime.of(13, 0)
-            this.date = LocalDate.of(2025,8,11)
+            this.date = LocalDate.now().plusDays(1)
+        }
+        medicalShiftRocky.apply {
+            this.pet = rocky
+            this.vet = adrian
+            this.hour = LocalTime.of(13, 0)
+            this.date = LocalDate.now().plusMonths(1)
         }
         medicalShiftMileva.apply {
             this.pet = mileva
             this.vet = lucasCjs
             this.hour = LocalTime.of(11, 0)
-            this.date = LocalDate.of(2025,7,10)
+            this.date = LocalDate.now().plusDays(1)
         }
         medicalShiftNapoleon.apply {
             this.pet = napoleon
             this.vet = lucasCjs
             this.hour = LocalTime.of(15, 0)
-            this.date = LocalDate.of(2025,8,11)
+            this.date = LocalDate.now().plusMonths(2)
         }
-        var allMedicalShift = listOf(medicalShiftNala, medicalShiftOli, medicalShiftMileva, medicalShiftNapoleon)
+        var allMedicalShift = listOf(medicalShiftNala, medicalShiftOli, medicalShiftMileva, medicalShiftNapoleon, medicalShiftRocky)
         this.medicalShiftRepository.saveAll(allMedicalShift)
     }
 

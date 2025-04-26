@@ -2,9 +2,12 @@ package ar.edu.unsam.proyecto.vetappbackend.repository
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
+import ar.edu.unsam.proyecto.vetappbackend.dto.MedicalShiftFilterDTO
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
+import java.time.LocalDate
 
 interface VetRepository : CrudRepository<Vet, Int> {
 
@@ -22,7 +25,7 @@ interface VetRepository : CrudRepository<Vet, Int> {
         AND (:hasMedicalShift IS NULL OR (:hasMedicalShift = FALSE) OR (:hasMedicalShift = TRUE AND ms IS NOT NULL))
         AND (:hasPendingVaccine IS NULL OR (:hasPendingVaccine = FALSE) OR (:hasPendingVaccine = TRUE AND vac.completed = FALSE))
     """)
-    fun getAllByFilter(
+    fun getAllByFilterPets(
         @Param("idVet") idVet: Int,
         @Param("name") name: String?,
         @Param("hasMedicalShift") hasMedicalShift: Boolean?,

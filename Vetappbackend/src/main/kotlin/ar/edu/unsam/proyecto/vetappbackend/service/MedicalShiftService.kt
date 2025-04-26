@@ -1,5 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.MedicalShiftRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -37,6 +38,16 @@ class MedicalShiftService: BaseService<MedicalShift> {
             this.pet = medicalShiftUpdate.pet
         }
         this.medicalShiftRepository.save(medicalShift)
+    }
+
+    fun getMedicalShiftFilterVet(medicalShiftFilter: MedicalShiftFilter, idVet: Int): List<MedicalShift> {
+        return medicalShiftRepository.getAllByFilterMedicalShift(
+            idVet,
+            medicalShiftFilter.day,
+            medicalShiftFilter.today,
+            medicalShiftFilter.beginningOfWeek,
+            medicalShiftFilter.endingOfWeek
+        )
     }
 
 }

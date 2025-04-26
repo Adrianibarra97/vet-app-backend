@@ -1,6 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.error.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
 
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service
 @Service
 class VetService: BaseService<Vet> {
     @Autowired lateinit var vetRepository: VetRepository
+
+    @Autowired lateinit var medicalShiftService: MedicalShiftService
 
     override fun getAll(): List<Vet> = this.vetRepository.findAll().toList()
 
@@ -50,14 +53,19 @@ class VetService: BaseService<Vet> {
         return this.vetRepository.findAllPetsByVetId(vet.id!!)
     }
 
-    fun getAllPetsFilter(vetFilterPet: VetFilterPet, vettId: Int): List<Pet> {
-        val vet: Vet = this.getOneById(vettId)
-        return vetRepository.getAllByFilter(
+    fun getAllPetsFilter(vetFilterPet: VetFilterPet, vetId: Int): List<Pet> {
+        val vet: Vet = this.getOneById(vetId)
+        return vetRepository.getAllByFilterPets(
             vet.id!!,
             vetFilterPet.name,
             vetFilterPet.hasMedicalShift,
             vetFilterPet.hasPendingVaccine
         )
+    }
+
+    fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, vetId: Int): List<MedicalShift> {
+        val vet: Vet = this.getOneById(vetId)
+        return this.medicalShiftService.getMedicalShiftFilterVet(medicalShiftFilter, vet.id!!)
     }
 
 }
