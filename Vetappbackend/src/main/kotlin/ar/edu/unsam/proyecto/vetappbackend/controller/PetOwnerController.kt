@@ -44,9 +44,9 @@ class PetOwnerController {
     }
 
     @PostMapping("/get-all-pets-by-filter")
-    fun getAllByFilter(@RequestBody petOwnerFilterPetDTO: PetOwnerFilterPetDTO, @RequestParam idPetOwner: Int): List<PetDTO> {
-        val petOwnerFilterPet: PetOwnerFilterPet = petOwnerFilterPetDTO.fromJSON(petOwnerFilterPetDTO)
-        return petOwnerService.getAllPetsFilter(petOwnerFilterPet, idPetOwner).map { it.toDTO() }
+    fun getAllByFilter(@RequestBody filterPetDTO: FilterPetDTO, @RequestParam idPetOwner: Int): List<PetDTO> {
+        val filterPet: FilterPet = filterPetDTO.fromJSON(filterPetDTO)
+        return petOwnerService.getAllPetsFilter(filterPet, idPetOwner).map { it.toDTO() }
     }
 
 }

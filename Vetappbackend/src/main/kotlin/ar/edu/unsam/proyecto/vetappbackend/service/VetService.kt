@@ -53,7 +53,7 @@ class VetService: BaseService<Vet> {
         return this.vetRepository.findAllPetsByVetId(vet.id!!)
     }
 
-    fun getAllPetsFilter(vetFilterPet: VetFilterPet, vetId: Int): List<Pet> {
+    fun getAllPetsFilter(vetFilterPet: FilterPet, vetId: Int): List<Pet> {
         val vet: Vet = this.getOneById(vetId)
         return vetRepository.getAllByFilterPets(
             vet.id!!,

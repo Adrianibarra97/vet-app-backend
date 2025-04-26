@@ -51,7 +51,7 @@ class PetOwnerService : BaseService<PetOwner> {
         return this.petOwnerRepository.findAllPetsByOwnerId(petOwner.id!!)
     }
 
-    fun getAllPetsFilter(petOwnerFilterPet: PetOwnerFilterPet, petOwnerId: Int): List<Pet> {
+    fun getAllPetsFilter(petOwnerFilterPet: FilterPet, petOwnerId: Int): List<Pet> {
         val petOwner: PetOwner = this.getOneById(petOwnerId)
         return petOwnerRepository.getAllByFilter(
             petOwner.id!!,
