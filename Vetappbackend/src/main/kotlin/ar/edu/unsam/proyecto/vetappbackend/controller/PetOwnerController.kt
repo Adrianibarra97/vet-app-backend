@@ -1,54 +1,52 @@
 package ar.edu.unsam.proyecto.vetappbackend.controller
 
-
-import ar.edu.unsam.proyecto.vetappbackend.domain.PetOwner
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.service.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
-import ar.edu.unsam.proyecto.vetappbackend.service.PetOwnerService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-
+import org.springframework.beans.factory.annotation.*
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/pet-owner")
 class PetOwnerController {
+    @Autowired private lateinit var petOwnerService: PetOwnerService
 
-    @Autowired
-    private lateinit var petOwnerService: PetOwnerService
-
-    @GetMapping("/pet-owner/get-all")
+    @GetMapping("/get-all")
     fun getAll(): List<PetOwnerDTO> {
-        return this.petOwnerService.getAll().map { it.toJSON() }
+        return this.petOwnerService.getAll().map { it.toDTO() }
     }
 
-    @GetMapping("/pet-owner/get-one-by-id/{id}")
-    fun getOneById(@PathVariable id: Int): PetOwnerDTO {
-        return this.petOwnerService.getOneById(id).toJSON()
+    @GetMapping("/get-one-by-id")
+    fun getOneById(idPet: Int): PetOwnerDTO {
+        return this.petOwnerService.getOneById(idPet).toDTO()
     }
 
-    @GetMapping("/pet-owner/get-all-pets/{id}")
-    fun getAllPets(@PathVariable id: Int): List<PetDTO> {
-        return this.petOwnerService.getAllPets(id).map { it.toJSON() }
-    }
-
-    @PutMapping("/pet-owner/update/{id}")
-    fun update(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        petOwnerService.update(petOwnerDTO.fromJSON(petOwnerDTO))
-    }
-
-    @DeleteMapping("/pet-owner/delete/{id}")
-    fun delete(@PathVariable id: Int) {
-        val petOwnerForDelete: PetOwner = this.petOwnerService.getOneById(id)
-        this.petOwnerService.delete(petOwnerForDelete)
-    }
-
-    @PostMapping("/pet-owner/create-pet-owner")
+    @PostMapping("/create")
     fun create(@RequestBody petOwnerDTO: PetOwnerDTO) {
         this.petOwnerService.create(petOwnerDTO.fromJSON(petOwnerDTO))
     }
 
-    @PostMapping("/pet-owner/filter/get-all-by-filter/{petOwnerId}")
-    fun getAllByFilter(@RequestBody petOwnerFilterPetDTO: PetOwnerFilterPetDTO, @PathVariable petOwnerId: Int): List<PetDTO> {
-        val petOwnerFilterPet: PetOwnerFilterPet = petOwnerFilterPetDTO.fromJSON(petOwnerFilterPetDTO)
-        return petOwnerService.getAllPetsFilter(petOwnerFilterPet, petOwnerId).map { it.toJSON() }
+    @PutMapping("/update")
+    fun update(@RequestBody petOwnerDTO: PetOwnerDTO) {
+        petOwnerService.update(petOwnerDTO.fromJSON(petOwnerDTO))
     }
+
+    @DeleteMapping("/delete")
+    fun delete(@RequestParam idPetOwner: Int) {
+        val petOwnerForDelete: PetOwner = this.petOwnerService.getOneById(idPetOwner)
+        this.petOwnerService.delete(petOwnerForDelete)
+    }
+
+    @GetMapping("/get-all-pets")
+    fun getAllPets(@RequestParam idPetOwner: Int): List<PetDTO> {
+        return this.petOwnerService.getAllPets(idPetOwner).map { it.toDTO() }
+    }
+
+    @PostMapping("/get-all-pets-by-filter")
+    fun getAllByFilter(@RequestBody petOwnerFilterPetDTO: PetOwnerFilterPetDTO, @RequestParam idPetOwner: Int): List<PetDTO> {
+        val petOwnerFilterPet: PetOwnerFilterPet = petOwnerFilterPetDTO.fromJSON(petOwnerFilterPetDTO)
+        return petOwnerService.getAllPetsFilter(petOwnerFilterPet, idPetOwner).map { it.toDTO() }
+    }
+
 }

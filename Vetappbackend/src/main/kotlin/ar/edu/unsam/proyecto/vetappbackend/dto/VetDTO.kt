@@ -1,8 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.Vet
-
-
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 
 data class VetDTO (
     val id: Int,
@@ -19,7 +17,7 @@ data class VetDTO (
 )
 
 
-fun Vet.toJSON(): VetDTO {
+fun Vet.toDTO(): VetDTO {
     return VetDTO(
         id = this.id!!,
         name = this.name,
