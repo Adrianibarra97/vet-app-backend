@@ -18,8 +18,25 @@ interface MedicalShiftRepository: CrudRepository<MedicalShift, Int> {
             (COALESCE(:day, NULL) IS NULL AND COALESCE(:today, NULL) IS NULL AND COALESCE(:beginningOfWeek, NULL) IS NULL AND COALESCE(:endingOfWeek, NULL) IS NULL)
         )
     """)
-    fun getAllByFilterMedicalShift(
+    fun getAllByFilterMedicalShiftVet(
         @Param("idVet") idVet: Int,
+        @Param("day") day: LocalDate?,
+        @Param("today") today: LocalDate?,
+        @Param("beginningOfWeek") beginningOfWeek: LocalDate?,
+        @Param("endingOfWeek") endingOfWeek: LocalDate?
+    ): List<MedicalShift>
+
+    @Query("""
+        SELECT ms FROM MedicalShift ms
+        WHERE ms.pet.petOwner.id = :petOwnerId AND ( 
+                (COALESCE(:day, NULL) IS NOT NULL AND ms.date = :day) OR
+                (COALESCE(:today, NULL) IS NOT NULL AND ms.date = :today) OR
+                (COALESCE(:beginningOfWeek, NULL) IS NOT NULL AND COALESCE(:endingOfWeek, NULL) IS NOT NULL AND ms.date BETWEEN :beginningOfWeek AND :endingOfWeek) OR
+                (COALESCE(:day, NULL) IS NULL AND COALESCE(:today, NULL) IS NULL AND COALESCE(:beginningOfWeek, NULL) IS NULL AND COALESCE(:endingOfWeek, NULL) IS NULL)
+            )
+        """)
+    fun getAllByFilterMedicalShiftPetOwner(
+        @Param("petOwnerId") idVet: Int,
         @Param("day") day: LocalDate?,
         @Param("today") today: LocalDate?,
         @Param("beginningOfWeek") beginningOfWeek: LocalDate?,

@@ -1,6 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.controller
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.*
 import ar.edu.unsam.proyecto.vetappbackend.service.VetService
@@ -45,9 +44,9 @@ class VetController {
     }
 
     @PostMapping("/get-all-pets-by-filter-vet")
-    fun getAllByFilterPet(@RequestBody vetFilterPetDTO: VetFilterPetDTO, @RequestParam vetId: Int): List<PetDTO> {
-        val vetFilterPet: VetFilterPet = vetFilterPetDTO.fromJSON(vetFilterPetDTO)
-        return vetService.getAllPetsFilter(vetFilterPet, vetId).map { it.toDTO() }
+    fun getAllByFilterPet(@RequestBody filterPetDTO: FilterPetDTO, @RequestParam vetId: Int): List<PetDTO> {
+        val filterPet: FilterPet = filterPetDTO.fromJSON(filterPetDTO)
+        return vetService.getAllPetsFilter(filterPet, vetId).map { it.toDTO() }
     }
 
     @PostMapping("/get-all-medical-shift-by-filter-vet")

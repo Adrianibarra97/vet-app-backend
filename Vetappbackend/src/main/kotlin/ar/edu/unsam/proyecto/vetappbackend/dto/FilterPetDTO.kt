@@ -1,27 +1,27 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto
 
-class VetFilterPet {
+class FilterPet {
     var name: String? = null
     var hasMedicalShift: Boolean? = null
     var hasPendingVaccine: Boolean? = null
 }
 
-data class VetFilterPetDTO(
+data class FilterPetDTO(
     val name: String?,
     val hasMedicalShift: Boolean?,
     val hasPendingVaccine: Boolean?
 )
 
-fun VetFilterPet.toJSON(): VetFilterPetDTO {
-    return VetFilterPetDTO(
+fun FilterPet.toJSON(): FilterPetDTO {
+    return FilterPetDTO(
         name = this.name.toString(),
         hasMedicalShift = this.hasMedicalShift,
         hasPendingVaccine = this.hasPendingVaccine
     )
 }
 
-fun VetFilterPetDTO.fromJSON(vetFilterPetDTO: VetFilterPetDTO): VetFilterPet {
-    val petFilter = VetFilterPet()
+fun FilterPetDTO.fromJSON(vetFilterPetDTO: FilterPetDTO): FilterPet {
+    val petFilter = FilterPet()
     petFilter.name = vetFilterPetDTO.name.toString()
     petFilter.hasMedicalShift = vetFilterPetDTO.hasMedicalShift
     petFilter.hasPendingVaccine = vetFilterPetDTO.hasPendingVaccine
