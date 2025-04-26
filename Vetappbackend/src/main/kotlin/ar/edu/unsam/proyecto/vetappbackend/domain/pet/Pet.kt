@@ -1,6 +1,8 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.time.LocalDate
 
 @Entity
@@ -10,6 +12,7 @@ class Pet {
     var id: Int? = null
 
     @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_pet_owner")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var petOwner: PetOwner? = null
 
     var age: Int = 0
@@ -24,6 +27,10 @@ class Pet {
 
     @Enumerated(EnumType.STRING)
     var specie: TypeOfSpecie? = null
+
+    @ManyToMany(mappedBy = "patients", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    var vets: MutableSet<Vet> = mutableSetOf()
 
 }
 

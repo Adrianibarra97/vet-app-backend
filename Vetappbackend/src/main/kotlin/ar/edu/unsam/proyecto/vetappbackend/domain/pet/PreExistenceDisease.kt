@@ -1,5 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.pet
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.time.LocalDate
 
 @Entity
@@ -9,6 +11,7 @@ class PreExistenceDisease {
     var id: Int? = null
 
     @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_medical_history")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var medicalHistory: MedicalHistory? = null
 
     var isActive: Boolean = true

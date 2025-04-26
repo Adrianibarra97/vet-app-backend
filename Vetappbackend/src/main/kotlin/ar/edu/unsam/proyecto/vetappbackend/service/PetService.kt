@@ -1,14 +1,15 @@
 package ar.edu.unsam.proyecto.vetappbackend.service
 
-import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.repository.PetRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import jakarta.transaction.Transactional
 
 @Service
 class PetService : BaseService<Pet> {
+
     @Autowired lateinit var petRepository: PetRepository
 
     override fun getAll(): List<Pet> {
@@ -19,9 +20,11 @@ class PetService : BaseService<Pet> {
         this.petRepository.save(newPet)
     }
 
+    @Transactional
     override fun delete(petDelete: Pet) {
-        this.petRepository.delete(petDelete)
+        petRepository.delete(petDelete)
     }
+
 
     override fun getOneById(idPet: Int): Pet {
         return this.petRepository.findById(idPet).orElseThrow {

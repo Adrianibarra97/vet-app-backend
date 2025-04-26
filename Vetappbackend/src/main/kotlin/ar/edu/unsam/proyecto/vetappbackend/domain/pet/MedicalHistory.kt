@@ -1,5 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.pet
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.time.LocalDate
 
 @Entity
@@ -9,6 +11,7 @@ class MedicalHistory {
     var id: Int? = null
 
     @OneToOne @JoinColumn(referencedColumnName = "id", name = "id_pet")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var pet: Pet? = null
 
     var created_at: LocalDate? = null
