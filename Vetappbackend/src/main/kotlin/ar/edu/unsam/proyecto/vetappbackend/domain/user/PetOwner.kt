@@ -1,6 +1,8 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.user
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 
 @Entity
 class PetOwner : UserData() {

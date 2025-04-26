@@ -24,4 +24,5 @@ spring:
 
 logging:
   level:
-    root: INFO
+    org.hibernate.SQL: DEBUG        # Mostrar las consultas SQL
+    org.hibernate.type: TRACE       # Mostrar los valores de parámetros
