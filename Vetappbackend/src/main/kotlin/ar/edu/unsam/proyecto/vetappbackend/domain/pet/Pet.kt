@@ -28,7 +28,8 @@ class Pet {
     @Enumerated(EnumType.STRING)
     var specie: TypeOfSpecie? = null
 
-    @ManyToMany(mappedBy = "patients")
+    @ManyToMany(mappedBy = "patients", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var vets: MutableSet<Vet> = mutableSetOf()
 
 }

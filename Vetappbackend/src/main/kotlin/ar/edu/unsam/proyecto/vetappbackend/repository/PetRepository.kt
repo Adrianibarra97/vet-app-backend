@@ -9,12 +9,4 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PetRepository : CrudRepository<Pet, Int> {
-
-    @Modifying
-    @Transactional
-    @Query(value = "SELECT delete_pet_relations(:idPet)", nativeQuery = true)
-    fun callDeletePetRelationsFunction(@Param("idPet") idPet: Int)
-
-
-}
+interface PetRepository : CrudRepository<Pet, Int>
