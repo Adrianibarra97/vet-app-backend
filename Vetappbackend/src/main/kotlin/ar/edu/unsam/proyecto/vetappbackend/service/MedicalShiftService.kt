@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class MedicalShiftService: BaseService<MedicalShift> {
+
     @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
 
     override fun getOneById(medicalShiftId: Int): MedicalShift {
