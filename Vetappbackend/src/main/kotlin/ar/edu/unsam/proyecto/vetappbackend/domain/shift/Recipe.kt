@@ -14,6 +14,6 @@ class Recipe {
     @OnDelete(action = OnDeleteAction.CASCADE)
     var medicalShift: MedicalShift? = null
 
-    var descripcion: String = ""
+    var description: String = ""
 
 }

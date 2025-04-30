@@ -779,19 +779,19 @@ class VetappBackendBoostrap: InitializingBean {
 
     fun createRecipe() {
         recipeNala.apply {
-            this.descripcion = "Nala debe que aplicarse la vacuna de la rabia"
+            this.description = "Nala debe que aplicarse la vacuna de la rabia"
             this.medicalShift = medicalShiftNala
         }
         recipeOli.apply {
-            this.descripcion = "Oli tiene que bajar de peso, y hacer ejercicio"
+            this.description = "Oli tiene que bajar de peso, y hacer ejercicio"
             this.medicalShift = medicalShiftOli
         }
         recipeMileva.apply {
-            this.descripcion = "Mileva tiene que ponerse la pipeta para las pulgas"
+            this.description = "Mileva tiene que ponerse la pipeta para las pulgas"
             this.medicalShift = medicalShiftMileva
         }
         recipeNapoleon.apply {
-            this.descripcion = "Napoleon tiene que limarse las uñas"
+            this.description = "Napoleon tiene que limarse las uñas"
             this.medicalShift = medicalShiftNapoleon
         }
         var allRecipe = listOf(recipeNala,recipeOli)
