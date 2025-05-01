@@ -1,0 +1,37 @@
+package ar.edu.unsam.proyecto.vetappbackend.service.pet
+
+import org.springframework.stereotype.Service
+import org.springframework.beans.factory.annotation.Autowired
+import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
+import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.PreExistenceDisease
+import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PreExistenceDiseaseRepository
+
+@Service
+class PreExistenceDiseaseService: BaseService<PreExistenceDisease> {
+
+    @Autowired lateinit var preExistenceDiseaseRepository: PreExistenceDiseaseRepository
+
+    override fun getOneById(preExistenceDiseaseId: Int): PreExistenceDisease {
+        return this.preExistenceDiseaseRepository.findById(preExistenceDiseaseId).orElseThrow {
+            NotFoundException("No se encontró la enfermedad indicada: $preExistenceDiseaseId")
+        }
+    }
+
+    override fun getAll(): List<PreExistenceDisease> {
+        return this.preExistenceDiseaseRepository.findAll().toList()
+    }
+
+    override fun create(preExistenceDisease: PreExistenceDisease) {
+        this.preExistenceDiseaseRepository.save(preExistenceDisease)
+    }
+
+    override fun delete(preExistenceDisease: PreExistenceDisease) {
+        return this.preExistenceDiseaseRepository.delete(preExistenceDisease)
+    }
+
+    override fun update(preExistenceDiseaseUpdate: PreExistenceDisease) {
+        this.getOneById(preExistenceDiseaseUpdate.id!!)
+        this.preExistenceDiseaseRepository.save(preExistenceDiseaseUpdate)
+    }
+}
