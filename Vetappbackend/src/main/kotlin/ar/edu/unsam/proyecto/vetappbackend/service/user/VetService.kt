@@ -24,7 +24,7 @@ class VetService: BaseService<Vet> {
     @Autowired lateinit var vetRepository: VetRepository
 
     override fun getOneById(idVet: Int): Vet {
-        return this.vetRepository.findById(idVet).orElseThrow {
+        return this.vetRepository.findByUserDataId(idVet).orElseThrow {
             NotFoundException("No se encontró al veterinario indicado: $idVet")
         }
     }

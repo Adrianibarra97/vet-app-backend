@@ -28,7 +28,7 @@ class PetOwnerService : BaseService<PetOwner> {
     @Autowired lateinit var petOwnerRepository: PetOwnerRepository
 
     override fun getOneById(idPetOwner: Int): PetOwner {
-        return this.petOwnerRepository.findById(idPetOwner).orElseThrow {
+        return this.petOwnerRepository.findByUserDataId(idPetOwner).orElseThrow {
             NotFoundException("No se encontró al petOwner indicado: $idPetOwner")
         }
     }
