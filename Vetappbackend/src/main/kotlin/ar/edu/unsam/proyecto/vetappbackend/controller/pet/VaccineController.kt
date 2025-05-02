@@ -27,14 +27,14 @@ class VaccineController {
     @PostMapping("/create")
     fun create(@RequestBody newVaccineDTO: VaccineDTO) {
         val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newVaccineDTO.medicalHistoryId)
-        val vaccine: Vaccine = newVaccineDTO.fromJSON(newVaccineDTO, medicalHistory)
+        val vaccine: Vaccine = newVaccineDTO.fromJSON(medicalHistory)
         this.vaccineService.create(vaccine)
     }
 
     @PutMapping("/update")
     fun update(@RequestBody newVaccineDTO: VaccineDTO) {
         val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newVaccineDTO.medicalHistoryId)
-        val vaccine: Vaccine = newVaccineDTO.fromJSON(newVaccineDTO, medicalHistory)
+        val vaccine: Vaccine = newVaccineDTO.fromJSON(medicalHistory)
         this.vaccineService.update(vaccine)
     }
 

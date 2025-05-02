@@ -23,22 +23,27 @@ class VetService: BaseService<Vet> {
 
     @Autowired lateinit var vetRepository: VetRepository
 
-
     override fun getOneById(idVet: Int): Vet {
         return this.vetRepository.findById(idVet).orElseThrow {
             NotFoundException("No se encontró al veterinario indicado: $idVet")
         }
     }
 
-    override fun getAll(): List<Vet> = this.vetRepository.findAll().toList()
+    override fun getAll(): List<Vet> {
+        return this.vetRepository.findAll().toList()
+    }
 
-    override fun create(newVet: Vet) { this.vetRepository.save(newVet) }
+    override fun create(newVet: Vet) {
+        this.vetRepository.save(newVet)
+    }
 
-    override fun delete(vetDelete: Vet) { this.vetRepository.delete(vetDelete) }
+    override fun delete(vetDelete: Vet) {
+        this.vetRepository.delete(vetDelete)
+    }
 
     @Transactional
     override fun update(vetUpdate: Vet) {
-        getOneById(vetUpdate.id!!)
+        this.getOneById(vetUpdate.id!!)
         this.vetRepository.save(vetUpdate)
     }
 

@@ -29,7 +29,7 @@ class MedicalShiftController {
     fun create(@RequestBody newMedicalShiftRequestDTO: MedicalShiftRequestDTO) {
         val vet: Vet = vetService.getOneById(newMedicalShiftRequestDTO.vetId)
         val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.petId)
-        val medicalShift: MedicalShift = newMedicalShiftRequestDTO.fromJSON(vet, pet, newMedicalShiftRequestDTO)
+        val medicalShift: MedicalShift = newMedicalShiftRequestDTO.fromJSON(vet, pet)
         this.medicalShiftService.create(medicalShift)
     }
 
@@ -37,7 +37,7 @@ class MedicalShiftController {
     fun update(@RequestBody newMedicalShiftRequestDTO: MedicalShiftRequestDTO) {
         val vet: Vet = vetService.getOneById(newMedicalShiftRequestDTO.vetId)
         val pet: Pet = petService.getOneById(newMedicalShiftRequestDTO.petId)
-        val medicalShift: MedicalShift = newMedicalShiftRequestDTO.fromJSON(vet, pet, newMedicalShiftRequestDTO)
+        val medicalShift: MedicalShift = newMedicalShiftRequestDTO.fromJSON(vet, pet)
         this.medicalShiftService.update(medicalShift)
     }
 

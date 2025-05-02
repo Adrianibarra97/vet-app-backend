@@ -20,10 +20,11 @@ fun FilterPet.toJSON(): FilterPetDTO {
     )
 }
 
-fun FilterPetDTO.fromJSON(vetFilterPetDTO: FilterPetDTO): FilterPet {
-    val petFilter = FilterPet()
-    petFilter.name = vetFilterPetDTO.name.toString()
-    petFilter.hasMedicalShift = vetFilterPetDTO.hasMedicalShift
-    petFilter.hasPendingVaccine = vetFilterPetDTO.hasPendingVaccine
-    return petFilter
+fun FilterPetDTO.fromJSON(): FilterPet {
+    val filterPetDTO = this
+    return FilterPet().apply {
+        name = filterPetDTO.name.toString()
+        hasMedicalShift = filterPetDTO.hasMedicalShift
+        hasPendingVaccine = filterPetDTO.hasPendingVaccine
+    }
 }

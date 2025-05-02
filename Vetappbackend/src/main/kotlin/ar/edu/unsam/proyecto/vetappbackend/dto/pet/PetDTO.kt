@@ -30,16 +30,17 @@ fun Pet.toDTO(): PetDTO {
     )
 }
 
-fun PetDTO.fromJSON(petDTO: PetDTO): Pet {
-    val pet = Pet()
-    pet.id = petDTO.id
-    pet.age = petDTO.age
-    pet.name = petDTO.name
-    pet.photo = petDTO.photo
-    pet.breed = petDTO.breed
-    pet.weight = petDTO.weight
-    pet.birth = petDTO.birth.let { LocalDate.parse(it) }
-    pet.sex = TypeOfSex.valueOf(this.sex)
-    pet.specie = TypeOfSpecie.valueOf(this.specie)
-    return pet
+fun PetDTO.fromJSON(): Pet {
+    val petDTO = this
+    return Pet().apply {
+        id = petDTO.id
+        age = petDTO.age
+        name = petDTO.name
+        photo = petDTO.photo
+        breed = petDTO.breed
+        weight = petDTO.weight
+        birth = LocalDate.parse(petDTO.birth.toString())
+        sex = TypeOfSex.valueOf(petDTO.sex.toString())
+        specie = TypeOfSpecie.valueOf(petDTO.specie.toString())
+    }
 }

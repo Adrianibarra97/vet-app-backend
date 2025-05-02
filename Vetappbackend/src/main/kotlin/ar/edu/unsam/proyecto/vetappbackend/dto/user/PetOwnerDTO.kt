@@ -9,7 +9,7 @@ data class PetOwnerDTO (
     var email: String,
     var telephone: String,
     var address: String,
-
+    var idUserData: Int
 )
 
 fun PetOwner.toDTO(): PetOwnerDTO {
@@ -20,18 +20,21 @@ fun PetOwner.toDTO(): PetOwnerDTO {
         dni = this.dni,
         email = this.email,
         telephone = this.telephone,
-        address = this.address
+        address = this.address,
+        idUserData = this.userData.id!!
     )
 }
 
-fun PetOwnerDTO.fromJSON(petOwnerDTO: PetOwnerDTO): PetOwner {
-    val petOwner = PetOwner()
-    petOwner.id = petOwnerDTO.id
-    petOwner.name = petOwnerDTO.name
-    petOwner.surname = petOwnerDTO.surname
-    petOwner.dni = petOwnerDTO.dni
-    petOwner.email = petOwnerDTO.email
-    petOwner.telephone = petOwnerDTO.telephone
-    petOwner.address = petOwnerDTO.address
-    return petOwner
+fun PetOwnerDTO.fromJSON(userDataCurrent: UserData): PetOwner {
+    val petOwnerDTO = this
+    return PetOwner().apply {
+        id = petOwnerDTO.id
+        name = petOwnerDTO.name
+        surname = petOwnerDTO.surname
+        dni = petOwnerDTO.dni
+        email = petOwnerDTO.email
+        telephone = petOwnerDTO.telephone
+        address = petOwnerDTO.address
+        userData = userDataCurrent
+    }
 }

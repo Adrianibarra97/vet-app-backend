@@ -11,7 +11,8 @@ data class VetDTO (
     val businessHours: String,
     val professionalEmail: String,
     val professionalAdress: String,
-    val professionalTelephone: String
+    val professionalTelephone: String,
+    val idUserData: Int
 )
 
 
@@ -25,21 +26,23 @@ fun Vet.toDTO(): VetDTO {
         businessHours = this.businessHours,
         professionalEmail = this.professionalEmail,
         professionalAdress = this.professionalAdress,
-        professionalTelephone = this.professionalTelephone
+        professionalTelephone = this.professionalTelephone,
+        idUserData = this.userData.id!!
     )
 }
 
-fun VetDTO.fromJSON(vetDTO: VetDTO): Vet {
-    val vet = Vet()
-    vet.id = vetDTO.id
-    vet.name = vetDTO.name
-    vet.surname = vetDTO.surname
-    vet.licence = vetDTO.licence
-    vet.speciality = vetDTO.speciality
-    vet.businessHours = vetDTO.businessHours
-    vet.professionalEmail = vetDTO.professionalEmail
-    vet.professionalAdress = vetDTO.professionalAdress
-    vet.professionalTelephone = vetDTO.professionalTelephone
-
-    return vet
+fun VetDTO.fromJSON(userDataCurrent: UserData): Vet {
+    val vetDTO = this
+    return Vet().apply {
+        id = vetDTO.id
+        name = vetDTO.name
+        surname = vetDTO.surname
+        licence = vetDTO.licence
+        speciality = vetDTO.speciality
+        businessHours = vetDTO.businessHours
+        professionalEmail = vetDTO.professionalEmail
+        professionalAdress = vetDTO.professionalAdress
+        professionalTelephone = vetDTO.professionalTelephone
+        userData = userDataCurrent
+    }
 }

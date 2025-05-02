@@ -5,7 +5,16 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
 import java.time.*
 import kotlin.*
 
-//Serializar a DTO
+//CREATE-UPDATE-GET
+data class MedicalShiftRequestDTO(
+    val id: Int,
+    val date: String,
+    val hour: String,
+    val vetId: Int,
+    val petId: Int
+)
+
+// DOMAIN -> DTO
 data class MedicalShiftResponseDTO(
     val id: Int,
     val date: String,
@@ -24,21 +33,13 @@ fun MedicalShift.toDTO(): MedicalShiftResponseDTO {
     )
 }
 
-//CREATE-UPDATE-GET
-data class MedicalShiftRequestDTO(
-    val id: Int,
-    val date: String,
-    val hour: String,
-    val vetId: Int,
-    val petId: Int
-)
-
-fun MedicalShiftRequestDTO.fromJSON(vet: Vet, patient: Pet, medicalShiftDTO: MedicalShiftRequestDTO): MedicalShift {
-    val medicalShift = MedicalShift()
-    medicalShift.id = medicalShiftDTO.id
-    medicalShift.date = medicalShiftDTO.date.let { LocalDate.parse(it) }
-    medicalShift.hour = medicalShiftDTO.hour.let { LocalTime.parse(it) }
-    medicalShift.vet = vet
-    medicalShift.pet = patient
-    return medicalShift
+fun MedicalShiftRequestDTO.fromJSON(vetCurrent: Vet, petCurrent: Pet): MedicalShift {
+    val medicalShiftDTO = this
+    return MedicalShift().apply {
+        id = medicalShiftDTO.id
+        date = medicalShiftDTO.date.let { LocalDate.parse(it.toString()) }
+        hour = medicalShiftDTO.hour.let { LocalTime.parse(it.toString()) }
+        vet = vetCurrent
+        pet = petCurrent
+    }
 }

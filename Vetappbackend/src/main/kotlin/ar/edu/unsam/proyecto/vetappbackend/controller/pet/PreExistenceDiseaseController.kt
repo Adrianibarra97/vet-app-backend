@@ -10,9 +10,9 @@ import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
 @RequestMapping("/pre-existence-disease")
 class PreExistenceDiseaseController {
 
-    @Autowired private lateinit var preExistenceDiseaseService: PreExistenceDiseaseService
-
     @Autowired private lateinit var medicalHistoryService: MedicalHistoryService
+
+    @Autowired private lateinit var preExistenceDiseaseService: PreExistenceDiseaseService
 
     @GetMapping("/get-all")
     fun getAll(): List<PreExistenceDiseaseDTO> {
@@ -27,14 +27,14 @@ class PreExistenceDiseaseController {
     @PostMapping("/create")
     fun create(@RequestBody newPreExistenceDiseaseDTO: PreExistenceDiseaseDTO) {
         val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newPreExistenceDiseaseDTO.medicalHistoryId)
-        val preExistenceDisease: PreExistenceDisease = newPreExistenceDiseaseDTO.fromJSON(newPreExistenceDiseaseDTO, medicalHistory)
+        val preExistenceDisease: PreExistenceDisease = newPreExistenceDiseaseDTO.fromJSON(medicalHistory)
         this.preExistenceDiseaseService.create(preExistenceDisease)
     }
 
     @PutMapping("/update")
     fun update(@RequestBody newPreExistenceDiseaseDTO: PreExistenceDiseaseDTO) {
         val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newPreExistenceDiseaseDTO.medicalHistoryId)
-        val preExistenceDisease: PreExistenceDisease = newPreExistenceDiseaseDTO.fromJSON(newPreExistenceDiseaseDTO, medicalHistory)
+        val preExistenceDisease: PreExistenceDisease = newPreExistenceDiseaseDTO.fromJSON(medicalHistory)
         this.preExistenceDiseaseService.update(preExistenceDisease)
     }
 

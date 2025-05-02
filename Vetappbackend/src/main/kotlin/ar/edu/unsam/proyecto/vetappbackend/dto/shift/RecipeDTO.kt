@@ -1,7 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.shift
-
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.Recipe
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
 
 data class RecipeDTO (
     val id : Int,
@@ -17,11 +15,11 @@ fun Recipe.toDTO(): RecipeDTO {
     )
 }
 
-fun RecipeDTO.fromJSON(recipeDTO: RecipeDTO, medicalShift: MedicalShift): Recipe {
-    val recipe = Recipe()
-    recipe.id = recipeDTO.id
-    recipe.description = recipeDTO.description
-    recipe.medicalShift = medicalShift
-
-    return recipe
+fun RecipeDTO.fromJSON(medicalShiftCurrent: MedicalShift): Recipe {
+    val recipeDTO = this
+    return Recipe().apply {
+        id = recipeDTO.id
+        description = recipeDTO.description
+        medicalShift = medicalShiftCurrent
+    }
 }

@@ -10,7 +10,6 @@ data class StudyResultDTO(
     val fileUrl: String,
     val interpretation: String,
     val type: String
-
 )
 
 fun StudyResult.toDTO(): StudyResultDTO {
@@ -21,18 +20,17 @@ fun StudyResult.toDTO(): StudyResultDTO {
         fileUrl = this.fileUrl!!,
         interpretation = this.interpretation!!,
         type = this.type!!.name
-
     )
 }
 
-fun StudyResultDTO.fromJSON(studyResultDTO: StudyResultDTO, medicalHistory: MedicalHistory): StudyResult {
-    val studyResult = StudyResult()
-    studyResult.id = studyResultDTO.id
-    studyResult.medicalHistory = medicalHistory
-    studyResult.date = studyResultDTO.date.let { LocalDate.parse(it) }
-    studyResult.fileUrl = studyResultDTO.fileUrl
-    studyResult.interpretation = studyResultDTO.interpretation
-    studyResult.type = TypeOfStudyResult.valueOf(studyResultDTO.type)
-
-    return studyResult
+fun StudyResultDTO.fromJSON(medicalHistoryCurrent: MedicalHistory): StudyResult {
+    val studyResultDTO = this
+    return StudyResult().apply {
+        id = studyResultDTO.id
+        medicalHistory = medicalHistoryCurrent
+        date = LocalDate.parse(studyResultDTO.date.toString())
+        fileUrl = studyResultDTO.fileUrl
+        interpretation = studyResultDTO.interpretation
+        type = TypeOfStudyResult.valueOf(studyResultDTO.type.toString())
+    }
 }

@@ -11,8 +11,10 @@ import ar.edu.unsam.proyecto.vetappbackend.service.user.*
 @CrossOrigin("*")
 @RequestMapping("/vet")
 class VetController {
-    @Autowired
-    private lateinit var vetService: VetService
+
+    @Autowired private lateinit var vetService: VetService
+
+    @Autowired private lateinit var userDataService: UserDataService
 
     @GetMapping("/get-all")
     fun getAll(): List<VetDTO> {
@@ -26,12 +28,14 @@ class VetController {
 
     @PostMapping("/create-vet")
     fun create(@RequestBody vetDTO: VetDTO) {
-        this.vetService.create(vetDTO.fromJSON(vetDTO))
+        val userData: UserData = this.userDataService.getOneById(vetDTO.idUserData)
+        this.vetService.create(vetDTO.fromJSON(userData))
     }
 
     @PutMapping("update-vet")
     fun update(@RequestBody vetDTO: VetDTO) {
-         vetService.update(vetDTO.fromJSON(vetDTO))
+        val userData: UserData = this.userDataService.getOneById(vetDTO.idUserData)
+        this.vetService.update(vetDTO.fromJSON(userData))
     }
 
     @DeleteMapping("delete-vet")
@@ -47,13 +51,13 @@ class VetController {
 
     @PostMapping("/get-all-pets-by-filter-vet")
     fun getAllByFilterPet(@RequestBody filterPetDTO: FilterPetDTO, @RequestParam vetId: Int): List<PetDTO> {
-        val filterPet: FilterPet = filterPetDTO.fromJSON(filterPetDTO)
+        val filterPet: FilterPet = filterPetDTO.fromJSON()
         return vetService.getAllPetsFilter(filterPet, vetId).map { it.toDTO() }
     }
 
     @PostMapping("/get-all-medical-shift-by-filter-vet")
     fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam vetId: Int): List<MedicalShiftResponseDTO> {
-        val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON(medicalShiftFilterDTO,)
+        val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON()
         return vetService.getAllMedicalShiftFilter(medicalShiftFilter, vetId).map { it.toDTO() }
     }
 

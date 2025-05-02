@@ -20,6 +20,6 @@ class PetOwner {
     var telephone: String = ""
 
     @OneToOne(cascade = [(CascadeType.MERGE)]) @JoinColumn(name = "id_user_data", unique = true)
-    var userData: UserData? = null
+    lateinit var userData: UserData
 
 }

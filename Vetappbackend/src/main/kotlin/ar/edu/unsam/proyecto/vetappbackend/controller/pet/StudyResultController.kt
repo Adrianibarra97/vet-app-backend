@@ -27,13 +27,13 @@ class StudyResultController {
     @PostMapping("/create")
     fun create(@RequestBody newStudyResultDTO: StudyResultDTO) {
         val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newStudyResultDTO.medicalHistoryId)
-        this.studyResultService.create(newStudyResultDTO.fromJSON(newStudyResultDTO,medicalHistory))
+        this.studyResultService.create(newStudyResultDTO.fromJSON(medicalHistory))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody newStudyResultDTO: StudyResultDTO) {
         val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newStudyResultDTO.medicalHistoryId)
-        val studyResult: StudyResult = newStudyResultDTO.fromJSON(newStudyResultDTO, medicalHistory)
+        val studyResult: StudyResult = newStudyResultDTO.fromJSON(medicalHistory)
         studyResultService.update(studyResult)
     }
 

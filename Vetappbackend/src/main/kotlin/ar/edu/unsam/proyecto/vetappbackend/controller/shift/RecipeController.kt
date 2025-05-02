@@ -27,13 +27,13 @@ class RecipeController {
     @PostMapping("/create")
     fun create(@RequestBody newRecipeDTO: RecipeDTO) {
         val medicalShift: MedicalShift = medicalShiftService.getOneById(newRecipeDTO.medicalShiftId)
-        this.recipeService.create(newRecipeDTO.fromJSON(newRecipeDTO,medicalShift))
+        this.recipeService.create(newRecipeDTO.fromJSON(medicalShift))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody newRecipeDTO: RecipeDTO) {
         val medicalShift: MedicalShift = medicalShiftService.getOneById(newRecipeDTO.medicalShiftId)
-        val recipe: Recipe = newRecipeDTO.fromJSON(newRecipeDTO,medicalShift)
+        val recipe: Recipe = newRecipeDTO.fromJSON(medicalShift)
         recipeService.update(recipe)
     }
 

@@ -14,8 +14,6 @@ data class VaccineDTO(
     val type: String
 )
 
-
-
 fun Vaccine.toDTO(): VaccineDTO {
     return VaccineDTO(
         id = this.id!!,
@@ -29,16 +27,15 @@ fun Vaccine.toDTO(): VaccineDTO {
     )
 }
 
-fun VaccineDTO.fromJSON(vaccineDTO: VaccineDTO, medicalHistory: MedicalHistory): Vaccine {
-    val vaccine = Vaccine()
-    vaccine.id = vaccineDTO.id
-    vaccine.medicalHistory = medicalHistory
-    vaccine.applicationDate = vaccineDTO.applicationDate.let { LocalDate.parse(it) }
-    vaccine.expirationDate = vaccineDTO.expirationDate.let { LocalDate.parse(it) }
-    vaccine.description = vaccineDTO.description
-    vaccine.batchNumber = vaccineDTO.batchNumber
-    vaccine.completed = vaccineDTO.completed
-    vaccine.type = TypeOfVaccine.valueOf(vaccineDTO.type)
-
-    return vaccine
+fun VaccineDTO.fromJSON(medicalHistory: MedicalHistory): Vaccine {
+    return Vaccine().apply {
+        this.id = id
+        this.medicalHistory = medicalHistory
+        this.applicationDate = LocalDate.parse(applicationDate.toString())
+        this.expirationDate = LocalDate.parse(expirationDate.toString())
+        this.description = description
+        this.batchNumber = batchNumber
+        this.completed = completed
+        this.type = TypeOfVaccine.valueOf(type.toString())
+    }
 }

@@ -1,5 +1,4 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
-
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import java.time.LocalDate
 
@@ -22,18 +21,18 @@ fun PreExistenceDisease.toDTO(): PreExistenceDiseaseDTO {
         diagnosisDate = this.diagnosisDate.toString(),
         severity = this.severity!!.name,
         type = this.type!!.name
-
     )
 }
 
-fun PreExistenceDiseaseDTO.fromJSON(preExistenceDiseaseDTO: PreExistenceDiseaseDTO, medicalHistory: MedicalHistory): PreExistenceDisease {
-    val preExistenceDisease = PreExistenceDisease()
-    preExistenceDisease.id = preExistenceDiseaseDTO.id
-    preExistenceDisease.medicalHistory = medicalHistory
-    preExistenceDisease.isActive = preExistenceDiseaseDTO.isActive
-    preExistenceDisease.observation = preExistenceDiseaseDTO.observation
-    preExistenceDisease.diagnosisDate = preExistenceDiseaseDTO.diagnosisDate.let { LocalDate.parse(it) }
-    preExistenceDisease.severity = TypeOfSeverity.valueOf(preExistenceDiseaseDTO.severity)
-    preExistenceDisease.type = TypeOfPreExistinceDisease.valueOf(preExistenceDiseaseDTO.type)
-    return preExistenceDisease
+fun PreExistenceDiseaseDTO.fromJSON(medicalHistoryCurrent: MedicalHistory): PreExistenceDisease {
+    val preExistenceDiseaseDTO = this
+    return PreExistenceDisease().apply {
+        medicalHistory = medicalHistoryCurrent
+        id = preExistenceDiseaseDTO.id
+        isActive = preExistenceDiseaseDTO.isActive
+        observation = preExistenceDiseaseDTO.observation
+        diagnosisDate = LocalDate.parse(preExistenceDiseaseDTO.diagnosisDate.toString())
+        severity = TypeOfSeverity.valueOf(preExistenceDiseaseDTO.severity.toString())
+        type = TypeOfPreExistinceDisease.valueOf(preExistenceDiseaseDTO.type.toString())
+    }
 }

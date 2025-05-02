@@ -9,6 +9,7 @@ import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
 @CrossOrigin("*")
 @RequestMapping("/pet")
 class PetController {
+
     @Autowired private lateinit var petService: PetService
 
     @GetMapping("/get-all")
@@ -18,12 +19,12 @@ class PetController {
 
     @PostMapping("/create")
     fun create(@RequestBody newPetDTO: PetDTO) {
-      this.petService.create(newPetDTO.fromJSON(newPetDTO))
+      this.petService.create(newPetDTO.fromJSON())
     }
 
     @PutMapping("/update")
     fun update(@RequestBody newPetDTO: PetDTO) {
-        this.petService.update(newPetDTO.fromJSON(newPetDTO))
+        this.petService.update(newPetDTO.fromJSON())
     }
 
     @DeleteMapping("delete")

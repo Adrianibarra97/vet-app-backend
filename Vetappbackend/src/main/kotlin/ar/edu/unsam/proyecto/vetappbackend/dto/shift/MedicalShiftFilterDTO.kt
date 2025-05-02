@@ -15,14 +15,16 @@ class MedicalShiftFilter {
     var endingOfWeek: LocalDate? = null
 }
 
-fun MedicalShiftFilterDTO.fromJSON(medicalShiftFilterDTO: MedicalShiftFilterDTO): MedicalShiftFilter {
-    val medicalShiftFilter = MedicalShiftFilter()
-    medicalShiftFilter.day = convertDate(medicalShiftFilterDTO.day)
-    medicalShiftFilter.today = convertToday(medicalShiftFilterDTO.today)
-    medicalShiftFilter.beginningOfWeek = convertBeginningOfWeek(medicalShiftFilterDTO.thisWeek)
-    medicalShiftFilter.endingOfWeek = convertEndingOfWeek(medicalShiftFilterDTO.thisWeek)
-    return medicalShiftFilter
+fun MedicalShiftFilterDTO.fromJSON(): MedicalShiftFilter {
+    val medicalShiftFilterDTO = this
+    return MedicalShiftFilter().apply {
+        day = convertDate(medicalShiftFilterDTO.day.toString())
+        today = convertToday(medicalShiftFilterDTO.today as Boolean)
+        beginningOfWeek = convertBeginningOfWeek(medicalShiftFilterDTO.thisWeek)
+        endingOfWeek = convertEndingOfWeek(medicalShiftFilterDTO.thisWeek)
+    }
 }
+
 
 private fun convertDate(day: String?): LocalDate? {
     return day?.takeIf { it.isNotBlank() }?.let { LocalDate.parse(it) }
