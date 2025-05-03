@@ -1,7 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
-import ar.edu.unsam.proyecto.vetappbackend.repository.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.PreExistenceDisease
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
@@ -15,8 +14,6 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.shift.RecipeRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.UserDataRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
-import jakarta.persistence.EntityManager
-import org.apache.catalina.User
 
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -147,22 +144,22 @@ class VetappBackendBoostrap: InitializingBean {
         userData1 = UserData().apply {
             password = "1234"
             username = "Eche"
-            typeOfUser = TypeOfUser.PET_OWNER
+            typeOfUser = TypeOfUser.PETOWNER
         }
         userData2 = UserData().apply {
             password = "1234"
             username = "Caro"
-            typeOfUser = TypeOfUser.PET_OWNER
+            typeOfUser = TypeOfUser.PETOWNER
         }
         userData3 = UserData().apply {
             password = "1234"
             username = "Tami"
-            typeOfUser = TypeOfUser.PET_OWNER
+            typeOfUser = TypeOfUser.PETOWNER
         }
         userData4 = UserData().apply {
             password = "1234"
             username = "LuckR"
-            typeOfUser = TypeOfUser.PET_OWNER
+            typeOfUser = TypeOfUser.PETOWNER
         }
         userData5 = UserData().apply {
             password = "123"
