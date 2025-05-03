@@ -32,7 +32,7 @@ interface PetRepository : CrudRepository<Pet, Int>{
 
 
     @Query("""
-    SELECT DISTINCT v
+    SELECT DISTINCT p
     FROM Pet p JOIN p.vets v
         LEFT JOIN MedicalHistory mh ON mh.pet.id = p.id  
         LEFT JOIN MedicalShift ms ON ms.pet.id = p.id AND ms.vet.id = v.id
