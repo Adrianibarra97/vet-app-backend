@@ -9,11 +9,10 @@ class Recipe {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "id_medical_shift")
+    var description: String = ""
+
+    @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_medical_shift")
     @OnDelete(action = OnDeleteAction.CASCADE)
     var medicalShift: MedicalShift? = null
-
-    var description: String = ""
 
 }

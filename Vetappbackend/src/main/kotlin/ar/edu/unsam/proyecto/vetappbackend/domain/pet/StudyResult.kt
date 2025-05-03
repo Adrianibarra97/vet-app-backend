@@ -1,8 +1,8 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.pet
+import java.time.LocalDate
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-import java.time.LocalDate
 
 @Entity
 @Table(name = "study_result")
@@ -20,9 +20,9 @@ class StudyResult {
 
     var interpretation: String? = null
 
-    @Enumerated(EnumType.STRING)
+    @Column(nullable = false) @Enumerated(EnumType.STRING)
     var type: TypeOfStudyResult? = null
 
 }
 
-enum class TypeOfStudyResult { PHYSIOLOGICAL, PHARMACOLOGICAL, GENETIC, PATHOLOGICAL, CLINICAL }
+enum class TypeOfStudyResult { PHYSIOLOGICAL, PHARMACOLOGICAL, GENETIC, PATHOLOGICAL, CLINICAL, OTHER }

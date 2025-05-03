@@ -1,16 +1,25 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.user
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import jakarta.persistence.*
-import org.hibernate.annotations.OnDelete
-import org.hibernate.annotations.OnDeleteAction
 
 @Entity
-class PetOwner : UserData() {
+class PetOwner {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Int? = null
+
+    var name: String = ""
+
+    var surname: String = ""
+
     var dni: Int = 0
+
     var email: String = ""
-    var telephone: String = ""
+
     var address: String = ""
 
-    @OneToMany(mappedBy = "petOwner", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var pets: MutableSet<Pet> = mutableSetOf()
+    var telephone: String = ""
+
+    @OneToOne(cascade = [(CascadeType.MERGE)]) @JoinColumn(name = "id_user_data", unique = true)
+    lateinit var userData: UserData
+
 }
