@@ -25,6 +25,11 @@ class MedicalShiftController {
         return this.medicalShiftService.getAll().map { it.toDTO() }
     }
 
+    @GetMapping("/get-one-by-id")
+    fun getOneById(@RequestParam idMedicalShift: Int): MedicalShiftResponseDTO {
+        return this.medicalShiftService.getOneById(idMedicalShift).toDTO()
+    }
+
     @PostMapping("/create")
     fun create(@RequestBody newMedicalShiftRequestDTO: MedicalShiftRequestDTO) {
         val vet: Vet = vetService.getOneById(newMedicalShiftRequestDTO.vetId)
