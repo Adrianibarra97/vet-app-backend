@@ -145,32 +145,32 @@ class VetappBackendBoostrap: InitializingBean {
 
     fun createUserData(){
         userData1 = UserData().apply {
-            password = "admin"
+            password = "1234"
             username = "Eche"
             typeOfUser = TypeOfUser.PET_OWNER
         }
         userData2 = UserData().apply {
-            password = "admin"
+            password = "1234"
             username = "Caro"
             typeOfUser = TypeOfUser.PET_OWNER
         }
         userData3 = UserData().apply {
-            password = "admin"
+            password = "1234"
             username = "Tami"
             typeOfUser = TypeOfUser.PET_OWNER
         }
         userData4 = UserData().apply {
-            password = "admin"
+            password = "1234"
             username = "LuckR"
             typeOfUser = TypeOfUser.PET_OWNER
         }
         userData5 = UserData().apply {
-            password = "admin"
+            password = "123"
             username = "LuckC"
             typeOfUser = TypeOfUser.VET
         }
         userData6 = UserData().apply {
-            password = "admin"
+            password = "123"
             username = "Adrian"
             typeOfUser = TypeOfUser.VET
         }

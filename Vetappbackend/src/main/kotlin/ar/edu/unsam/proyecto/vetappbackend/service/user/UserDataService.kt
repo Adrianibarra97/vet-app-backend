@@ -23,12 +23,12 @@ class UserDataService : BaseService<UserData> {
         return this.userDataRepository.findAll().toList()
     }
 
-    override fun create(userData: UserData) {
-        this.userDataRepository.save(userData)
+    override fun create(newUserData: UserData) {
+        this.userDataRepository.save(newUserData)
     }
 
-    override fun delete(userData: UserData) {
-        this.userDataRepository.delete(userData)
+    override fun delete(userDataDelete: UserData) {
+        this.userDataRepository.delete(userDataDelete)
     }
 
     override fun update(userDataUpdate: UserData) {

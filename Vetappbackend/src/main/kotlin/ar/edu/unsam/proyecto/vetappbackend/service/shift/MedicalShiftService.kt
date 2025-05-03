@@ -13,9 +13,9 @@ class MedicalShiftService: BaseService<MedicalShift> {
 
     @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
 
-    override fun getOneById(medicalShiftId: Int): MedicalShift {
-        return this.medicalShiftRepository.findById(medicalShiftId).orElseThrow {
-            NotFoundException("No se encontró el turno indicado: $medicalShiftId")
+    override fun getOneById(idMedicalShift: Int): MedicalShift {
+        return this.medicalShiftRepository.findById(idMedicalShift).orElseThrow {
+            NotFoundException("No se encontró el turno indicado: $idMedicalShift")
         }
     }
 
@@ -46,9 +46,9 @@ class MedicalShiftService: BaseService<MedicalShift> {
         )
     }
 
-    fun getMedicalShiftFilterPetOwner(medicalShiftFilter: MedicalShiftFilter, petOwerId: Int): List<MedicalShift> {
+    fun getMedicalShiftFilterPetOwner(medicalShiftFilter: MedicalShiftFilter, idPetOwer: Int): List<MedicalShift> {
         return medicalShiftRepository.getAllByFilterMedicalShiftPetOwner(
-            petOwerId,
+            idPetOwer,
             medicalShiftFilter.day,
             medicalShiftFilter.today,
             medicalShiftFilter.beginningOfWeek,

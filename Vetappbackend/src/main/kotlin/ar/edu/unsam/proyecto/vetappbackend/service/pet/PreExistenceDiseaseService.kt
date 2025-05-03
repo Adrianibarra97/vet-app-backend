@@ -12,9 +12,9 @@ class PreExistenceDiseaseService: BaseService<PreExistenceDisease> {
 
     @Autowired lateinit var preExistenceDiseaseRepository: PreExistenceDiseaseRepository
 
-    override fun getOneById(preExistenceDiseaseId: Int): PreExistenceDisease {
-        return this.preExistenceDiseaseRepository.findById(preExistenceDiseaseId).orElseThrow {
-            NotFoundException("No se encontró la enfermedad indicada: $preExistenceDiseaseId")
+    override fun getOneById(idPreExistenceDisease: Int): PreExistenceDisease {
+        return this.preExistenceDiseaseRepository.findById(idPreExistenceDisease).orElseThrow {
+            NotFoundException("No se encontró la enfermedad indicada: $idPreExistenceDisease")
         }
     }
 
@@ -22,12 +22,12 @@ class PreExistenceDiseaseService: BaseService<PreExistenceDisease> {
         return this.preExistenceDiseaseRepository.findAll().toList()
     }
 
-    override fun create(preExistenceDisease: PreExistenceDisease) {
-        this.preExistenceDiseaseRepository.save(preExistenceDisease)
+    override fun create(newPreExistenceDisease: PreExistenceDisease) {
+        this.preExistenceDiseaseRepository.save(newPreExistenceDisease)
     }
 
-    override fun delete(preExistenceDisease: PreExistenceDisease) {
-        return this.preExistenceDiseaseRepository.delete(preExistenceDisease)
+    override fun delete(preExistenceDiseaseDelete: PreExistenceDisease) {
+        return this.preExistenceDiseaseRepository.delete(preExistenceDiseaseDelete)
     }
 
     override fun update(preExistenceDiseaseUpdate: PreExistenceDisease) {

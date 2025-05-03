@@ -24,7 +24,7 @@ class VetService: BaseService<Vet> {
     @Autowired lateinit var vetRepository: VetRepository
 
     override fun getOneById(idVet: Int): Vet {
-        return this.vetRepository.findByUserDataId(idVet).orElseThrow {
+        return this.vetRepository.findById(idVet).orElseThrow {
             NotFoundException("No se encontró al veterinario indicado: $idVet")
         }
     }
@@ -37,6 +37,7 @@ class VetService: BaseService<Vet> {
         this.vetRepository.save(newVet)
     }
 
+    @Transactional
     override fun delete(vetDelete: Vet) {
         this.vetRepository.delete(vetDelete)
     }
@@ -48,18 +49,24 @@ class VetService: BaseService<Vet> {
     }
 
     fun getAllPets(idVet: Int): List<Pet> {
-        val vet: Vet = this.getOneById(idVet)
+        val vet: Vet = this.findByUserDataId(idVet)
         return this.vetRepository.findAllPetsByVetId(vet.id!!)
     }
 
-    fun getAllPetsFilter(filterPet: FilterPet, vetId: Int): List<Pet> {
-        val vet: Vet = this.getOneById(vetId)
+    fun getAllPetsFilter(filterPet: FilterPet, idVet: Int): List<Pet> {
+        val vet: Vet = this.findByUserDataId(idVet)
         return petService.getThisVetsPetFilter(filterPet, vet.id!!)
     }
 
-    fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, vetId: Int): List<MedicalShift> {
-        val vet: Vet = this.getOneById(vetId)
+    fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, idVet: Int): List<MedicalShift> {
+        val vet: Vet = this.findByUserDataId(idVet)
         return this.medicalShiftService.getMedicalShiftFilterVet(medicalShiftFilter, vet.id!!)
+    }
+
+    fun findByUserDataId(idUserData: Int): Vet {
+        return this.vetRepository.findByUserDataId(idUserData).orElseThrow {
+            NotFoundException("No se encontró los datos del usuario: $idUserData")
+        }
     }
 
 }

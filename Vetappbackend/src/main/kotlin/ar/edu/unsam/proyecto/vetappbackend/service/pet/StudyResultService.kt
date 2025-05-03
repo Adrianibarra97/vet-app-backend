@@ -12,9 +12,9 @@ class StudyResultService: BaseService<StudyResult> {
 
     @Autowired lateinit var studyResultRepository: StudyResultRepository
 
-    override fun getOneById(studyResultId: Int): StudyResult {
-        return this.studyResultRepository.findById(studyResultId).orElseThrow {
-            NotFoundException("No se encontró el estudio indicado: $studyResultId")
+    override fun getOneById(idStudyResult: Int): StudyResult {
+        return this.studyResultRepository.findById(idStudyResult).orElseThrow {
+            NotFoundException("No se encontró el estudio indicado: $idStudyResult")
         }
     }
 
@@ -26,8 +26,8 @@ class StudyResultService: BaseService<StudyResult> {
         this.studyResultRepository.save(newStudyResult)
     }
 
-    override fun delete(studyResult: StudyResult) {
-        this.studyResultRepository.delete(studyResult)
+    override fun delete(studyResultDelete: StudyResult) {
+        this.studyResultRepository.delete(studyResultDelete)
     }
 
     override fun update(studyResultUpdate: StudyResult) {

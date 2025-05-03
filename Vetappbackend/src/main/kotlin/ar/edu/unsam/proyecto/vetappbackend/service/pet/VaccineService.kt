@@ -12,9 +12,9 @@ class VaccineService: BaseService<Vaccine> {
 
     @Autowired lateinit var vacinneRepository: VaccineRepository
 
-    override fun getOneById(vacinneId: Int): Vaccine {
-        return this.vacinneRepository.findById(vacinneId).orElseThrow {
-            NotFoundException("No se encontró la vacuna indicado: $vacinneId")
+    override fun getOneById(idVacinne: Int): Vaccine {
+        return this.vacinneRepository.findById(idVacinne).orElseThrow {
+            NotFoundException("No se encontró la vacuna indicado: $idVacinne")
         }
     }
 
@@ -26,8 +26,8 @@ class VaccineService: BaseService<Vaccine> {
         this.vacinneRepository.save(newVaccine)
     }
 
-    override fun delete(vaccine: Vaccine) {
-        return this.vacinneRepository.delete(vaccine)
+    override fun delete(vaccineDelete: Vaccine) {
+        return this.vacinneRepository.delete(vaccineDelete)
     }
 
     override fun update(vaccineUpdate: Vaccine) {

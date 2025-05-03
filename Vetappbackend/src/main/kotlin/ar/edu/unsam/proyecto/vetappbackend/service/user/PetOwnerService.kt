@@ -28,7 +28,7 @@ class PetOwnerService : BaseService<PetOwner> {
     @Autowired lateinit var petOwnerRepository: PetOwnerRepository
 
     override fun getOneById(idPetOwner: Int): PetOwner {
-        return this.petOwnerRepository.findByUserDataId(idPetOwner).orElseThrow {
+        return this.petOwnerRepository.findById(idPetOwner).orElseThrow {
             NotFoundException("No se encontró al petOwner indicado: $idPetOwner")
         }
     }
@@ -46,23 +46,30 @@ class PetOwnerService : BaseService<PetOwner> {
     }
 
     override fun update(petOwnerUpdate: PetOwner) {
+        findByUserDataId(petOwnerUpdate.userData.id!!)
         getOneById(petOwnerUpdate.id!!)
         this.petOwnerRepository.save(petOwnerUpdate)
     }
 
     fun getAllPets(idPetOwner: Int): List<Pet> {
-        val petOwner: PetOwner = this.getOneById(idPetOwner)
+        val petOwner: PetOwner = this.findByUserDataId(idPetOwner)
         return this.petService.getAllThisOwnersPet(petOwner.id!!)
     }
 
-    fun getAllPetsFilter(filterPet: FilterPet, petOwnerId: Int): List<Pet> {
-        val petOwner: PetOwner = this.getOneById(petOwnerId)
+    fun getAllPetsFilter(filterPet: FilterPet, idPetOwner: Int): List<Pet> {
+        val petOwner: PetOwner = this.findByUserDataId(idPetOwner)
         return this.petService.getThisOwnersPetFilter(filterPet, petOwner.id!!)
     }
 
-    fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, petOwnerId: Int): List<MedicalShift> {
-        val petOwner: PetOwner = this.getOneById(petOwnerId)
+    fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, idPetOwner: Int): List<MedicalShift> {
+        val petOwner: PetOwner = this.findByUserDataId(idPetOwner)
         return this.medicalShiftService.getMedicalShiftFilterPetOwner(medicalShiftFilter, petOwner.id!!)
+    }
+
+    fun findByUserDataId(idUserData: Int): PetOwner {
+        return this.petOwnerRepository.findByUserDataId(idUserData).orElseThrow {
+            NotFoundException("No se encontró los datos del usuario: $idUserData")
+        }
     }
 
 }

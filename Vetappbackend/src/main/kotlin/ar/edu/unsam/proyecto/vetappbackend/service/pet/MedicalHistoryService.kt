@@ -12,9 +12,9 @@ class MedicalHistoryService: BaseService<MedicalHistory> {
 
     @Autowired lateinit var medicalHistoryRepository: MedicalHistoryRepository
 
-    override fun getOneById(medicalHistoryId: Int): MedicalHistory {
-        return this.medicalHistoryRepository.findById(medicalHistoryId).orElseThrow {
-            NotFoundException("No se encontró el historial médico indicado: $medicalHistoryId")
+    override fun getOneById(idMedicalHistory: Int): MedicalHistory {
+        return this.medicalHistoryRepository.findById(idMedicalHistory).orElseThrow {
+            NotFoundException("No se encontró el historial médico indicado: $idMedicalHistory")
         }
     }
 
@@ -22,12 +22,12 @@ class MedicalHistoryService: BaseService<MedicalHistory> {
         return this.medicalHistoryRepository.findAll().toList()
     }
 
-    override fun create(medicalHistory: MedicalHistory) {
-        this.medicalHistoryRepository.save(medicalHistory)
+    override fun create(newMedicalHistory: MedicalHistory) {
+        this.medicalHistoryRepository.save(newMedicalHistory)
     }
 
-    override fun delete(medicalHistory: MedicalHistory) {
-        this.medicalHistoryRepository.delete(medicalHistory)
+    override fun delete(medicalHistoryDelete: MedicalHistory) {
+        this.medicalHistoryRepository.delete(medicalHistoryDelete)
     }
 
     override fun update(medicalHistoryUpdate: MedicalHistory) {

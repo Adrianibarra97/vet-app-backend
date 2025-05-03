@@ -28,17 +28,17 @@ class UserDataController {
         return this.userDataService.getOneById(idUserData).toDTO()
     }
 
-    @PostMapping("/create-vet")
+    @PostMapping("/create")
     fun create(@RequestBody userDataDTO: UserDataDTO) {
         this.userDataService.create(userDataDTO.fromJSON())
     }
 
-    @PutMapping("update-vet")
+    @PutMapping("update")
     fun update(@RequestBody userDataDTO: UserDataDTO) {
         this.userDataService.update(userDataDTO.fromJSON())
     }
 
-    @DeleteMapping("delete-vet")
+    @DeleteMapping("delete")
     fun delete(@RequestParam idUserData: Int) {
         val vetForUserData: UserData = this.userDataService.getOneById(idUserData)
         this.userDataService.delete(vetForUserData)

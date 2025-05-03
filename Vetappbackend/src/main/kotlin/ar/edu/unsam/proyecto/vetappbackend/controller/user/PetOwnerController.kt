@@ -22,8 +22,8 @@ class PetOwnerController {
     }
 
     @GetMapping("/get-one-by-id")
-    fun getOneById(idPet: Int): PetOwnerDTO {
-        return this.petOwnerService.getOneById(idPet).toDTO()
+    fun getOneById(idPetOwner: Int): PetOwnerDTO {
+        return this.petOwnerService.findByUserDataId(idPetOwner).toDTO()
     }
 
     @PostMapping("/create")
@@ -40,7 +40,7 @@ class PetOwnerController {
 
     @DeleteMapping("/delete")
     fun delete(@RequestParam idPetOwner: Int) {
-        val petOwnerForDelete: PetOwner = this.petOwnerService.getOneById(idPetOwner)
+        val petOwnerForDelete: PetOwner = this.petOwnerService.findByUserDataId(idPetOwner)
         this.petOwnerService.delete(petOwnerForDelete)
     }
 
@@ -55,10 +55,10 @@ class PetOwnerController {
         return petOwnerService.getAllPetsFilter(filterPet, idPetOwner).map { it.toDTO() }
     }
 
-    @PostMapping("/get-all-medical-shift-by-filter-pet-owner")
-    fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam petOwnerId: Int): List<MedicalShiftResponseDTO> {
+    @PostMapping("/get-all-medical-shift-by-filter")
+    fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam idPetOwner: Int): List<MedicalShiftResponseDTO> {
         val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON()
-        return petOwnerService.getAllMedicalShiftFilter(medicalShiftFilter, petOwnerId).map { it.toDTO() }
+        return petOwnerService.getAllMedicalShiftFilter(medicalShiftFilter, idPetOwner).map { it.toDTO() }
     }
 
 }

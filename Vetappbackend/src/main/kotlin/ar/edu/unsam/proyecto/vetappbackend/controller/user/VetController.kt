@@ -23,24 +23,24 @@ class VetController {
 
     @GetMapping("/get-one-by-id")
     fun getOneById(@RequestParam idVet: Int): VetDTO {
-        return this.vetService.getOneById(idVet).toDTO()
+        return this.vetService.findByUserDataId(idVet).toDTO()
     }
 
-    @PostMapping("/create-vet")
+    @PostMapping("/create")
     fun create(@RequestBody vetDTO: VetDTO) {
         val userData: UserData = this.userDataService.getOneById(vetDTO.idUserData)
         this.vetService.create(vetDTO.fromJSON(userData))
     }
 
-    @PutMapping("update-vet")
+    @PutMapping("/update")
     fun update(@RequestBody vetDTO: VetDTO) {
         val userData: UserData = this.userDataService.getOneById(vetDTO.idUserData)
         this.vetService.update(vetDTO.fromJSON(userData))
     }
 
-    @DeleteMapping("delete-vet")
-    fun delete(@RequestParam id: Int) {
-        val vetForDelete: Vet = this.vetService.getOneById(id)
+    @DeleteMapping("/delete")
+    fun delete(@RequestParam idVet: Int) {
+        val vetForDelete: Vet = this.vetService.findByUserDataId(idVet)
         this.vetService.delete(vetForDelete)
     }
 
@@ -50,15 +50,15 @@ class VetController {
     }
 
     @PostMapping("/get-all-pets-by-filter-vet")
-    fun getAllByFilterPet(@RequestBody filterPetDTO: FilterPetDTO, @RequestParam vetId: Int): List<PetDTO> {
+    fun getAllByFilterPet(@RequestBody filterPetDTO: FilterPetDTO, @RequestParam idVet: Int): List<PetDTO> {
         val filterPet: FilterPet = filterPetDTO.fromJSON()
-        return vetService.getAllPetsFilter(filterPet, vetId).map { it.toDTO() }
+        return vetService.getAllPetsFilter(filterPet, idVet).map { it.toDTO() }
     }
 
     @PostMapping("/get-all-medical-shift-by-filter-vet")
-    fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam vetId: Int): List<MedicalShiftResponseDTO> {
+    fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam idVet: Int): List<MedicalShiftResponseDTO> {
         val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON()
-        return vetService.getAllMedicalShiftFilter(medicalShiftFilter, vetId).map { it.toDTO() }
+        return vetService.getAllMedicalShiftFilter(medicalShiftFilter, idVet).map { it.toDTO() }
     }
 
 }

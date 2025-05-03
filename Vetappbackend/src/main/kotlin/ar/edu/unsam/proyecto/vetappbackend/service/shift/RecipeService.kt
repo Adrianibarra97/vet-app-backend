@@ -12,9 +12,9 @@ class RecipeService: BaseService<Recipe> {
 
     @Autowired lateinit var recipeRepository: RecipeRepository
 
-    override fun getOneById(recipeId: Int): Recipe {
-        return this.recipeRepository.findById(recipeId).orElseThrow {
-            NotFoundException("No se encontró la receta indicada: $recipeId")
+    override fun getOneById(idRecipe: Int): Recipe {
+        return this.recipeRepository.findById(idRecipe).orElseThrow {
+            NotFoundException("No se encontró la receta indicada: $idRecipe")
         }
     }
 
@@ -22,12 +22,12 @@ class RecipeService: BaseService<Recipe> {
         return this.recipeRepository.findAll().toList()
     }
 
-    override fun create(recipe: Recipe) {
-        this.recipeRepository.save(recipe)
+    override fun create(newRecipe: Recipe) {
+        this.recipeRepository.save(newRecipe)
     }
 
-    override fun delete(recipe: Recipe) {
-        this.recipeRepository.delete(recipe)
+    override fun delete(recipeDelete: Recipe) {
+        this.recipeRepository.delete(recipeDelete)
     }
 
     override fun update(recipeUpdate: Recipe) {

@@ -2,7 +2,7 @@ package ar.edu.unsam.proyecto.vetappbackend.dto.user
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 
 data class PetOwnerDTO (
-    var id: Int?,
+    var id: Int,
     var name: String,
     var surname: String,
     var dni: Int,
