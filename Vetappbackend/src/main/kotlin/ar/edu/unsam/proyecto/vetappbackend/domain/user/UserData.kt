@@ -18,4 +18,4 @@ class UserData {
 
 }
 
-enum class TypeOfUser { VET, PET_OWNER }
+enum class TypeOfUser { VET, PETOWNER }
