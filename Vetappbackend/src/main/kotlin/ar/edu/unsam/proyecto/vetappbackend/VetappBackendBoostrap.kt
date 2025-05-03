@@ -249,7 +249,7 @@ class VetappBackendBoostrap: InitializingBean {
             vets = mutableSetOf(adrian)
             age = 9
             name = "Nala"
-            photo = "assets/nala.jpg"
+            photo = "/src/assets/nala.jfif"
             breed = "Mestizo"
             weight = 17.0
             birth = LocalDate.of(2015, 10, 15)
@@ -262,7 +262,7 @@ class VetappBackendBoostrap: InitializingBean {
             vets = mutableSetOf(adrian)
             age = 4
             name = "Oli"
-            photo = "assets/oli.jpeg"
+            photo = "/src/assets/oli.jfif"
             breed = "Mestizo"
             weight = 14.0
             birth = LocalDate.of(2021, 2, 20)
@@ -275,7 +275,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = caroline
             age = 13
             name = "Owie"
-            photo = "assets/owie.jpg"
+            photo = "/src/assets/owie.jfif"
             breed = "Mestizo"
             weight = 15.0
             birth = LocalDate.of(2012, 2, 19)
@@ -288,7 +288,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = ezequiel
             age = 5
             name = "Rocky"
-            photo = "assets/rocky.jpg"
+            photo = "/src/assets/rocky.jfif"
             breed = "Mestizo"
             weight = 25.0
             birth = LocalDate.of(2020, 7, 2)
@@ -301,7 +301,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = caroline
             age = 5
             name = "Pipi"
-            photo = "assets/pipi.jpg"
+            photo = "/src/assets/pipi.jfif"
             breed = "Torcaza"
             weight = 0.119
             sterilized = false
@@ -314,7 +314,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = lucasRdz
             age = 14
             name = "Morena"
-            photo = "assets/morena.jpg"
+            photo = "/src/assets/morena.jfif"
             breed = "Mestizo"
             weight = 15.0
             birth = LocalDate.of(2011, 5, 20)
@@ -327,7 +327,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = caroline
             age = 4
             name = "Mileva"
-            photo = "assets/mileva.jpg"
+            photo = "/src/assets/mileva.jfif"
             breed = "Mestizo"
             weight = 2.9
             birth = LocalDate.of(2020, 9, 26)
@@ -340,7 +340,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = tamara
             age = 9
             name = "Napoleón"
-            photo = "assets/napoleon.jpg"
+            photo = "/src/assets/napoleon.jfif"
             breed = "Mestizo"
             weight = 6.0
             birth = LocalDate.of(2015, 9, 11)
@@ -353,7 +353,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = tamara
             age = 8
             name = "Burpee"
-            photo = "assets/burpee.jpg"
+            photo = "/src/assets/burpee.jfif"
             breed = "Sharpei"
             weight = 19.0
             birth = LocalDate.of(2016, 10, 1)
@@ -366,7 +366,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = tamara
             age = 5
             name = "Freya"
-            photo = "assets/freya.jpg"
+            photo = "/src/assets/freya.jfif"
             breed = "Mestizo"
             weight = 5.0
             birth = LocalDate.of(2019, 10, 30)
@@ -379,7 +379,7 @@ class VetappBackendBoostrap: InitializingBean {
             petOwner = tamara
             age = 5
             name = "Cleopatra"
-            photo = "assets/cleopatra.jpg"
+            photo = "/src/assets/cleopatra.jfif"
             breed = "Mestizo"
             weight = 4.0
             birth = LocalDate.of(2019, 10, 30)
