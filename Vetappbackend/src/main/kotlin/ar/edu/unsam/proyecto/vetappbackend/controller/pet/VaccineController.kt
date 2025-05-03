@@ -20,8 +20,8 @@ class VaccineController {
     }
 
     @GetMapping("/get-one-by-id")
-    fun getOneById(@RequestParam vaccineId: Int): VaccineDTO {
-        return this.vaccineService.getOneById(vaccineId).toDTO()
+    fun getOneById(@RequestParam idVaccine: Int): VaccineDTO {
+        return this.vaccineService.getOneById(idVaccine).toDTO()
     }
 
     @PostMapping("/create")

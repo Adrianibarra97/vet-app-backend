@@ -17,6 +17,11 @@ class PetController {
         return this.petService.getAll().map { it.toDTO() }
     }
 
+    @GetMapping("/get-one-by-id")
+    fun getOneById(@RequestParam idPet: Int): PetDTO {
+        return this.petService.getOneById(idPet).toDTO()
+    }
+
     @PostMapping("/create")
     fun create(@RequestBody newPetDTO: PetDTO) {
       this.petService.create(newPetDTO.fromJSON())

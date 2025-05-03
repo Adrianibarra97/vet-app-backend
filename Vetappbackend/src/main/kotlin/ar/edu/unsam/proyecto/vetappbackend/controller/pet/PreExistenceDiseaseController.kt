@@ -20,8 +20,8 @@ class PreExistenceDiseaseController {
     }
 
     @GetMapping("/get-one-by-id")
-    fun getOneById(@RequestParam preexistenceDiseaseId: Int): PreExistenceDiseaseDTO {
-        return this.preExistenceDiseaseService.getOneById(preexistenceDiseaseId).toDTO()
+    fun getOneById(@RequestParam idPreExistenceDisease: Int): PreExistenceDiseaseDTO {
+        return this.preExistenceDiseaseService.getOneById(idPreExistenceDisease).toDTO()
     }
 
     @PostMapping("/create")
@@ -39,8 +39,8 @@ class PreExistenceDiseaseController {
     }
 
     @DeleteMapping("/delete")
-    fun delete(@RequestParam preExistenceDiseaseId: Int) {
-        val preExistenceDiseaseForDelete: PreExistenceDisease = this.preExistenceDiseaseService.getOneById(preExistenceDiseaseId)
+    fun delete(@RequestParam idPreExistenceDisease: Int) {
+        val preExistenceDiseaseForDelete: PreExistenceDisease = this.preExistenceDiseaseService.getOneById(idPreExistenceDisease)
         this.preExistenceDiseaseService.delete(preExistenceDiseaseForDelete)
     }
 
