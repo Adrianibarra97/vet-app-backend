@@ -23,6 +23,8 @@ class Pet {
 
     var birth: LocalDate? = null
 
+    var sterilized: Boolean = false
+
     @Enumerated(EnumType.STRING)
     var sex: TypeOfSex? = null
 

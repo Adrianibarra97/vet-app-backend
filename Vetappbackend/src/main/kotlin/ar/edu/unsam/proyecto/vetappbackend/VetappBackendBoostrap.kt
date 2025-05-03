@@ -253,6 +253,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 17.0
             birth = LocalDate.of(2015, 10, 15)
+            sterilized = true
             sex = TypeOfSex.FEMALE
             specie = TypeOfSpecie.DOG
         }
@@ -265,6 +266,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 14.0
             birth = LocalDate.of(2021, 2, 20)
+            sterilized = true
             sex = TypeOfSex.MALE
             specie = TypeOfSpecie.DOG
         }
@@ -277,6 +279,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 15.0
             birth = LocalDate.of(2012, 2, 19)
+            sterilized = true
             sex = TypeOfSex.MALE
             specie = TypeOfSpecie.DOG
         }
@@ -289,6 +292,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 25.0
             birth = LocalDate.of(2020, 7, 2)
+            sterilized = false
             sex = TypeOfSex.MALE
             specie = TypeOfSpecie.DOG
         }
@@ -300,6 +304,7 @@ class VetappBackendBoostrap: InitializingBean {
             photo = "assets/pipi.jpg"
             breed = "Torcaza"
             weight = 0.119
+            sterilized = false
             birth = LocalDate.of(2020, 1, 1)
             sex = TypeOfSex.FEMALE
             specie = TypeOfSpecie.BIRD
@@ -313,6 +318,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 15.0
             birth = LocalDate.of(2011, 5, 20)
+            sterilized = false
             sex = TypeOfSex.FEMALE
             specie = TypeOfSpecie.DOG
         }
@@ -325,6 +331,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 2.9
             birth = LocalDate.of(2020, 9, 26)
+            sterilized = true
             sex = TypeOfSex.FEMALE
             specie = TypeOfSpecie.CAT
         }
@@ -337,6 +344,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 6.0
             birth = LocalDate.of(2015, 9, 11)
+            sterilized = false
             sex = TypeOfSex.MALE
             specie = TypeOfSpecie.CAT
         }
@@ -349,6 +357,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Sharpei"
             weight = 19.0
             birth = LocalDate.of(2016, 10, 1)
+            sterilized = false
             sex = TypeOfSex.MALE
             specie = TypeOfSpecie.DOG
         }
@@ -361,6 +370,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 5.0
             birth = LocalDate.of(2019, 10, 30)
+            sterilized = false
             sex = TypeOfSex.FEMALE
             specie = TypeOfSpecie.CAT
         }
@@ -373,6 +383,7 @@ class VetappBackendBoostrap: InitializingBean {
             breed = "Mestizo"
             weight = 4.0
             birth = LocalDate.of(2019, 10, 30)
+            sterilized = true
             sex = TypeOfSex.FEMALE
             specie = TypeOfSpecie.CAT
         }
