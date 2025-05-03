@@ -49,13 +49,13 @@ class VetController {
         return this.vetService.getAllPets(idVet).map { it.toDTO() }
     }
 
-    @PostMapping("/get-all-pets-by-filter-vet")
+    @PostMapping("/get-all-pets-by-filter")
     fun getAllByFilterPet(@RequestBody filterPetDTO: FilterPetDTO, @RequestParam idVet: Int): List<PetDTO> {
         val filterPet: FilterPet = filterPetDTO.fromJSON()
         return vetService.getAllPetsFilter(filterPet, idVet).map { it.toDTO() }
     }
 
-    @PostMapping("/get-all-medical-shift-by-filter-vet")
+    @PostMapping("/get-all-medical-shift-by-filter")
     fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam idVet: Int): List<MedicalShiftResponseDTO> {
         val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON()
         return vetService.getAllMedicalShiftFilter(medicalShiftFilter, idVet).map { it.toDTO() }
