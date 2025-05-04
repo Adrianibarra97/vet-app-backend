@@ -1,25 +1,16 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.user
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import jakarta.persistence.*
+import java.time.LocalDate
 
 @Entity
-class PetOwner {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
-
-    var name: String = ""
-
-    var surname: String = ""
+class PetOwner: UserData() {
 
     var dni: Int = 0
 
-    var email: String = ""
+    var age: Int = 0
 
-    var address: String = ""
+    var petCount: Int = 0
 
-    var telephone: String = ""
-
-    @OneToOne(cascade = [(CascadeType.MERGE)]) @JoinColumn(name = "id_user_data", unique = true)
-    lateinit var userData: UserData
+    var birthdate: LocalDate? = null
 
 }

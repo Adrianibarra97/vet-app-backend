@@ -41,6 +41,6 @@ class Pet {
 
 }
 
-enum class TypeOfSex { MALE, FEMALE }
+enum class TypeOfSex { Macho, Hembra }
 
 enum class TypeOfSpecie{ CAT, DOG, BIRD, FISH, FARM, RODENT, REPTILE, HORSE, OTHER }

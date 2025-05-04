@@ -14,7 +14,7 @@ class VetController {
 
     @Autowired private lateinit var vetService: VetService
 
-    @Autowired private lateinit var userDataService: UserDataService
+    @Autowired private lateinit var authCredentialsService: AuthCredentialsService
 
     @GetMapping("/get-all")
     fun getAll(): List<VetDTO> {
@@ -28,14 +28,14 @@ class VetController {
 
     @PostMapping("/create")
     fun create(@RequestBody vetDTO: VetDTO) {
-        val userData: UserData = this.userDataService.getOneById(vetDTO.idUserData)
-        this.vetService.create(vetDTO.fromJSON(userData))
+        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(vetDTO.idUserData)
+        this.vetService.create(vetDTO.fromJSON(authCredentials))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody vetDTO: VetDTO) {
-        val userData: UserData = this.userDataService.getOneById(vetDTO.idUserData)
-        this.vetService.update(vetDTO.fromJSON(userData))
+        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(vetDTO.idUserData)
+        this.vetService.update(vetDTO.fromJSON(authCredentials))
     }
 
     @DeleteMapping("/delete")

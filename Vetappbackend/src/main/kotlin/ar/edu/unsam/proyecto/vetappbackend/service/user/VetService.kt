@@ -64,7 +64,7 @@ class VetService: BaseService<Vet> {
     }
 
     fun findByUserDataId(idUserData: Int): Vet {
-        return this.vetRepository.findByUserDataId(idUserData).orElseThrow {
+        return this.vetRepository.findByAuthCredentialsId(idUserData).orElseThrow {
             NotFoundException("No se encontró los datos del usuario: $idUserData")
         }
     }

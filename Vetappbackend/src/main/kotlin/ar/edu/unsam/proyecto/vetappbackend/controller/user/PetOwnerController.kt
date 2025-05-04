@@ -14,7 +14,7 @@ class PetOwnerController {
 
     @Autowired private lateinit var petOwnerService: PetOwnerService
 
-    @Autowired private lateinit var userDataService: UserDataService
+    @Autowired private lateinit var authCredentialsService: AuthCredentialsService
 
     @GetMapping("/get-all")
     fun getAll(): List<PetOwnerDTO> {
@@ -28,14 +28,14 @@ class PetOwnerController {
 
     @PostMapping("/create")
     fun create(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val userData: UserData = this.userDataService.getOneById(petOwnerDTO.idUserData)
-        this.petOwnerService.create(petOwnerDTO.fromJSON(userData))
+        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(petOwnerDTO.idUserData)
+        this.petOwnerService.create(petOwnerDTO.fromJSON(authCredentials))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val userData: UserData = this.userDataService.getOneById(petOwnerDTO.idUserData)
-        this.petOwnerService.update(petOwnerDTO.fromJSON(userData))
+        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(petOwnerDTO.idUserData)
+        this.petOwnerService.update(petOwnerDTO.fromJSON(authCredentials))
     }
 
     @DeleteMapping("/delete")

@@ -1,21 +1,26 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.user
+
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "user_data")
-class UserData {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Inheritance(strategy = InheritanceType.JOINED)
+abstract class UserData {
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Int? = null
 
-    @Column(nullable = false)
-    var password: String = ""
+    var name: String = ""
 
-    @Column(unique = true, nullable = false)
-    var username: String = ""
+    var surname: String = ""
 
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
-    lateinit var typeOfUser: TypeOfUser
+    var email: String = ""
+
+    var address: String = ""
+
+    var telephone: String = ""
+
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "auth_credentials_id", nullable = false, unique = true)
+    lateinit var authCredentials: AuthCredentials
 
 }
-
-enum class TypeOfUser { VET, PETOWNER }

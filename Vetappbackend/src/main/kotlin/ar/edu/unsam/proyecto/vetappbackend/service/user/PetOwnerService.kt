@@ -46,7 +46,7 @@ class PetOwnerService : BaseService<PetOwner> {
     }
 
     override fun update(petOwnerUpdate: PetOwner) {
-        findByUserDataId(petOwnerUpdate.userData.id!!)
+        findByUserDataId(petOwnerUpdate.authCredentials.id!!)
         getOneById(petOwnerUpdate.id!!)
         this.petOwnerRepository.save(petOwnerUpdate)
     }
@@ -67,7 +67,7 @@ class PetOwnerService : BaseService<PetOwner> {
     }
 
     fun findByUserDataId(idUserData: Int): PetOwner {
-        return this.petOwnerRepository.findByUserDataId(idUserData).orElseThrow {
+        return this.petOwnerRepository.findByAuthCredentialsId(idUserData).orElseThrow {
             NotFoundException("No se encontró los datos del usuario: $idUserData")
         }
     }

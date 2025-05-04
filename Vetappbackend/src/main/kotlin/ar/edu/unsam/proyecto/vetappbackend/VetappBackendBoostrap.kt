@@ -12,7 +12,7 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.pet.VaccineRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.shift.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.shift.RecipeRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
-import ar.edu.unsam.proyecto.vetappbackend.repository.user.UserDataRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.user.AuthCredentialsRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
 
 import org.springframework.beans.factory.InitializingBean
@@ -23,7 +23,7 @@ import java.time.*
 @Service
 class VetappBackendBoostrap: InitializingBean {
 
-    @Autowired lateinit var userDataRepository: UserDataRepository
+    @Autowired lateinit var authCredentialsRepository: AuthCredentialsRepository
 
     @Autowired lateinit var  petOwnerRepository: PetOwnerRepository
 
@@ -46,12 +46,12 @@ class VetappBackendBoostrap: InitializingBean {
     @Autowired lateinit var recipeRepository: RecipeRepository
 
 
-    lateinit var userData1: UserData
-    lateinit var userData2: UserData
-    lateinit var userData3: UserData
-    lateinit var userData4: UserData
-    lateinit var userData5: UserData
-    lateinit var userData6: UserData
+    lateinit var authCredentials1: AuthCredentials
+    lateinit var authCredentials2: AuthCredentials
+    lateinit var authCredentials3: AuthCredentials
+    lateinit var authCredentials4: AuthCredentials
+    lateinit var authCredentials5: AuthCredentials
+    lateinit var authCredentials6: AuthCredentials
 
     lateinit var ezequiel: PetOwner
     lateinit var caroline: PetOwner
@@ -140,77 +140,93 @@ class VetappBackendBoostrap: InitializingBean {
 
 
 
-    fun createUserData(){
-        userData1 = UserData().apply {
+    fun createAuthCredentials(){
+        authCredentials1 = AuthCredentials().apply {
             password = "1234"
             username = "Eche"
             typeOfUser = TypeOfUser.PETOWNER
         }
-        userData2 = UserData().apply {
+        authCredentials2 = AuthCredentials().apply {
             password = "1234"
             username = "Caro"
             typeOfUser = TypeOfUser.PETOWNER
         }
-        userData3 = UserData().apply {
+        authCredentials3 = AuthCredentials().apply {
             password = "1234"
             username = "Tami"
             typeOfUser = TypeOfUser.PETOWNER
         }
-        userData4 = UserData().apply {
+        authCredentials4 = AuthCredentials().apply {
             password = "1234"
             username = "LuckR"
             typeOfUser = TypeOfUser.PETOWNER
         }
-        userData5 = UserData().apply {
+        authCredentials5 = AuthCredentials().apply {
             password = "123"
             username = "LuckC"
             typeOfUser = TypeOfUser.VET
         }
-        userData6 = UserData().apply {
+        authCredentials6 = AuthCredentials().apply {
             password = "123"
             username = "Adrian"
             typeOfUser = TypeOfUser.VET
         }
-        var allUserData: List<UserData> = listOf(userData1, userData2, userData3, userData4, userData5, userData6)
-        userDataRepository.saveAll(allUserData)
+        var allAuthCredentials: List<AuthCredentials> = listOf(authCredentials1, authCredentials2, authCredentials3, authCredentials4, authCredentials5, authCredentials6)
+        //authCredentialsRepository.saveAll(allAuthCredentials)
     }
 
     fun createPetOwner() {
         ezequiel = PetOwner().apply {
-            this.userData = userData1
+            this.authCredentials = authCredentials1
             this.name = "Ezequiel"
             this.surname = "Iozzia"
-            this.dni = 36594529
             this.email = "eze.iozzia@gmail.com"
-            this.telephone = "4534-2234"
             this.address = "Olazabal 2243"
+            this.telephone = "4534-2234"
+
+            this.dni = 36594529
+            this.age = 32
+            this.petCount = 2
+            this.birthdate = LocalDate.of(1993, 2, 5)
         }
         caroline = PetOwner().apply {
-            this.userData = userData2
+            this.authCredentials = authCredentials2
             this.name = "Caroline"
             this.surname = "Coronel"
-            this.dni = 40567890
             this.email = "caro.coronel@gmail.com"
-            this.telephone = "4834-2234"
             this.address = "Centenario 2243"
+            this.telephone = "4834-2234"
+
+            this.dni = 40567890
+            this.age = 32
+            this.petCount = 2
+            this.birthdate = LocalDate.of(1993, 9, 5)
         }
         tamara = PetOwner().apply {
-            this.userData = userData3
+            this.authCredentials = authCredentials3
             this.name = "Tamara"
             this.surname = "Mecozzi"
-            this.dni = 37567890
             this.email = "tam.mecozzi@gmail.com"
-            this.telephone = "4739-2234"
             this.address = "Moreno 2243"
+            this.telephone = "4739-2234"
+
+            this.dni = 37567890
+            this.age = 34
+            this.petCount = 7
+            this.birthdate = LocalDate.of(1991, 4, 5)
         }
         lucasRdz = PetOwner().apply {
-            this.userData = userData4
+            this.authCredentials = authCredentials4
             this.name = "Lucas"
             this.surname = "Rodriguez"
-            this.dni = 37567890
             this.email = "lucas.rodriguez@gmail.com"
-            this.telephone = "4739-2234"
             this.address = "9 de Julio 7589"
+            this.telephone = "4739-2234"
+
+            this.dni = 44567890
+            this.age = 22
+            this.petCount = 1
+            this.birthdate = LocalDate.of(1991, 6, 8)
         }
         var allPetOwner: List<PetOwner> = listOf(ezequiel, caroline, tamara, lucasRdz)
         this.petOwnerRepository.saveAll(allPetOwner)
@@ -218,26 +234,34 @@ class VetappBackendBoostrap: InitializingBean {
 
     fun createVet() {
         lucasCjs = Vet().apply {
-            this.userData = userData5
+            this.authCredentials = authCredentials5
             this.name = "Lucas"
             this.surname = "Cejas"
+            this.email = "lucas.cejas@gmail.com"
+            this.address = "Eva Pero 5730"
+            this.telephone = "4739-2234"
+
             this.licence = "1869591337"
             this.speciality = "surgery"
             this.businessHours = "7 a 24 hs"
             this.professionalEmail = "lucas-vetapp@gmail.com"
             this.professionalAdress = "25 de Mayo 7898"
-            this.professionalTelephone = "412344445"
+            this.professionalTelephone = "15-6959-1337"
         }
         adrian = Vet().apply {
-            this.userData = userData6
+            this.authCredentials = authCredentials6
             this.name = "Adrian"
             this.surname = "Ibarra"
+            this.email = "adrian.ibarra@gmail.com"
+            this.address = "Avenida Libertador 5789"
+            this.telephone = "4739-1337"
+
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
             this.professionalEmail = "adri-vetapp@gmail.com"
             this.professionalAdress = "Monroe 1243"
-            this.professionalTelephone = "412344445"
+            this.professionalTelephone = "15-8159-1457"
         }
         var allVet: List<Vet> = listOf(adrian, lucasCjs)
         vetRepository.saveAll(allVet)
@@ -254,7 +278,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 17.0
             birth = LocalDate.of(2015, 10, 15)
             sterilized = true
-            sex = TypeOfSex.FEMALE
+            sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.DOG
         }
         oli = Pet().apply {
@@ -267,7 +291,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 14.0
             birth = LocalDate.of(2021, 2, 20)
             sterilized = true
-            sex = TypeOfSex.MALE
+            sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
         }
         owie = Pet().apply {
@@ -280,7 +304,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 15.0
             birth = LocalDate.of(2012, 2, 19)
             sterilized = true
-            sex = TypeOfSex.MALE
+            sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
         }
         rocky = Pet().apply {
@@ -293,7 +317,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 25.0
             birth = LocalDate.of(2020, 7, 2)
             sterilized = false
-            sex = TypeOfSex.MALE
+            sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
         }
         pipi = Pet().apply {
@@ -306,7 +330,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 0.119
             sterilized = false
             birth = LocalDate.of(2020, 1, 1)
-            sex = TypeOfSex.FEMALE
+            sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.BIRD
         }
         morena = Pet().apply {
@@ -319,7 +343,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 15.0
             birth = LocalDate.of(2011, 5, 20)
             sterilized = false
-            sex = TypeOfSex.FEMALE
+            sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.DOG
         }
         mileva = Pet().apply {
@@ -332,7 +356,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 2.9
             birth = LocalDate.of(2020, 9, 26)
             sterilized = true
-            sex = TypeOfSex.FEMALE
+            sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.CAT
         }
         napoleon = Pet().apply {
@@ -345,7 +369,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 6.0
             birth = LocalDate.of(2015, 9, 11)
             sterilized = false
-            sex = TypeOfSex.MALE
+            sex = TypeOfSex.Macho
             specie = TypeOfSpecie.CAT
         }
         burpee = Pet().apply {
@@ -358,7 +382,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 19.0
             birth = LocalDate.of(2016, 10, 1)
             sterilized = false
-            sex = TypeOfSex.MALE
+            sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
         }
         freya = Pet().apply {
@@ -371,7 +395,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 5.0
             birth = LocalDate.of(2019, 10, 30)
             sterilized = false
-            sex = TypeOfSex.FEMALE
+            sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.CAT
         }
         cleopatra = Pet().apply {
@@ -384,7 +408,7 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 4.0
             birth = LocalDate.of(2019, 10, 30)
             sterilized = true
-            sex = TypeOfSex.FEMALE
+            sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.CAT
         }
         val allPets = listOf(
@@ -862,7 +886,7 @@ class VetappBackendBoostrap: InitializingBean {
     }
 
     override fun afterPropertiesSet() {
-        this.createUserData()
+        this.createAuthCredentials()
         this.createPetOwner()
         this.createVet()
 
