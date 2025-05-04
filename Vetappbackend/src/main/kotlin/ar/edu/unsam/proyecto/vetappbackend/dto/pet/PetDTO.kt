@@ -47,3 +47,15 @@ fun PetDTO.fromJSON(): Pet {
         specie = TypeOfSpecie.valueOf(petDTO.specie.toString())
     }
 }
+
+class PetMedicalShiftDTO(
+    val id: Int,
+    val name: String
+)
+
+fun Pet.toPetMedicalShiftDTO(): PetMedicalShiftDTO {
+    return PetMedicalShiftDTO(
+        id = this.id!!,
+        name = this.name
+    )
+}
