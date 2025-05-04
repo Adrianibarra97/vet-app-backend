@@ -183,7 +183,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "eze.iozzia@gmail.com"
             this.address = "Olazabal 2243"
             this.telephone = "4534-2234"
-
+            this.photo = "........"
             this.dni = 36594529
             this.age = 32
             this.petCount = 2
@@ -196,7 +196,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "caro.coronel@gmail.com"
             this.address = "Centenario 2243"
             this.telephone = "4834-2234"
-
+            this.photo = "........"
             this.dni = 40567890
             this.age = 32
             this.petCount = 2
@@ -209,7 +209,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "tam.mecozzi@gmail.com"
             this.address = "Moreno 2243"
             this.telephone = "4739-2234"
-
+            this.photo = "........"
             this.dni = 37567890
             this.age = 34
             this.petCount = 7
@@ -222,7 +222,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "lucas.rodriguez@gmail.com"
             this.address = "9 de Julio 7589"
             this.telephone = "4739-2234"
-
+            this.photo = "........"
             this.dni = 44567890
             this.age = 22
             this.petCount = 1
@@ -240,7 +240,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "lucas.cejas@gmail.com"
             this.address = "Eva Pero 5730"
             this.telephone = "4739-2234"
-
+            this.photo = "........"
             this.licence = "1869591337"
             this.speciality = "surgery"
             this.businessHours = "7 a 24 hs"
@@ -255,7 +255,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.email = "adrian.ibarra@gmail.com"
             this.address = "Avenida Libertador 5789"
             this.telephone = "4739-1337"
-
+            this.photo = "........"
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"

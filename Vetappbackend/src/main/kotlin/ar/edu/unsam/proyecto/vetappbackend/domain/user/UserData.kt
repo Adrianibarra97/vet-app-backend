@@ -19,6 +19,8 @@ abstract class UserData {
 
     var telephone: String = ""
 
+    var photo: String = ""
+
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "auth_credentials_id", nullable = false, unique = true)
     lateinit var authCredentials: AuthCredentials

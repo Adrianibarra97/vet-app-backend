@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 data class PetOwnerDTO (
     val id: Int,
-    val idUserData: Int,
+    val idAuthCredentials: Int,
     val name: String,
     val surname: String,
     val email: String,
@@ -19,7 +19,7 @@ data class PetOwnerDTO (
 fun PetOwner.toDTO(): PetOwnerDTO {
     return PetOwnerDTO(
         id = this.id!!,
-        idUserData = this.authCredentials.id!!,
+        idAuthCredentials = this.authCredentials.id!!,
         name = this.name,
         surname = this.surname,
         email = this.email,

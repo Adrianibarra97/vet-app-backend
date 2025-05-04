@@ -28,13 +28,13 @@ class VetController {
 
     @PostMapping("/create")
     fun create(@RequestBody vetDTO: VetDTO) {
-        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(vetDTO.idUserData)
+        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(vetDTO.idAuthCredentials)
         this.vetService.create(vetDTO.fromJSON(authCredentials))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody vetDTO: VetDTO) {
-        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(vetDTO.idUserData)
+        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(vetDTO.idAuthCredentials)
         this.vetService.update(vetDTO.fromJSON(authCredentials))
     }
 

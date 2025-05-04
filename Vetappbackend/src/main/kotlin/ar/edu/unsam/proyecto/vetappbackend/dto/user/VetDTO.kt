@@ -15,14 +15,14 @@ data class VetDTO (
     val professionalEmail: String,
     val professionalAdress: String,
     val professionalTelephone: String,
-    val idUserData: Int
+    val idAuthCredentials: Int
 )
 
 
 fun Vet.toDTO(): VetDTO {
     return VetDTO(
         id = this.id!!,
-        idUserData = this.authCredentials.id!!,
+        idAuthCredentials = this.authCredentials.id!!,
         name = this.name,
         surname = this.surname,
         email = this.email,
