@@ -23,27 +23,35 @@ import java.time.*
 @Service
 class VetappBackendBoostrap: InitializingBean {
 
-    @Autowired lateinit var authCredentialsRepository: AuthCredentialsRepository
+    @Autowired
+    lateinit var authCredentialsRepository: AuthCredentialsRepository
 
-    @Autowired lateinit var  petOwnerRepository: PetOwnerRepository
+    @Autowired
+    lateinit var petOwnerRepository: PetOwnerRepository
 
-    @Autowired lateinit var vetRepository: VetRepository
+    @Autowired
+    lateinit var vetRepository: VetRepository
 
+    @Autowired
+    lateinit var petRepository: PetRepository
 
-    @Autowired lateinit var petRepository: PetRepository
+    @Autowired
+    lateinit var medicalHistoryRepository: MedicalHistoryRepository
 
-    @Autowired lateinit var medicalHistoryRepository: MedicalHistoryRepository
+    @Autowired
+    lateinit var preExistenceDiseaseRepository: PreExistenceDiseaseRepository
 
-    @Autowired lateinit var preExistenceDiseaseRepository: PreExistenceDiseaseRepository
+    @Autowired
+    lateinit var studyResultRepository: StudyResultRepository
 
-    @Autowired lateinit var studyResultRepository: StudyResultRepository
+    @Autowired
+    lateinit var vaccineRepository: VaccineRepository
 
-    @Autowired lateinit var vaccineRepository: VaccineRepository
+    @Autowired
+    lateinit var medicalShiftRepository: MedicalShiftRepository
 
-
-    @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
-
-    @Autowired lateinit var recipeRepository: RecipeRepository
+    @Autowired
+    lateinit var recipeRepository: RecipeRepository
 
 
     lateinit var authCredentials1: AuthCredentials
@@ -139,8 +147,7 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var recipeNapoleon: Recipe
 
 
-
-    fun createAuthCredentials(){
+    fun createAuthCredentials() {
         authCredentials1 = AuthCredentials().apply {
             password = "1234"
             username = "Eche"
@@ -171,7 +178,14 @@ class VetappBackendBoostrap: InitializingBean {
             username = "Adrian"
             typeOfUser = TypeOfUser.VET
         }
-        var allAuthCredentials: List<AuthCredentials> = listOf(authCredentials1, authCredentials2, authCredentials3, authCredentials4, authCredentials5, authCredentials6)
+        var allAuthCredentials: List<AuthCredentials> = listOf(
+            authCredentials1,
+            authCredentials2,
+            authCredentials3,
+            authCredentials4,
+            authCredentials5,
+            authCredentials6
+        )
         //authCredentialsRepository.saveAll(allAuthCredentials)
     }
 
