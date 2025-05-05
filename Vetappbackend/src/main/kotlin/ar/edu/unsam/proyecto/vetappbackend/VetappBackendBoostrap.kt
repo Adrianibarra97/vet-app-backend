@@ -180,18 +180,24 @@ class VetappBackendBoostrap: InitializingBean {
             this.userData = userData1
             this.name = "Ezequiel"
             this.surname = "Iozzia"
+            this.username ="Eze"
             this.dni = 36594529
             this.email = "eze.iozzia@gmail.com"
-            this.telephone = "4534-2234"
+            this.photo = "/src/assets/eche.jfif"
+            this.telephone = "1145342234"
+            this.landline = "43235665"
             this.address = "Olazabal 2243"
         }
         caroline = PetOwner().apply {
             this.userData = userData2
             this.name = "Caroline"
             this.surname = "Coronel"
+            this.username = "Caro"
             this.dni = 40567890
             this.email = "caro.coronel@gmail.com"
-            this.telephone = "4834-2234"
+            this.photo = "/src/assets/caro.jfif"
+            this.landline = "44124574"
+            this.telephone = "1165854545"
             this.address = "Centenario 2243"
         }
         tamara = PetOwner().apply {
@@ -200,16 +206,22 @@ class VetappBackendBoostrap: InitializingBean {
             this.surname = "Mecozzi"
             this.dni = 37567890
             this.email = "tam.mecozzi@gmail.com"
-            this.telephone = "4739-2234"
+            this.photo = "/src/assets/tam.jfif"
+            this.landline = "45746585"
+            this.telephone = "1147392234"
+            this.username = "Tami"
             this.address = "Moreno 2243"
         }
         lucasRdz = PetOwner().apply {
             this.userData = userData4
             this.name = "Lucas"
             this.surname = "Rodriguez"
+            this.username ="LuckR"
             this.dni = 37567890
             this.email = "lucas.rodriguez@gmail.com"
-            this.telephone = "4739-2234"
+            this.photo = "/src/assets/LuckR.jfif"
+            this.landline = "47543456"
+            this.telephone = "1122445577"
             this.address = "9 de Julio 7589"
         }
         var allPetOwner: List<PetOwner> = listOf(ezequiel, caroline, tamara, lucasRdz)

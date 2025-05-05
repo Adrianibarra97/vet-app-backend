@@ -8,9 +8,13 @@ data class PetOwnerDTO (
     var dni: Int,
     var email: String,
     var telephone: String,
+    var username: String,
+    var landline: String,
     var address: String,
-    var idUserData: Int
-)
+    var idUserData: Int,
+    val photo: String
+
+    )
 
 fun PetOwner.toDTO(): PetOwnerDTO {
     return PetOwnerDTO(
@@ -21,7 +25,10 @@ fun PetOwner.toDTO(): PetOwnerDTO {
         email = this.email,
         telephone = this.telephone,
         address = this.address,
-        idUserData = this.userData.id!!
+        idUserData = this.userData.id!!,
+        username = this.username,
+        landline = this.landline,
+        photo =  this.photo
     )
 }
 
@@ -36,5 +43,8 @@ fun PetOwnerDTO.fromJSON(userDataCurrent: UserData): PetOwner {
         telephone = petOwnerDTO.telephone
         address = petOwnerDTO.address
         userData = userDataCurrent
+        landline = petOwnerDTO.landline
+        username = petOwnerDTO.username
+        photo = petOwnerDTO.photo
     }
 }
