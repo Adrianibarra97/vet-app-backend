@@ -254,7 +254,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.businessHours = "7 a 24 hs"
             this.professionalEmail = "lucas-vetapp@gmail.com"
             this.professionalAdress = "25 de Mayo 7898"
-            this.professionalTelephone = "15-6959-1337"
+            this.professionalTelephone = "1569591337"
         }
         adrian = Vet().apply {
             this.authCredentials = authCredentials6
@@ -269,7 +269,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.businessHours = "7 a 14 hs"
             this.professionalEmail = "adri-vetapp@gmail.com"
             this.professionalAdress = "Monroe 1243"
-            this.professionalTelephone = "15-8159-1457"
+            this.professionalTelephone = "1581591457"
         }
         var allVet: List<Vet> = listOf(adrian, lucasCjs)
         vetRepository.saveAll(allVet)
