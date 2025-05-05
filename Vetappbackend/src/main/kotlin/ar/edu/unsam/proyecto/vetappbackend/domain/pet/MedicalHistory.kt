@@ -7,10 +7,11 @@ import java.time.LocalDate
 @Entity
 @Table(name = "medical_history")
 class MedicalHistory {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
-    var summary: String? = null
+    var summary: String = ""
 
     var created_at: LocalDate? = null
 

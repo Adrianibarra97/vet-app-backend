@@ -17,8 +17,8 @@ fun StudyResult.toDTO(): StudyResultDTO {
         id = this.id!!,
         medicalHistoryId = this.medicalHistory?.id!!,
         date = this.date.toString(),
-        fileUrl = this.fileUrl!!,
-        interpretation = this.interpretation!!,
+        fileUrl = this.fileUrl,
+        interpretation = this.interpretation,
         type = this.type!!.name
     )
 }

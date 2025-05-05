@@ -1,30 +1,24 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
 
-class FilterPet {
-    var name: String? = null
-    var hasMedicalShift: Boolean? = null
-    var hasPendingVaccine: Boolean? = null
-}
+import java.time.LocalDate
 
-data class FilterPetDTO(
+data class FilterPet (
+    val name: String? = null,
+    val hasMedicalShift: Boolean? = null,
+    val hasPendingVaccine: Boolean? = null
+)
+
+data class FilterPetDTO (
     val name: String?,
     val hasMedicalShift: Boolean?,
     val hasPendingVaccine: Boolean?
 )
 
-fun FilterPet.toJSON(): FilterPetDTO {
-    return FilterPetDTO(
-        name = this.name.toString(),
-        hasMedicalShift = this.hasMedicalShift,
-        hasPendingVaccine = this.hasPendingVaccine
-    )
-}
-
 fun FilterPetDTO.fromJSON(): FilterPet {
     val filterPetDTO = this
-    return FilterPet().apply {
-        name = filterPetDTO.name.toString()
-        hasMedicalShift = filterPetDTO.hasMedicalShift
+    return FilterPet(
+        name = filterPetDTO.name?.takeIf { it.isNotBlank() },
+        hasMedicalShift = filterPetDTO.hasMedicalShift,
         hasPendingVaccine = filterPetDTO.hasPendingVaccine
-    }
+    )
 }

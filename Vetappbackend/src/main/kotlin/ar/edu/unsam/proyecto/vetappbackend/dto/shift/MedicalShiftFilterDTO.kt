@@ -1,43 +1,30 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.shift
-import java.time.DayOfWeek
-import java.time.LocalDate
+import java.time.*
 
-data class MedicalShiftFilterDTO(
+data class MedicalShiftFilter (
+    val day: LocalDate? = null,
+    val today: LocalDate? = null,
+    val beginningOfWeek: LocalDate? = null,
+    val endingOfWeek: LocalDate? = null
+)
+
+data class MedicalShiftFilterDTO (
     val day: String?,
     val today: Boolean?,
     val thisWeek: Boolean?
 )
 
-class MedicalShiftFilter {
-    var day: LocalDate? = null
-    var today: LocalDate? = null
-    var beginningOfWeek: LocalDate? = null
-    var endingOfWeek: LocalDate? = null
-}
-
 fun MedicalShiftFilterDTO.fromJSON(): MedicalShiftFilter {
     val medicalShiftFilterDTO = this
-    return MedicalShiftFilter().apply {
-        day = convertDate(medicalShiftFilterDTO.day.toString())
-        today = convertToday(medicalShiftFilterDTO.today as Boolean)
-        beginningOfWeek = convertBeginningOfWeek(medicalShiftFilterDTO.thisWeek)
-        endingOfWeek = convertEndingOfWeek(medicalShiftFilterDTO.thisWeek)
-    }
-}
+    val parsedDay = day?.takeIf { it.isNotBlank() }?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+    val todayDate = if (medicalShiftFilterDTO.today == true) LocalDate.now() else null
+    val beginning = if (medicalShiftFilterDTO.thisWeek == true) LocalDate.now().with(DayOfWeek.MONDAY) else null
+    val ending = if (medicalShiftFilterDTO.thisWeek == true) LocalDate.now().with(DayOfWeek.SUNDAY) else null
 
-
-private fun convertDate(day: String?): LocalDate? {
-    return day?.takeIf { it.isNotBlank() }?.let { LocalDate.parse(it) }
-}
-
-private fun convertToday(isToday: Boolean?): LocalDate? {
-    return if (isToday == true) LocalDate.now() else null
-}
-
-private fun convertBeginningOfWeek(isThisWeek: Boolean?): LocalDate? {
-    return if (isThisWeek == true) LocalDate.now().with(DayOfWeek.MONDAY) else null
-}
-
-private fun convertEndingOfWeek(isThisWeek: Boolean?): LocalDate? {
-    return if (isThisWeek == true) LocalDate.now().with(DayOfWeek.SUNDAY) else null
+    return MedicalShiftFilter(
+        day = parsedDay,
+        today = todayDate,
+        beginningOfWeek = beginning,
+        endingOfWeek = ending
+    )
 }

@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction
 @Entity
 @Table(name = "vaccine")
 class Vaccine {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
