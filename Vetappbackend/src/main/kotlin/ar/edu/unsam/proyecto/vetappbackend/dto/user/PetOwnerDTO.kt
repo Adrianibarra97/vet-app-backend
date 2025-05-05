@@ -13,7 +13,10 @@ data class PetOwnerDTO (
     val dni: Int,
     val age: Int,
     val petCount: Int,
-    val birthdate: String
+    val birthdate: String,
+    val username: String,
+    val landline: String
+
 )
 
 fun PetOwner.toDTO(): PetOwnerDTO {
@@ -28,7 +31,9 @@ fun PetOwner.toDTO(): PetOwnerDTO {
         dni = this.dni,
         age = this.age,
         petCount = this.petCount,
-        birthdate = this.birthdate.toString()
+        birthdate = this.birthdate.toString(),
+        username = this.username,
+        landline = this.landline
     )
 }
 

@@ -182,7 +182,9 @@ class VetappBackendBoostrap: InitializingBean {
             this.surname = "Iozzia"
             this.email = "eze.iozzia@gmail.com"
             this.address = "Olazabal 2243"
-            this.telephone = "4534-2234"
+            this.telephone = "1145340000"
+            this.landline = "45342234"
+            this.username = "ezeiozzia"
             this.photo = "........"
             this.dni = 36594529
             this.age = 32
@@ -195,7 +197,9 @@ class VetappBackendBoostrap: InitializingBean {
             this.surname = "Coronel"
             this.email = "caro.coronel@gmail.com"
             this.address = "Centenario 2243"
-            this.telephone = "4834-2234"
+            this.telephone = "1148340000"
+            this.landline = "48342234"
+            this.username = "carocoronel"
             this.photo = "........"
             this.dni = 40567890
             this.age = 32
@@ -208,8 +212,10 @@ class VetappBackendBoostrap: InitializingBean {
             this.surname = "Mecozzi"
             this.email = "tam.mecozzi@gmail.com"
             this.address = "Moreno 2243"
-            this.telephone = "4739-2234"
-            this.photo = "........"
+            this.telephone = "1147390000"
+            this.landline = "47392234"
+            this.username = "Tami"
+            this.photo = "....."
             this.dni = 37567890
             this.age = 34
             this.petCount = 7
@@ -221,7 +227,9 @@ class VetappBackendBoostrap: InitializingBean {
             this.surname = "Rodriguez"
             this.email = "lucas.rodriguez@gmail.com"
             this.address = "9 de Julio 7589"
-            this.telephone = "4739-2234"
+            this.telephone = "1147391111"
+            this.landline = "47392234"
+            this.username = "lucasrodz"
             this.photo = "........"
             this.dni = 44567890
             this.age = 22
