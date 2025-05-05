@@ -29,6 +29,12 @@ class VetService: BaseService<Vet> {
         }
     }
 
+    fun getOneByIdLogin(idVet: Int):Vet{
+        return vetRepository.findByUserDataId(idVet).orElseThrow {
+            NotFoundException("No se encontró al veterinario indicado segun su id login: $idVet")
+        }
+    }
+
     override fun getAll(): List<Vet> {
         return this.vetRepository.findAll().toList()
     }
