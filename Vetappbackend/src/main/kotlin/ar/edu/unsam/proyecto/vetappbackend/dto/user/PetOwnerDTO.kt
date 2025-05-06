@@ -1,40 +1,69 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.user
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import java.time.LocalDate
 
 data class PetOwnerDTO (
-    var id: Int,
-    var name: String,
-    var surname: String,
-    var dni: Int,
-    var email: String,
-    var telephone: String,
-    var address: String,
-    var idUserData: Int
+    val id: Int,
+    val dni: Int,
+    val name: String,
+    val surname: String,
+    val photo: String,
+    val email: String,
+    val address: String,
+    val telephone: String,
+    val country: String,
+    val province: String,
+    val locality: String,
+    val postalCode: String,
+    val emergencyContactName: String,
+    val emergencyContactPhone: String,
+
+    val idAuthCredentials: Int,
+    val username: String,
+    val password: String
 )
 
 fun PetOwner.toDTO(): PetOwnerDTO {
     return PetOwnerDTO(
         id = this.id!!,
+        dni = this.dni,
         name = this.name,
         surname = this.surname,
-        dni = this.dni,
+        photo = this.photo,
         email = this.email,
-        telephone = this.telephone,
         address = this.address,
-        idUserData = this.userData.id!!
+        telephone = this.telephone,
+        country = this.country,
+        province = this.province,
+        locality = this.locality,
+        postalCode = this.postalCode,
+        emergencyContactName = this.emergencyContactName,
+        emergencyContactPhone = this.emergencyContactPhone,
+
+        idAuthCredentials = this.authCredentials.id!!,
+        username = this.authCredentials.username,
+        password = this.authCredentials.password
     )
 }
 
-fun PetOwnerDTO.fromJSON(userDataCurrent: UserData): PetOwner {
+fun PetOwnerDTO.fromJSON(authCredentialsCurrent: AuthCredentials): PetOwner {
     val petOwnerDTO = this
     return PetOwner().apply {
         id = petOwnerDTO.id
+        dni = petOwnerDTO.dni
         name = petOwnerDTO.name
         surname = petOwnerDTO.surname
-        dni = petOwnerDTO.dni
+        photo = petOwnerDTO.photo
         email = petOwnerDTO.email
-        telephone = petOwnerDTO.telephone
         address = petOwnerDTO.address
-        userData = userDataCurrent
+        telephone = petOwnerDTO.telephone
+        country = petOwnerDTO.country
+        province = petOwnerDTO.province
+        locality = petOwnerDTO.locality
+        postalCode = petOwnerDTO.postalCode
+        emergencyContactName = petOwnerDTO.emergencyContactName
+        emergencyContactPhone = petOwnerDTO.emergencyContactPhone
+
+        authCredentials = authCredentialsCurrent
     }
 }

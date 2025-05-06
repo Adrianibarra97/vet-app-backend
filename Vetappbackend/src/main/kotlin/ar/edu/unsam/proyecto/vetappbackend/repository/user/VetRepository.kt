@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository
 
 interface VetRepository : CrudRepository<Vet, Int> {
 
-    fun findByUserDataId(idLogin: Int) : Optional<Vet>
+    fun findByAuthCredentialsId(idLogin: Int) : Optional<Vet>
 
     @Query(""" SELECT p FROM Vet v JOIN v.patients p WHERE v.id = :idVet """)
     fun findAllPetsByVetId(@Param("idVet") idVet:Int): List<Pet>

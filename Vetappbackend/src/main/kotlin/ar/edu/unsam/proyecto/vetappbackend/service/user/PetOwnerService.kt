@@ -3,12 +3,11 @@ package ar.edu.unsam.proyecto.vetappbackend.service.user
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
 
-import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.*
-
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 
 import ar.edu.unsam.proyecto.vetappbackend.service.*
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
@@ -45,8 +44,9 @@ class PetOwnerService : BaseService<PetOwner> {
         this.petOwnerRepository.delete(petOwnerDelete)
     }
 
+
     override fun update(petOwnerUpdate: PetOwner) {
-        findByUserDataId(petOwnerUpdate.userData.id!!)
+        findByUserDataId(petOwnerUpdate.authCredentials.id!!)
         getOneById(petOwnerUpdate.id!!)
         this.petOwnerRepository.save(petOwnerUpdate)
     }
@@ -67,7 +67,7 @@ class PetOwnerService : BaseService<PetOwner> {
     }
 
     fun findByUserDataId(idUserData: Int): PetOwner {
-        return this.petOwnerRepository.findByUserDataId(idUserData).orElseThrow {
+        return this.petOwnerRepository.findByAuthCredentialsId(idUserData).orElseThrow {
             NotFoundException("No se encontró los datos del usuario: $idUserData")
         }
     }

@@ -7,14 +7,15 @@ import org.hibernate.annotations.OnDeleteAction
 @Entity
 @Table(name = "pre_existence_disease")
 class PreExistenceDisease {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
     var isActive: Boolean = true
 
-    var observation: String? = null
+    var observation: String = ""
 
-    var diagnosisDate: LocalDate? = null
+    var diagnosisDate: LocalDate = LocalDate.now()
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
     var severity: TypeOfSeverity? = null

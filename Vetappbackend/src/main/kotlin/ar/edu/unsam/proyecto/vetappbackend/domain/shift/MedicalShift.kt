@@ -9,6 +9,7 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 @Entity
 @Table(name = "medical_shift")
 class MedicalShift {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 

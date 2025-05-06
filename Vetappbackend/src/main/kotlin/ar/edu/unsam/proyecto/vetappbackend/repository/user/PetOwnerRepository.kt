@@ -6,6 +6,6 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.user.PetOwner
 
 interface PetOwnerRepository : CrudRepository<PetOwner, Int>{
 
-    fun findByUserDataId(idLogin: Int) : Optional<PetOwner>
+    fun findByAuthCredentialsId(idLogin: Int) : Optional<PetOwner>
 
 }

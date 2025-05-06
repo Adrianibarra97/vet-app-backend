@@ -3,8 +3,8 @@ package ar.edu.unsam.proyecto.vetappbackend.service.user
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
-import ar.edu.unsam.proyecto.vetappbackend.dto.pet.FilterPet
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.MedicalShiftFilter
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
@@ -44,6 +44,7 @@ class VetService: BaseService<Vet> {
 
     @Transactional
     override fun update(vetUpdate: Vet) {
+        this.findByUserDataId(vetUpdate.authCredentials.id!!)
         this.getOneById(vetUpdate.id!!)
         this.vetRepository.save(vetUpdate)
     }
@@ -64,7 +65,7 @@ class VetService: BaseService<Vet> {
     }
 
     fun findByUserDataId(idUserData: Int): Vet {
-        return this.vetRepository.findByUserDataId(idUserData).orElseThrow {
+        return this.vetRepository.findByAuthCredentialsId(idUserData).orElseThrow {
             NotFoundException("No se encontró los datos del usuario: $idUserData")
         }
     }

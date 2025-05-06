@@ -5,13 +5,7 @@ import org.hibernate.annotations.OnDeleteAction
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 
 @Entity
-class Vet {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
-
-    var name: String = ""
-
-    var surname: String = ""
+class Vet: UserData() {
 
     var licence: String = ""
 
@@ -21,12 +15,13 @@ class Vet {
 
     var professionalEmail: String = ""
 
-    var professionalAdress: String = ""
-
     var professionalTelephone: String = ""
 
-    @OneToOne(cascade = [(CascadeType.MERGE)]) @JoinColumn(name = "id_user_data", unique = true)
-    lateinit var userData: UserData
+    var professionalAddress: String = ""
+
+    var professionalLocality: String = ""
+
+    var professionalPostalCode: String = ""
 
     @ManyToMany(mappedBy = "vets", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @OnDelete(action = OnDeleteAction.CASCADE)

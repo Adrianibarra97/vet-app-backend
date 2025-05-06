@@ -5,6 +5,11 @@ import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.shift.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPetDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilterDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.fromJSON
 import ar.edu.unsam.proyecto.vetappbackend.service.user.*
 
 @RestController
@@ -14,7 +19,7 @@ class PetOwnerController {
 
     @Autowired private lateinit var petOwnerService: PetOwnerService
 
-    @Autowired private lateinit var userDataService: UserDataService
+    @Autowired private lateinit var authCredentialsService: AuthCredentialsService
 
     @GetMapping("/get-all")
     fun getAll(): List<PetOwnerDTO> {
@@ -28,14 +33,16 @@ class PetOwnerController {
 
     @PostMapping("/create")
     fun create(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val userData: UserData = this.userDataService.getOneById(petOwnerDTO.idUserData)
-        this.petOwnerService.create(petOwnerDTO.fromJSON(userData))
+        val authCredentialsDTO = AuthCredentialsDTO(null, petOwnerDTO.username, petOwnerDTO.password, TypeOfUser.PETOWNER.name)
+        val authCredentials: AuthCredentials = authCredentialsService.verifyCreate(authCredentialsDTO)
+        this.petOwnerService.create(petOwnerDTO.fromJSON(authCredentials))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val userData: UserData = this.userDataService.getOneById(petOwnerDTO.idUserData)
-        this.petOwnerService.update(petOwnerDTO.fromJSON(userData))
+        val authCredentialsDTO = AuthCredentialsDTO(petOwnerDTO.idAuthCredentials, petOwnerDTO.username, petOwnerDTO.password, TypeOfUser.PETOWNER.name)
+        val authCredentials: AuthCredentials = authCredentialsService.verifyUpdate(authCredentialsDTO)
+        this.petOwnerService.update(petOwnerDTO.fromJSON(authCredentials))
     }
 
     @DeleteMapping("/delete")

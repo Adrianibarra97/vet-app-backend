@@ -17,7 +17,7 @@ fun PreExistenceDisease.toDTO(): PreExistenceDiseaseDTO {
         id = this.id!!,
         medicalHistoryId = this.medicalHistory?.id!!,
         isActive = this.isActive,
-        observation = this.observation!!,
+        observation = this.observation,
         diagnosisDate = this.diagnosisDate.toString(),
         severity = this.severity!!.name,
         type = this.type!!.name
