@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
-import ar.edu.unsam.proyecto.vetappbackend.dto.pet.FilterPet
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PetRepository

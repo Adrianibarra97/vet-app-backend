@@ -15,9 +15,13 @@ class Vet: UserData() {
 
     var professionalEmail: String = ""
 
-    var professionalAdress: String = ""
-
     var professionalTelephone: String = ""
+
+    var professionalAddress: String = ""
+
+    var professionalLocality: String = ""
+
+    var professionalPostalCode: String = ""
 
     @ManyToMany(mappedBy = "vets", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @OnDelete(action = OnDeleteAction.CASCADE)

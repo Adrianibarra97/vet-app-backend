@@ -4,36 +4,46 @@ import java.time.LocalDate
 
 data class PetOwnerDTO (
     val id: Int,
-    val idAuthCredentials: Int,
+    val dni: Int,
     val name: String,
     val surname: String,
+    val photo: String,
     val email: String,
-    val telephone: String,
     val address: String,
-    val dni: Int,
-    val age: Int,
-    val petCount: Int,
-    val birthdate: String,
-    val username: String,
-    val landline: String
+    val telephone: String,
+    val country: String,
+    val province: String,
+    val locality: String,
+    val postalCode: String,
 
+    val emergencyContactName: String,
+    val emergencyContactPhone: String,
+
+    val idAuthCredentials: Int,
+    val username: String,
+    val password: String
 )
 
 fun PetOwner.toDTO(): PetOwnerDTO {
     return PetOwnerDTO(
         id = this.id!!,
-        idAuthCredentials = this.authCredentials.id!!,
+        dni = this.dni,
         name = this.name,
         surname = this.surname,
+
+        photo = this.photo,
         email = this.email,
-        telephone = this.telephone,
         address = this.address,
-        dni = this.dni,
-        age = this.age,
-        petCount = this.petCount,
-        birthdate = this.birthdate.toString(),
-        username = this.username,
-        landline = this.landline
+        telephone = this.telephone,
+        country = this.country,
+        province = this.province,
+        locality = this.locality,
+        postalCode = this.postalCode,
+        emergencyContactName = this.emergencyContactName,
+        emergencyContactPhone = this.emergencyContactPhone,
+        idAuthCredentials = this.authCredentials.id!!,
+        username = this.authCredentials.username,
+        password = this.authCredentials.password
     )
 }
 
@@ -41,15 +51,19 @@ fun PetOwnerDTO.fromJSON(authCredentialsCurrent: AuthCredentials): PetOwner {
     val petOwnerDTO = this
     return PetOwner().apply {
         id = petOwnerDTO.id
+        dni = petOwnerDTO.dni
         name = petOwnerDTO.name
         surname = petOwnerDTO.surname
         email = petOwnerDTO.email
-        telephone = petOwnerDTO.telephone
         address = petOwnerDTO.address
+        telephone = petOwnerDTO.telephone
+        country = petOwnerDTO.country
+        province = petOwnerDTO.province
+        locality = petOwnerDTO.locality
+        postalCode = petOwnerDTO.postalCode
+        emergencyContactName = petOwnerDTO.emergencyContactName
+        emergencyContactPhone = petOwnerDTO.emergencyContactPhone
+
         authCredentials = authCredentialsCurrent
-        dni = petOwnerDTO.dni
-        age = petOwnerDTO.age
-        petCount = petOwnerDTO.petCount
-        birthdate = LocalDate.parse(petOwnerDTO.birthdate.toString())
     }
 }

@@ -1,6 +1,4 @@
-package ar.edu.unsam.proyecto.vetappbackend.dto.pet
-
-import java.time.LocalDate
+package ar.edu.unsam.proyecto.vetappbackend.dto.filter
 
 data class FilterPet (
     val name: String? = null,

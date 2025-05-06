@@ -1,4 +1,4 @@
-package ar.edu.unsam.proyecto.vetappbackend.dto.shift
+package ar.edu.unsam.proyecto.vetappbackend.dto.filter
 import java.time.*
 
 data class MedicalShiftFilter (

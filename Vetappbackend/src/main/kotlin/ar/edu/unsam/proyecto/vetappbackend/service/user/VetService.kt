@@ -3,8 +3,8 @@ package ar.edu.unsam.proyecto.vetappbackend.service.user
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
-import ar.edu.unsam.proyecto.vetappbackend.dto.pet.FilterPet
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.MedicalShiftFilter
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService

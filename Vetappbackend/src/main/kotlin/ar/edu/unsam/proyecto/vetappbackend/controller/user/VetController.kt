@@ -5,6 +5,11 @@ import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.shift.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPetDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilterDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.fromJSON
 import ar.edu.unsam.proyecto.vetappbackend.service.user.*
 
 @RestController

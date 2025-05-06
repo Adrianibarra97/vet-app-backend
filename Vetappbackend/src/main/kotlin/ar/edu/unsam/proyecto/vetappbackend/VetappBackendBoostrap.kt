@@ -178,77 +178,82 @@ class VetappBackendBoostrap: InitializingBean {
             username = "Adrian"
             typeOfUser = TypeOfUser.VET
         }
-        var allAuthCredentials: List<AuthCredentials> = listOf(
-            authCredentials1,
-            authCredentials2,
-            authCredentials3,
-            authCredentials4,
-            authCredentials5,
-            authCredentials6
-        )
-        //authCredentialsRepository.saveAll(allAuthCredentials)
     }
 
     fun createPetOwner() {
         ezequiel = PetOwner().apply {
             this.authCredentials = authCredentials1
+            this.dni = 36594529
             this.name = "Ezequiel"
             this.surname = "Iozzia"
+            this.photo = "photo.png"
             this.email = "eze.iozzia@gmail.com"
             this.address = "Olazabal 2243"
             this.telephone = "1145340000"
-            this.landline = "45342234"
-            this.username = "ezeiozzia"
-            this.photo = "........"
-            this.dni = 36594529
-            this.age = 32
-            this.petCount = 2
-            this.birthdate = LocalDate.of(1993, 2, 5)
+            this.country = "Argentina"
+            this.province = "Buenos Aires"
+            this.locality = "Villa Urquiza"
+            this.postalCode = "1652"
+
+            this.emergencyContactName = "Hermano de Ezze"
+            this.emergencyContactPhone = "1113378995"
         }
         caroline = PetOwner().apply {
             this.authCredentials = authCredentials2
+            this.dni = 40567890
             this.name = "Caroline"
             this.surname = "Coronel"
+
+            this.photo = "photo.png"
             this.email = "caro.coronel@gmail.com"
             this.address = "Centenario 2243"
             this.telephone = "1148340000"
-            this.landline = "48342234"
-            this.username = "carocoronel"
-            this.photo = "........"
-            this.dni = 40567890
-            this.age = 32
-            this.petCount = 2
-            this.birthdate = LocalDate.of(1993, 9, 5)
+
+            this.country = "Argentina"
+            this.province = "Buenos Aires"
+            this.locality = "San Isidro"
+            this.postalCode = "1640"
+
+            this.emergencyContactName = "Mama de Caro"
+            this.emergencyContactPhone = "1113378974"
         }
         tamara = PetOwner().apply {
             this.authCredentials = authCredentials3
+            this.dni = 37567890
             this.name = "Tamara"
             this.surname = "Mecozzi"
+
+            this.photo = "photo.jpg"
             this.email = "tam.mecozzi@gmail.com"
             this.address = "Moreno 2243"
             this.telephone = "1147390000"
-            this.landline = "47392234"
-            this.username = "Tami"
-            this.photo = "....."
-            this.dni = 37567890
-            this.age = 34
-            this.petCount = 7
-            this.birthdate = LocalDate.of(1991, 4, 5)
+
+            this.country = "Argentina"
+            this.province = "Buenos Aires"
+            this.locality = "Gral. San Martin"
+            this.postalCode = "1652"
+
+            this.emergencyContactName = "Novio de Tamara"
+            this.emergencyContactPhone = "1113378456"
         }
         lucasRdz = PetOwner().apply {
             this.authCredentials = authCredentials4
+            this.dni = 44567890
             this.name = "Lucas"
             this.surname = "Rodriguez"
+
+            this.photo = "photo.jpg"
             this.email = "lucas.rodriguez@gmail.com"
             this.address = "9 de Julio 7589"
             this.telephone = "1147391111"
-            this.landline = "47392234"
-            this.username = "lucasrodz"
-            this.photo = "........"
-            this.dni = 44567890
-            this.age = 22
-            this.petCount = 1
-            this.birthdate = LocalDate.of(1991, 6, 8)
+
+            this.country = "Argentina"
+            this.province = "Buenos Aires"
+            this.locality = "Villa Ballester"
+            this.postalCode = "1652"
+
+            this.emergencyContactName = "Papa de Lucas"
+            this.emergencyContactPhone = "1113378414"
         }
         var allPetOwner: List<PetOwner> = listOf(ezequiel, caroline, tamara, lucasRdz)
         this.petOwnerRepository.saveAll(allPetOwner)
@@ -257,33 +262,53 @@ class VetappBackendBoostrap: InitializingBean {
     fun createVet() {
         lucasCjs = Vet().apply {
             this.authCredentials = authCredentials5
+            this.dni = 44264079
             this.name = "Lucas"
             this.surname = "Cejas"
+
+            this.photo = "photo.png"
             this.email = "lucas.cejas@gmail.com"
             this.address = "Eva Pero 5730"
             this.telephone = "4739-2234"
-            this.photo = "........"
+
+            this.country = "Argentina"
+            this.province = "Buenos Aires"
+            this.locality = "Villa Ballester"
+            this.postalCode = "1652"
+
             this.licence = "1869591337"
             this.speciality = "surgery"
             this.businessHours = "7 a 24 hs"
             this.professionalEmail = "lucas-vetapp@gmail.com"
-            this.professionalAdress = "25 de Mayo 7898"
+            this.professionalAddress = "25 de Mayo 7898"
             this.professionalTelephone = "1569591337"
+            this.professionalLocality = "Vicente Lopez"
+            this.professionalPostalCode = "1175"
         }
         adrian = Vet().apply {
             this.authCredentials = authCredentials6
+            this.dni = 37894513
             this.name = "Adrian"
             this.surname = "Ibarra"
+
+            this.photo = "photo.png"
             this.email = "adrian.ibarra@gmail.com"
             this.address = "Avenida Libertador 5789"
             this.telephone = "4739-1337"
-            this.photo = "........"
+
+            this.country = "Argentina"
+            this.province = "Buenos Aires"
+            this.locality = "Villa Puyrredon"
+            this.postalCode = "1814"
+
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
             this.professionalEmail = "adri-vetapp@gmail.com"
-            this.professionalAdress = "Monroe 1243"
+            this.professionalAddress = "Monroe 1243"
             this.professionalTelephone = "1581591457"
+            this.professionalLocality = "Vicente Lopez"
+            this.professionalPostalCode = "1175"
         }
         var allVet: List<Vet> = listOf(adrian, lucasCjs)
         vetRepository.saveAll(allVet)
