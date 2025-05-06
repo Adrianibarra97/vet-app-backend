@@ -33,13 +33,15 @@ class PetOwnerController {
 
     @PostMapping("/create")
     fun create(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(petOwnerDTO.idAuthCredentials)
+        val authCredentialsDTO = AuthCredentialsDTO(null, petOwnerDTO.username, petOwnerDTO.password, TypeOfUser.PETOWNER.name)
+        val authCredentials: AuthCredentials = authCredentialsService.verifyCreate(authCredentialsDTO)
         this.petOwnerService.create(petOwnerDTO.fromJSON(authCredentials))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val authCredentials: AuthCredentials = this.authCredentialsService.getOneById(petOwnerDTO.idAuthCredentials)
+        val authCredentialsDTO = AuthCredentialsDTO(petOwnerDTO.idAuthCredentials, petOwnerDTO.username, petOwnerDTO.password, TypeOfUser.PETOWNER.name)
+        val authCredentials: AuthCredentials = authCredentialsService.verifyUpdate(authCredentialsDTO)
         this.petOwnerService.update(petOwnerDTO.fromJSON(authCredentials))
     }
 

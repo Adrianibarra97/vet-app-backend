@@ -44,6 +44,7 @@ class VetService: BaseService<Vet> {
 
     @Transactional
     override fun update(vetUpdate: Vet) {
+        this.findByUserDataId(vetUpdate.authCredentials.id!!)
         this.getOneById(vetUpdate.id!!)
         this.vetRepository.save(vetUpdate)
     }

@@ -230,7 +230,7 @@ class VetappBackendBoostrap: InitializingBean {
 
             this.country = "Argentina"
             this.province = "Buenos Aires"
-            this.locality = "Gral. San Martin"
+            this.locality = "Gral San Martin"
             this.postalCode = "1652"
 
             this.emergencyContactName = "Novio de Tamara"
@@ -249,7 +249,7 @@ class VetappBackendBoostrap: InitializingBean {
 
             this.country = "Argentina"
             this.province = "Buenos Aires"
-            this.locality = "Villa Ballester"
+            this.locality = "Los Polvorines"
             this.postalCode = "1652"
 
             this.emergencyContactName = "Papa de Lucas"
@@ -273,16 +273,16 @@ class VetappBackendBoostrap: InitializingBean {
 
             this.country = "Argentina"
             this.province = "Buenos Aires"
-            this.locality = "Villa Ballester"
+            this.locality = "Pablo Podesta"
             this.postalCode = "1652"
 
             this.licence = "1869591337"
             this.speciality = "surgery"
             this.businessHours = "7 a 24 hs"
             this.professionalEmail = "lucas-vetapp@gmail.com"
-            this.professionalAddress = "25 de Mayo 7898"
+            this.professionalAddress = "Vuelta de Obligado 7898"
             this.professionalTelephone = "1569591337"
-            this.professionalLocality = "Vicente Lopez"
+            this.professionalLocality = "Munro"
             this.professionalPostalCode = "1175"
         }
         adrian = Vet().apply {
@@ -293,7 +293,7 @@ class VetappBackendBoostrap: InitializingBean {
 
             this.photo = "photo.png"
             this.email = "adrian.ibarra@gmail.com"
-            this.address = "Avenida Libertador 5789"
+            this.address = "Los Constituyentes 5789"
             this.telephone = "4739-1337"
 
             this.country = "Argentina"
@@ -305,9 +305,9 @@ class VetappBackendBoostrap: InitializingBean {
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
             this.professionalEmail = "adri-vetapp@gmail.com"
-            this.professionalAddress = "Monroe 1243"
+            this.professionalAddress = "Avenida Marquez 7548"
             this.professionalTelephone = "1581591457"
-            this.professionalLocality = "Vicente Lopez"
+            this.professionalLocality = "San Isidro"
             this.professionalPostalCode = "1175"
         }
         var allVet: List<Vet> = listOf(adrian, lucasCjs)

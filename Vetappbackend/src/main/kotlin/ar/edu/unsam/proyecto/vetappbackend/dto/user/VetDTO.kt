@@ -65,6 +65,7 @@ fun VetDTO.fromJSON(authCredentialsCurrent: AuthCredentials): Vet {
     val vetDTO = this
     return Vet().apply {
         id = vetDTO.id
+        dni = vetDTO.dni
         name = vetDTO.name
         surname = vetDTO.surname
         photo = vetDTO.photo

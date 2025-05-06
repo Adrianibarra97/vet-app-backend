@@ -6,7 +6,7 @@ data class AuthCredentialsLoginDTO (val username: String, val password: String)
 data class AuthCredentialsResponseDTO (val authCredentialsID: Int, val typeOfUser: String)
 
 data class AuthCredentialsDTO (
-    val id: Int,
+    val id: Int?,
     val username: String,
     val password: String,
     val type: String,

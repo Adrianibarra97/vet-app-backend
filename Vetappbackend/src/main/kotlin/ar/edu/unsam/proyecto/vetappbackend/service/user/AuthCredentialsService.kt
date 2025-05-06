@@ -7,6 +7,9 @@ import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.service.*
 import ar.edu.unsam.proyecto.vetappbackend.error.*
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.*
+import org.springframework.web.server.ResponseStatusException
+import org.springframework.http.HttpStatus
+
 
 @Service
 class AuthCredentialsService : BaseService<AuthCredentials> {
@@ -36,21 +39,42 @@ class AuthCredentialsService : BaseService<AuthCredentials> {
         this.authCredentialsRepository.save(authCredentialsUpdate)
     }
 
+
     fun login(userLoginDTO: AuthCredentialsLoginDTO): AuthCredentialsResponseDTO {
         val authCredentials: AuthCredentials = this.findByUsername(userLoginDTO.username)
         this.verifyPassword(userLoginDTO.password, authCredentials.password)
         return AuthCredentialsResponseDTO(authCredentials.id!!, authCredentials.typeOfUser.name)
     }
 
-    private fun findByUsername(username: String): AuthCredentials {
-        return authCredentialsRepository.findByUsername(username).orElseThrow {
-            CredencialesInvalidasException()
+    fun usernameExists(username: String) {
+        if (authCredentialsRepository.findByUsername(username).isPresent) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre de usuario ya está en uso: $username")
         }
     }
 
-    private fun verifyPassword(testPassword: String, currentPassword: String) {
+    fun verifyPassword(testPassword: String, currentPassword: String) {
         if (testPassword != currentPassword) {
             throw CredencialesInvalidasException()
+        }
+    }
+
+    fun verifyCreate(authCredentialsDTO: AuthCredentialsDTO): AuthCredentials {
+        this.usernameExists(authCredentialsDTO.username)
+        return authCredentialsDTO.fromJSON()
+    }
+
+    fun verifyUpdate(authCredentialsDTO: AuthCredentialsDTO): AuthCredentials {
+        val existing = getOneById(authCredentialsDTO.id!!)
+
+        if (authCredentialsDTO.username != existing.username) {
+            this.usernameExists(authCredentialsDTO.username)
+        }
+        return authCredentialsDTO.fromJSON()
+    }
+
+    fun findByUsername(username: String): AuthCredentials {
+        return authCredentialsRepository.findByUsername(username).orElseThrow {
+            CredencialesInvalidasException()
         }
     }
 

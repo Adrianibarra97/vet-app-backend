@@ -15,7 +15,6 @@ data class PetOwnerDTO (
     val province: String,
     val locality: String,
     val postalCode: String,
-
     val emergencyContactName: String,
     val emergencyContactPhone: String,
 
@@ -30,7 +29,6 @@ fun PetOwner.toDTO(): PetOwnerDTO {
         dni = this.dni,
         name = this.name,
         surname = this.surname,
-
         photo = this.photo,
         email = this.email,
         address = this.address,
@@ -41,6 +39,7 @@ fun PetOwner.toDTO(): PetOwnerDTO {
         postalCode = this.postalCode,
         emergencyContactName = this.emergencyContactName,
         emergencyContactPhone = this.emergencyContactPhone,
+
         idAuthCredentials = this.authCredentials.id!!,
         username = this.authCredentials.username,
         password = this.authCredentials.password
@@ -54,6 +53,7 @@ fun PetOwnerDTO.fromJSON(authCredentialsCurrent: AuthCredentials): PetOwner {
         dni = petOwnerDTO.dni
         name = petOwnerDTO.name
         surname = petOwnerDTO.surname
+        photo = petOwnerDTO.photo
         email = petOwnerDTO.email
         address = petOwnerDTO.address
         telephone = petOwnerDTO.telephone
