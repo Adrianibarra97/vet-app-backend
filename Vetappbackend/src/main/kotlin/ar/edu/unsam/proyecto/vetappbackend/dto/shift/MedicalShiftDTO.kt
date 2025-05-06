@@ -2,6 +2,8 @@ package ar.edu.unsam.proyecto.vetappbackend.dto.shift
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.PetMedicalShiftDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.toPetMedicalShiftDTO
 import java.time.*
 import kotlin.*
 
@@ -20,7 +22,7 @@ data class MedicalShiftResponseDTO(
     val date: String,
     val hour: String,
     val nameVet: String,
-    val namePet: String
+    val petMedicalShift: PetMedicalShiftDTO
 )
 
 fun MedicalShift.toDTO(): MedicalShiftResponseDTO {
@@ -29,7 +31,7 @@ fun MedicalShift.toDTO(): MedicalShiftResponseDTO {
         date = this.date?.toString() ?: throw IllegalArgumentException("La fecha del turno no puede ser nula"),
         hour = this.hour?.toString() ?: throw IllegalArgumentException("La hora del turno no puede ser nula"),
         nameVet = this.vet!!.name,
-        namePet = this.pet!!.name
+        petMedicalShift = this.pet!!.toPetMedicalShiftDTO()
     )
 }
 
@@ -37,8 +39,8 @@ fun MedicalShiftRequestDTO.fromJSON(vetCurrent: Vet, petCurrent: Pet): MedicalSh
     val medicalShiftDTO = this
     return MedicalShift().apply {
         id = medicalShiftDTO.id
-        date = medicalShiftDTO.date.let { LocalDate.parse(it.toString()) }
-        hour = medicalShiftDTO.hour.let { LocalTime.parse(it.toString()) }
+        date = medicalShiftDTO.date.let { LocalDate.parse(it) }
+        hour = medicalShiftDTO.hour.let { LocalTime.parse(it) }
         vet = vetCurrent
         pet = petCurrent
     }
