@@ -223,7 +223,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.name = "Tamara"
             this.surname = "Mecozzi"
 
-            this.photo = "photo.jpg"
+            this.photo = "/src/assets/tam.jfif"
             this.email = "tam.mecozzi@gmail.com"
             this.address = "Moreno 2243"
             this.telephone = "1147390000"
@@ -269,7 +269,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.photo = "photo.png"
             this.email = "lucas.cejas@gmail.com"
             this.address = "Eva Pero 5730"
-            this.telephone = "4739-2234"
+            this.telephone = "1147392234"
 
             this.country = "Argentina"
             this.province = "Buenos Aires"
@@ -291,10 +291,10 @@ class VetappBackendBoostrap: InitializingBean {
             this.name = "Adrian"
             this.surname = "Ibarra"
 
-            this.photo = "photo.png"
+            this.photo = "/src/assets/adri.jfif"
             this.email = "adrian.ibarra@gmail.com"
             this.address = "Los Constituyentes 5789"
-            this.telephone = "4739-1337"
+            this.telephone = "1147391337"
 
             this.country = "Argentina"
             this.province = "Buenos Aires"
