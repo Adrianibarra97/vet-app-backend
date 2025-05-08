@@ -30,7 +30,7 @@ fun MedicalShift.toDTO(): MedicalShiftResponseDTO {
         id = this.id!!,
         date = this.date?.toString() ?: throw IllegalArgumentException("La fecha del turno no puede ser nula"),
         hour = this.hour?.toString() ?: throw IllegalArgumentException("La hora del turno no puede ser nula"),
-        nameVet = this.vet!!.name,
+        nameVet = this.vet!!.name!!,
         petMedicalShift = this.pet!!.toPetMedicalShiftDTO()
     )
 }

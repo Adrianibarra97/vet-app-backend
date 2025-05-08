@@ -23,8 +23,6 @@ import java.time.*
 @Service
 class VetappBackendBoostrap: InitializingBean {
 
-    @Autowired
-    lateinit var authCredentialsRepository: AuthCredentialsRepository
 
     @Autowired
     lateinit var petOwnerRepository: PetOwnerRepository
@@ -60,6 +58,14 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var authCredentials4: AuthCredentials
     lateinit var authCredentials5: AuthCredentials
     lateinit var authCredentials6: AuthCredentials
+
+    lateinit var locationInfo1: LocationInfo
+    lateinit var locationInfo2: LocationInfo
+    lateinit var locationInfo3: LocationInfo
+    lateinit var locationInfo4: LocationInfo
+    lateinit var locationInfo5: LocationInfo
+    lateinit var locationInfo6: LocationInfo
+
 
     lateinit var ezequiel: PetOwner
     lateinit var caroline: PetOwner
@@ -148,112 +154,131 @@ class VetappBackendBoostrap: InitializingBean {
 
 
     fun createAuthCredentials() {
-        authCredentials1 = AuthCredentials().apply {
-            password = "1234"
-            username = "Eche"
+        authCredentials1 = AuthCredentials(
+            password = "1234",
+            username = "Eche",
             typeOfUser = TypeOfUser.PETOWNER
-        }
-        authCredentials2 = AuthCredentials().apply {
-            password = "1234"
-            username = "Caro"
+        )
+        authCredentials2 = AuthCredentials(
+            password = "1234",
+            username = "Caro",
             typeOfUser = TypeOfUser.PETOWNER
-        }
-        authCredentials3 = AuthCredentials().apply {
-            password = "1234"
-            username = "Tami"
+        )
+        authCredentials3 = AuthCredentials(
+            password = "1234",
+            username = "Tami",
             typeOfUser = TypeOfUser.PETOWNER
-        }
-        authCredentials4 = AuthCredentials().apply {
-            password = "1234"
-            username = "LuckR"
+        )
+        authCredentials4 = AuthCredentials(
+            password = "1234",
+            username = "LuckR",
             typeOfUser = TypeOfUser.PETOWNER
-        }
-        authCredentials5 = AuthCredentials().apply {
-            password = "123"
-            username = "LuckC"
+        )
+        authCredentials5 = AuthCredentials(
+            password = "123",
+            username = "LuckC",
             typeOfUser = TypeOfUser.VET
-        }
-        authCredentials6 = AuthCredentials().apply {
-            password = "123"
-            username = "Adrian"
+        )
+        authCredentials6 = AuthCredentials(
+            password = "123",
+            username = "Adrian",
             typeOfUser = TypeOfUser.VET
-        }
+        )
+    }
+
+    fun createLocationInfo() {
+        locationInfo1 = LocationInfo(
+            country = "Argentina",
+            province = "Buenos Aires",
+            locality = "Villa Urquiza",
+            postalCode = "1652",
+            address = "Olazabal 2243"
+        )
+        locationInfo2 = LocationInfo(
+            address = "Centenario 2243",
+            country = "Argentina",
+            province = "Buenos Aires",
+            locality = "San Isidro",
+            postalCode = "1640"
+        )
+        locationInfo3 = LocationInfo(
+            address = "Moreno 2243",
+            country = "Argentina",
+            province = "Buenos Aires",
+            locality = "Gral San Martin",
+            postalCode = "1652"
+        )
+        locationInfo4 = LocationInfo(
+            address = "9 de Julio 7589",
+            country = "Argentina",
+            province = "Buenos Aires",
+            locality = "Los Polvorines",
+            postalCode = "1652"
+        )
+        locationInfo5 = LocationInfo(
+            address = "Eva Pero 5730",
+            country = "Argentina",
+            province = "Buenos Aires",
+            locality = "Pablo Podesta",
+            postalCode = "1652"
+        )
+        locationInfo6 = LocationInfo(
+            address = "Los Constituyentes 5789",
+            country = "Argentina",
+            province = "Buenos Aires",
+            locality = "Villa Puyrredon",
+            postalCode = "1814",
+        )
     }
 
     fun createPetOwner() {
         ezequiel = PetOwner().apply {
-            this.authCredentials = authCredentials1
             this.dni = 36594529
             this.name = "Ezequiel"
             this.surname = "Iozzia"
             this.photo = "/src/assets/eche.jfif"
             this.email = "eze.iozzia@gmail.com"
-            this.address = "Olazabal 2243"
             this.telephone = "1145340000"
-            this.country = "Argentina"
-            this.province = "Buenos Aires"
-            this.locality = "Villa Urquiza"
-            this.postalCode = "1652"
-
             this.emergencyContactName = "Hermano de Ezze"
             this.emergencyContactPhone = "1113378995"
+            this.locationInfo = locationInfo1
+            this.authCredentials = authCredentials1
         }
         caroline = PetOwner().apply {
-            this.authCredentials = authCredentials2
             this.dni = 40567890
             this.name = "Caroline"
             this.surname = "Coronel"
-
             this.photo = "/src/assets/caro.jfif"
             this.email = "caro.coronel@gmail.com"
-            this.address = "Centenario 2243"
             this.telephone = "1148340000"
-
-            this.country = "Argentina"
-            this.province = "Buenos Aires"
-            this.locality = "San Isidro"
-            this.postalCode = "1640"
-
             this.emergencyContactName = "Mama de Caro"
             this.emergencyContactPhone = "1113378974"
+            this.locationInfo = locationInfo2
+            this.authCredentials = authCredentials2
         }
         tamara = PetOwner().apply {
-            this.authCredentials = authCredentials3
             this.dni = 37567890
             this.name = "Tamara"
             this.surname = "Mecozzi"
-
             this.photo = "/src/assets/tam.jfif"
             this.email = "tam.mecozzi@gmail.com"
-            this.address = "Moreno 2243"
             this.telephone = "1147390000"
-
-            this.country = "Argentina"
-            this.province = "Buenos Aires"
-            this.locality = "General San Martín"
-            this.postalCode = "1652"
-
             this.emergencyContactName = "Novio de Tamara"
             this.emergencyContactPhone = "1113378456"
+            this.locationInfo = locationInfo3
+            this.authCredentials = authCredentials3
         }
         lucasRdz = PetOwner().apply {
-            this.authCredentials = authCredentials4
             this.dni = 44567890
             this.name = "Lucas"
             this.surname = "Rodriguez"
-
             this.photo = "/src/assets/LuckR.jfif"
             this.email = "lucas.rodriguez@gmail.com"
-            this.address = "9 de Julio 7589"
             this.telephone = "1147391111"
-
-            this.country = "Argentina"
-            this.province = "Buenos Aires"
-            this.locality = "Los Polvorines"
-            this.postalCode = "1652"
-
             this.emergencyContactName = "Papa de Lucas"
             this.emergencyContactPhone = "1113378414"
+            this.locationInfo = locationInfo4
+            this.authCredentials = authCredentials4
         }
         var allPetOwner: List<PetOwner> = listOf(ezequiel, caroline, tamara, lucasRdz)
         this.petOwnerRepository.saveAll(allPetOwner)
@@ -261,20 +286,14 @@ class VetappBackendBoostrap: InitializingBean {
 
     fun createVet() {
         lucasCjs = Vet().apply {
-            this.authCredentials = authCredentials5
             this.dni = 44264079
             this.name = "Lucas"
             this.surname = "Cejas"
-
             this.photo = "/src/assets/vet.jfif"
             this.email = "lucas.cejas@gmail.com"
-            this.address = "Eva Pero 5730"
             this.telephone = "1147392234"
-
-            this.country = "Argentina"
-            this.province = "Buenos Aires"
-            this.locality = "Pablo Podesta"
-            this.postalCode = "1652"
+            this.email = "lucas.cejas@gmail.com"
+            this.telephone = "4739-2234"
 
             this.licence = "1869591337"
             this.speciality = "surgery"
@@ -284,23 +303,16 @@ class VetappBackendBoostrap: InitializingBean {
             this.professionalTelephone = "1169591337"
             this.professionalLocality = "Munro"
             this.professionalPostalCode = "1175"
+            this.locationInfo = locationInfo5
+            this.authCredentials = authCredentials5
         }
         adrian = Vet().apply {
-            this.authCredentials = authCredentials6
             this.dni = 37894513
             this.name = "Adrian"
             this.surname = "Ibarra"
-
             this.photo = "/src/assets/adri.jfif"
             this.email = "adrian.ibarra@gmail.com"
-            this.address = "Los Constituyentes 5789"
             this.telephone = "1147391337"
-
-            this.country = "Argentina"
-            this.province = "Buenos Aires"
-            this.locality = "Villa Puyrredon"
-            this.postalCode = "1814"
-
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
@@ -309,6 +321,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.professionalTelephone = "1181591457"
             this.professionalLocality = "San Isidro"
             this.professionalPostalCode = "1175"
+            this.locationInfo = locationInfo6
+            this.authCredentials = authCredentials6
         }
         var allVet: List<Vet> = listOf(adrian, lucasCjs)
         vetRepository.saveAll(allVet)
@@ -934,6 +948,7 @@ class VetappBackendBoostrap: InitializingBean {
 
     override fun afterPropertiesSet() {
         this.createAuthCredentials()
+        this.createLocationInfo()
         this.createPetOwner()
         this.createVet()
 

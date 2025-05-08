@@ -3,20 +3,16 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "auth_credentials")
-class AuthCredentials {
+data class AuthCredentials (
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
+    var id: Int = 0,
 
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
-    lateinit var typeOfUser: TypeOfUser
+    var password: String? = null,
 
-    @Column(unique = true, nullable = false)
-    var username: String = ""
+    var username: String? = null,
 
-    @Column(nullable = false)
-    var password: String = ""
+    @Enumerated(EnumType.STRING)
+    var typeOfUser: TypeOfUser? = null
 
-}
-
-enum class TypeOfUser { VET, PETOWNER }
+)

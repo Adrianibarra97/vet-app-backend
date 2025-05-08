@@ -43,6 +43,10 @@ class PetService : BaseService<Pet> {
         return this.petRepository.findAllPetsByOwnerId(idPetOwner)
     }
 
+    fun getAllThisVetPet(idVet: Int): List<Pet> {
+        return this.petRepository.findAllPetsByVetId(idVet)
+    }
+
     fun getThisOwnersPetFilter(filterPet: FilterPet, idPetOwner: Int): List<Pet> {
         return this.petRepository.getThisOwnersPetFilter(
             idPetOwner,

@@ -19,8 +19,6 @@ class VetController {
 
     @Autowired private lateinit var vetService: VetService
 
-    @Autowired private lateinit var authCredentialsService: AuthCredentialsService
-
     @GetMapping("/get-all")
     fun getAll(): List<VetDTO> {
         return this.vetService.getAll().map { it.toDTO() }
@@ -33,16 +31,12 @@ class VetController {
 
     @PostMapping("/create")
     fun create(@RequestBody vetDTO: VetDTO) {
-        val authCredentialsDTO = AuthCredentialsDTO(null, vetDTO.username, vetDTO.password, TypeOfUser.VET.name)
-        val authCredentials: AuthCredentials = authCredentialsService.verifyCreate(authCredentialsDTO)
-        this.vetService.create(vetDTO.fromJSON(authCredentials))
+        this.vetService.create(vetDTO.fromJSON())
     }
 
     @PutMapping("/update")
     fun update(@RequestBody vetDTO: VetDTO) {
-        val authCredentialsDTO = AuthCredentialsDTO(vetDTO.idAuthCredentials, vetDTO.username, vetDTO.password, TypeOfUser.VET.name)
-        val authCredentials: AuthCredentials = authCredentialsService.verifyUpdate(authCredentialsDTO)
-        this.vetService.update(vetDTO.fromJSON(authCredentials))
+        this.vetService.update(vetDTO.fromJSON())
     }
 
     @DeleteMapping("/delete")
