@@ -19,8 +19,6 @@ class PetOwnerController {
 
     @Autowired private lateinit var petOwnerService: PetOwnerService
 
-    @Autowired private lateinit var authCredentialsService: AuthCredentialsService
-
     @GetMapping("/get-all")
     fun getAll(): List<PetOwnerDTO> {
         return this.petOwnerService.getAll().map { it.toDTO() }
@@ -28,26 +26,22 @@ class PetOwnerController {
 
     @GetMapping("/get-one-by-id")
     fun getOneById(idPetOwner: Int): PetOwnerDTO {
-        return this.petOwnerService.findByUserDataId(idPetOwner).toDTO()
+        return this.petOwnerService.getOneById(idPetOwner).toDTO()
     }
 
     @PostMapping("/create")
     fun create(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val authCredentialsDTO = AuthCredentialsDTO(null, petOwnerDTO.username, petOwnerDTO.password, TypeOfUser.PETOWNER.name)
-        val authCredentials: AuthCredentials = authCredentialsService.verifyCreate(authCredentialsDTO)
-        this.petOwnerService.create(petOwnerDTO.fromJSON(authCredentials))
+        this.petOwnerService.create(petOwnerDTO.fromJSON())
     }
 
     @PutMapping("/update")
     fun update(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        val authCredentialsDTO = AuthCredentialsDTO(petOwnerDTO.idAuthCredentials, petOwnerDTO.username, petOwnerDTO.password, TypeOfUser.PETOWNER.name)
-        val authCredentials: AuthCredentials = authCredentialsService.verifyUpdate(authCredentialsDTO)
-        this.petOwnerService.update(petOwnerDTO.fromJSON(authCredentials))
+        this.petOwnerService.update(petOwnerDTO.fromJSON())
     }
 
     @DeleteMapping("/delete")
     fun delete(@RequestParam idPetOwner: Int) {
-        val petOwnerForDelete: PetOwner = this.petOwnerService.findByUserDataId(idPetOwner)
+        val petOwnerForDelete: PetOwner = this.petOwnerService.findByAuthCredentialsId(idPetOwner)
         this.petOwnerService.delete(petOwnerForDelete)
     }
 

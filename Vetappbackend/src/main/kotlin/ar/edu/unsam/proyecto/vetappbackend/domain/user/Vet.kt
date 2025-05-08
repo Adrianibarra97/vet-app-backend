@@ -1,30 +1,23 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.user
 import jakarta.persistence.*
-import org.hibernate.annotations.OnDelete
-import org.hibernate.annotations.OnDeleteAction
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 
 @Entity
 class Vet: UserData() {
 
-    var licence: String = ""
+    var licence: String? = null
 
-    var speciality: String = ""
+    var speciality: String? = null
 
-    var businessHours: String = ""
+    var businessHours: String? = null
 
-    var professionalEmail: String = ""
+    var professionalEmail: String? = null
 
-    var professionalTelephone: String = ""
+    var professionalTelephone: String? = null
 
-    var professionalAddress: String = ""
+    var professionalAddress: String? = null
 
-    var professionalLocality: String = ""
+    var professionalLocality: String? = null
 
-    var professionalPostalCode: String = ""
-
-    @ManyToMany(mappedBy = "vets", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    var patients: MutableSet<Pet> = mutableSetOf()
+    var professionalPostalCode: String? = null
 
 }

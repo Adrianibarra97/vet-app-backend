@@ -4,8 +4,8 @@ import jakarta.persistence.*
 @Entity
 class PetOwner: UserData() {
 
-    var emergencyContactName: String = ""
+    var emergencyContactName: String? = null
 
-    var emergencyContactPhone: String = ""
+    var emergencyContactPhone: String? = null
 
 }

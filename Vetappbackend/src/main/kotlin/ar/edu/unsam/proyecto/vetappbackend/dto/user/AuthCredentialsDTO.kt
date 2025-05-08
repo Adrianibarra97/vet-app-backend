@@ -14,9 +14,9 @@ data class AuthCredentialsDTO (
 
 fun AuthCredentials.toDTO(): AuthCredentialsDTO {
     return AuthCredentialsDTO(
-        id = this.id!!,
-        username = this.username,
-        password = this.password,
+        id = this.id,
+        username = this.username!!,
+        password = this.password!!,
         type = this.typeOfUser.toString()
     )
 }
@@ -24,7 +24,7 @@ fun AuthCredentials.toDTO(): AuthCredentialsDTO {
 fun AuthCredentialsDTO.fromJSON(): AuthCredentials {
     val AuthCredentialsDTO = this
     return AuthCredentials().apply {
-        this.id = AuthCredentialsDTO.id
+        this.id = AuthCredentialsDTO.id!!
         this.username = AuthCredentialsDTO.username
         this.password = AuthCredentialsDTO.password
         this.typeOfUser = TypeOfUser.valueOf(AuthCredentialsDTO.type)

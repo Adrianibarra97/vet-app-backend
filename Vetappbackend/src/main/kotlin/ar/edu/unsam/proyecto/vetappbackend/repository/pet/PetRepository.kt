@@ -12,6 +12,9 @@ interface PetRepository : CrudRepository<Pet, Int> {
     @Query("SELECT p FROM Pet p WHERE p.petOwner.id = :idOwner")
     fun findAllPetsByOwnerId(@Param("idOwner") idOwner: Int): List<Pet>
 
+    @Query("SELECT p FROM Pet p JOIN p.vets v WHERE v.id = :idVet")
+    fun findAllPetsByVetId(@Param("idVet") idVet: Int): List<Pet>
+
     @Query("""
         SELECT DISTINCT p
         FROM Pet p 
