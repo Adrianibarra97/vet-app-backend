@@ -1,5 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.user
-
+import jakarta.transaction.Transactional
+import org.springframework.stereotype.Service
+import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
@@ -10,18 +12,19 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.PetService
 import ar.edu.unsam.proyecto.vetappbackend.service.shift.MedicalShiftService
-import jakarta.transaction.Transactional
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 @Service
 class VetService: BaseService<Vet> {
 
-    @Autowired private lateinit var petService: PetService
+
+    @Autowired private lateinit var authCredentialsService: AuthCredentialsService
 
     @Autowired lateinit var medicalShiftService: MedicalShiftService
 
+    @Autowired private lateinit var petService: PetService
+
     @Autowired lateinit var vetRepository: VetRepository
+
 
     override fun getOneById(idVet: Int): Vet {
         return this.vetRepository.findById(idVet).orElseThrow {
@@ -33,35 +36,38 @@ class VetService: BaseService<Vet> {
         return this.vetRepository.findAll().toList()
     }
 
-    override fun create(newVet: Vet) {
-        this.vetRepository.save(newVet)
-    }
-
     @Transactional
     override fun delete(vetDelete: Vet) {
         this.vetRepository.delete(vetDelete)
     }
 
     @Transactional
+    override fun create(newVet: Vet) {
+        this.authCredentialsService.verifyCreate(newVet.authCredentials)
+        this.vetRepository.save(newVet)
+    }
+
+    @Transactional
     override fun update(vetUpdate: Vet) {
-        this.findByUserDataId(vetUpdate.authCredentials.id!!)
-        this.getOneById(vetUpdate.id!!)
+        this.authCredentialsService.verifyUpdate(vetUpdate.authCredentials)
+        this.getOneById(vetUpdate.id)
         this.vetRepository.save(vetUpdate)
     }
 
+
     fun getAllPets(idVet: Int): List<Pet> {
         val vet: Vet = this.findByUserDataId(idVet)
-        return this.vetRepository.findAllPetsByVetId(vet.id!!)
+        return this.petService.getAllThisVetPet(vet.id)
     }
 
     fun getAllPetsFilter(filterPet: FilterPet, idVet: Int): List<Pet> {
         val vet: Vet = this.findByUserDataId(idVet)
-        return petService.getThisVetsPetFilter(filterPet, vet.id!!)
+        return petService.getThisVetsPetFilter(filterPet, vet.id)
     }
 
     fun getAllMedicalShiftFilter(medicalShiftFilter: MedicalShiftFilter, idVet: Int): List<MedicalShift> {
         val vet: Vet = this.findByUserDataId(idVet)
-        return this.medicalShiftService.getMedicalShiftFilterVet(medicalShiftFilter, vet.id!!)
+        return this.medicalShiftService.getMedicalShiftFilterVet(medicalShiftFilter, vet.id)
     }
 
     fun findByUserDataId(idUserData: Int): Vet {

@@ -12,67 +12,46 @@ import org.springframework.http.HttpStatus
 
 
 @Service
-class AuthCredentialsService : BaseService<AuthCredentials> {
+class AuthCredentialsService {
 
     @Autowired private lateinit var authCredentialsRepository: AuthCredentialsRepository
 
-    override fun getOneById(idAuthCredentials: Int): AuthCredentials {
+    fun getAll(): List<AuthCredentials> {
+        return this.authCredentialsRepository.findAll().toList()
+    }
+
+    fun getOneById(idAuthCredentials: Int): AuthCredentials {
         return this.authCredentialsRepository.findById(idAuthCredentials).orElseThrow {
             NotFoundException("No se encontró al usuario indicado: $idAuthCredentials")
         }
     }
 
-    override fun getAll(): List<AuthCredentials> {
-        return this.authCredentialsRepository.findAll().toList()
+    fun login(authCredentialsLoginDTO: AuthCredentialsLoginDTO): AuthCredentialsResponseDTO {
+        val authCredentials: AuthCredentials = this.findByUsername(authCredentialsLoginDTO.username)
+        this.verifyPassword(authCredentialsLoginDTO.password, authCredentials.password!!)
+        return AuthCredentialsResponseDTO(authCredentials.id, authCredentials.typeOfUser!!.name)
     }
 
-    override fun create(newAuthCredentials: AuthCredentials) {
-        this.authCredentialsRepository.save(newAuthCredentials)
-    }
-
-    override fun delete(authCredentialsDelete: AuthCredentials) {
-        this.authCredentialsRepository.delete(authCredentialsDelete)
-    }
-
-    override fun update(authCredentialsUpdate: AuthCredentials) {
-        this.getOneById(authCredentialsUpdate.id!!)
-        this.authCredentialsRepository.save(authCredentialsUpdate)
-    }
-
-
-    fun login(userLoginDTO: AuthCredentialsLoginDTO): AuthCredentialsResponseDTO {
-        val authCredentials: AuthCredentials = this.findByUsername(userLoginDTO.username)
-        this.verifyPassword(userLoginDTO.password, authCredentials.password)
-        return AuthCredentialsResponseDTO(authCredentials.id!!, authCredentials.typeOfUser.name)
-    }
-
-    fun usernameExists(username: String) {
-        if (authCredentialsRepository.findByUsername(username).isPresent) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre de usuario ya está en uso: $username")
+    fun verifyCreate(authCredentials: AuthCredentials) {
+        if (authCredentialsRepository.findByUsername(authCredentials.username!!).isPresent) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username en uso: ${authCredentials.username!!}")
         }
     }
 
-    fun verifyPassword(testPassword: String, currentPassword: String) {
+    fun verifyUpdate(authCredentials: AuthCredentials) {
+        val existing = getOneById(authCredentials.id)
+        if (authCredentials.username != existing.username) {
+            verifyCreate(authCredentials)
+        }
+    }
+
+    private fun verifyPassword(testPassword: String, currentPassword: String) {
         if (testPassword != currentPassword) {
             throw CredencialesInvalidasException()
         }
     }
 
-    fun verifyCreate(authCredentialsDTO: AuthCredentialsDTO): AuthCredentials {
-        this.usernameExists(authCredentialsDTO.username)
-        return authCredentialsDTO.fromJSON()
-    }
-
-    fun verifyUpdate(authCredentialsDTO: AuthCredentialsDTO): AuthCredentials {
-        val existing = getOneById(authCredentialsDTO.id!!)
-
-        if (authCredentialsDTO.username != existing.username) {
-            this.usernameExists(authCredentialsDTO.username)
-        }
-        return authCredentialsDTO.fromJSON()
-    }
-
-    fun findByUsername(username: String): AuthCredentials {
+    private fun findByUsername(username: String): AuthCredentials {
         return authCredentialsRepository.findByUsername(username).orElseThrow {
             CredencialesInvalidasException()
         }
