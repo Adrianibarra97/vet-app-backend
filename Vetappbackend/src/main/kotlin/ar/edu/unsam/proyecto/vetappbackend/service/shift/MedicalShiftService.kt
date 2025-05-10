@@ -58,9 +58,4 @@ class MedicalShiftService: BaseService<MedicalShift> {
             medicalShiftFilter.endingOfWeek
         )
     }
-
-    fun getAllRecipes(idPet: Int): List<Recipe> {
-        return medicalShiftRepository.getAllPetRecipes(idPet)
-    }
-
 }

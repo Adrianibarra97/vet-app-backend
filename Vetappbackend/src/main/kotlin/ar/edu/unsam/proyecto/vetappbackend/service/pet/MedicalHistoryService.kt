@@ -42,7 +42,7 @@ class MedicalHistoryService: BaseService<MedicalHistory> {
 
     fun getAllRecipes(idMedicalHistory: Int): List<Recipe>{
         val medicalHistory: MedicalHistory = this.getOneById(idMedicalHistory)
-        return medicalShiftService.getAllRecipes(medicalHistory.pet?.id!!)
+        return medicalHistoryRepository.getAllRecipes(medicalHistory.id!!)
     }
 
     fun getAllVaccines(idMedicalHistory: Int): List<Vaccine> {

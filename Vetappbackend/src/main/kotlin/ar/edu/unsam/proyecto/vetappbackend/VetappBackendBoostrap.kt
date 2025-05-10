@@ -927,21 +927,29 @@ class VetappBackendBoostrap: InitializingBean {
     fun createRecipe() {
         recipeNala = Recipe().apply {
             this.description = "Nala debe que aplicarse la vacuna de la rabia"
-            this.medicalShift = medicalShiftNala
+            this.medicalHistory = medicalHistoryNala
+            this.date = LocalDate.now()
+            this.vet = adrian
         }
         recipeOli = Recipe().apply {
             this.description = "Oli tiene que bajar de peso, y hacer ejercicio"
-            this.medicalShift = medicalShiftOli
+            this.medicalHistory = medicalHistoryOli
+            this.date = LocalDate.now().plusMonths(2)
+            this.vet = adrian
         }
         recipeMileva = Recipe().apply {
             this.description = "Mileva tiene que ponerse la pipeta para las pulgas"
-            this.medicalShift = medicalShiftMileva
+            this.medicalHistory = medicalHistoryMileva
+            this.date = LocalDate.now().plusDays(2)
+            this.vet = lucasCjs
         }
         recipeNapoleon = Recipe().apply {
             this.description = "Napoleon tiene que limarse las uñas"
-            this.medicalShift = medicalShiftNapoleon
+            this.medicalHistory = medicalHistoryNapoleon
+            this.date = LocalDate.now()
+            this.vet = lucasCjs
         }
-        var allRecipe = listOf(recipeNala,recipeOli)
+        var allRecipe = listOf(recipeNala,recipeOli,recipeMileva,recipeNapoleon)
         recipeRepository.saveAll(allRecipe)
     }
 

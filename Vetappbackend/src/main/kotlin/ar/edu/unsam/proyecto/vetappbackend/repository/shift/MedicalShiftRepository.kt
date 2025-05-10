@@ -45,12 +45,6 @@ interface MedicalShiftRepository: CrudRepository<MedicalShift, Int> {
         @Param("endingOfWeek") endingOfWeek: LocalDate?
     ): List<MedicalShift>
 
-    @Query("""
-    SELECT r FROM Recipe r
-    JOIN r.medicalShift ms
-    WHERE ms.pet.id = :petId
-""")
-    fun getAllPetRecipes(@Param("petId") petId: Int): List<Recipe>
 }
 
 // Possible combinations for filtering medical appointments
