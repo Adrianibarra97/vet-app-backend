@@ -18,7 +18,7 @@ fun StudyResult.toDTO(): StudyResultDTO {
         medicalHistoryId = this.medicalHistory?.id!!,
         date = this.date.toString(),
         fileUrl = this.fileUrl,
-        interpretation = this.interpretation,
+        interpretation = this.description,
         type = this.type!!.name
     )
 }
@@ -30,7 +30,7 @@ fun StudyResultDTO.fromJSON(medicalHistoryCurrent: MedicalHistory): StudyResult 
         medicalHistory = medicalHistoryCurrent
         date = LocalDate.parse(studyResultDTO.date.toString())
         fileUrl = studyResultDTO.fileUrl
-        interpretation = studyResultDTO.interpretation
+        description = studyResultDTO.interpretation
         type = TypeOfStudyResult.valueOf(studyResultDTO.type.toString())
     }
 }

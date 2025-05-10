@@ -12,7 +12,6 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.pet.VaccineRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.shift.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.shift.RecipeRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
-import ar.edu.unsam.proyecto.vetappbackend.repository.user.AuthCredentialsRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
 
 import org.springframework.beans.factory.InitializingBean
@@ -683,77 +682,77 @@ class VetappBackendBoostrap: InitializingBean {
             medicalHistory = medicalHistoryNala
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Todo salió perfecto Nala"
+            description = "Todo salió perfecto Nala"
             type = TypeOfStudyResult.CLINICAL
         }
         studyResultOli = StudyResult().apply {
             medicalHistory = medicalHistoryOli
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Algo salió mal Oli"
+            description = "Algo salió mal Oli"
             type = TypeOfStudyResult.GENETIC
         }
         studyResultOwie = StudyResult().apply {
             medicalHistory = medicalHistoryOwie
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Volver a realizar el estudio Owie"
+            description = "Volver a realizar el estudio Owie"
             type = TypeOfStudyResult.PATHOLOGICAL
         }
         studyResultRocky = StudyResult().apply {
             medicalHistory = medicalHistoryRocky
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Consumió alguna droga Rocky"
+            description = "Consumió alguna droga Rocky"
             type = TypeOfStudyResult.PHARMACOLOGICAL
         }
         studyResultPipi = StudyResult().apply {
             medicalHistory = medicalHistoryPipi
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Se encuentra estresado Pipi"
+            description = "Se encuentra estresado Pipi"
             type = TypeOfStudyResult.PHYSIOLOGICAL
         }
         studyResultMorena = StudyResult().apply {
             medicalHistory = medicalHistoryMorena
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Todo salió perfecto Morena"
+            description = "Todo salió perfecto Morena"
             type = TypeOfStudyResult.CLINICAL
         }
         studyResultMileva = StudyResult().apply {
             medicalHistory = medicalHistoryMileva
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Algo defectuoso en su gen Mileva"
+            description = "Algo defectuoso en su gen Mileva"
             type = TypeOfStudyResult.GENETIC
         }
         studyResultNapoleon = StudyResult().apply {
             medicalHistory = medicalHistoryNapoleon
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Tiene un ADN alterado Napoleon"
+            description = "Tiene un ADN alterado Napoleon"
             type = TypeOfStudyResult.PATHOLOGICAL
         }
         studyResultBurpee = StudyResult().apply {
             medicalHistory = medicalHistoryBurpee
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Todo salió perfecto Burpee"
+            description = "Todo salió perfecto Burpee"
             type = TypeOfStudyResult.CLINICAL
         }
         studyResultFreya = StudyResult().apply {
             medicalHistory = medicalHistoryFreya
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Todo salió perfecto, falta el clínico Freya"
+            description = "Todo salió perfecto, falta el clínico Freya"
             type = TypeOfStudyResult.PHYSIOLOGICAL
         }
         studyResultCleopatra = StudyResult().apply {
             medicalHistory = medicalHistoryCleopatra
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            interpretation = "Todo salió perfecto Cleopatra"
+            description = "Todo salió perfecto Cleopatra"
             type = TypeOfStudyResult.PHARMACOLOGICAL
         }
 
