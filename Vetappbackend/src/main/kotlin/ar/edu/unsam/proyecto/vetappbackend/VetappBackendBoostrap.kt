@@ -236,7 +236,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.dni = 36594529
             this.name = "Ezequiel"
             this.surname = "Iozzia"
-            this.photo = "photo.png"
+            this.photo = "/src/assets/eche.jfif"
             this.email = "eze.iozzia@gmail.com"
             this.telephone = "1145340000"
             this.emergencyContactName = "Hermano de Ezze"
@@ -248,7 +248,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.dni = 40567890
             this.name = "Caroline"
             this.surname = "Coronel"
-            this.photo = "photo.png"
+            this.photo = "/src/assets/caro.jfif"
             this.email = "caro.coronel@gmail.com"
             this.telephone = "1148340000"
             this.emergencyContactName = "Mama de Caro"
@@ -260,7 +260,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.dni = 37567890
             this.name = "Tamara"
             this.surname = "Mecozzi"
-            this.photo = "photo.jpg"
+            this.photo = "/src/assets/tam.jfif"
             this.email = "tam.mecozzi@gmail.com"
             this.telephone = "1147390000"
             this.emergencyContactName = "Novio de Tamara"
@@ -272,7 +272,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.dni = 44567890
             this.name = "Lucas"
             this.surname = "Rodriguez"
-            this.photo = "photo.jpg"
+            this.photo = "/src/assets/LuckR.jfif"
             this.email = "lucas.rodriguez@gmail.com"
             this.telephone = "1147391111"
             this.emergencyContactName = "Papa de Lucas"
@@ -289,15 +289,18 @@ class VetappBackendBoostrap: InitializingBean {
             this.dni = 44264079
             this.name = "Lucas"
             this.surname = "Cejas"
-            this.photo = "photo.png"
+            this.photo = "/src/assets/vet.jfif"
+            this.email = "lucas.cejas@gmail.com"
+            this.telephone = "1147392234"
             this.email = "lucas.cejas@gmail.com"
             this.telephone = "4739-2234"
+
             this.licence = "1869591337"
             this.speciality = "surgery"
             this.businessHours = "7 a 24 hs"
             this.professionalEmail = "lucas-vetapp@gmail.com"
             this.professionalAddress = "Vuelta de Obligado 7898"
-            this.professionalTelephone = "1569591337"
+            this.professionalTelephone = "1169591337"
             this.professionalLocality = "Munro"
             this.professionalPostalCode = "1175"
             this.locationInfo = locationInfo5
@@ -307,15 +310,15 @@ class VetappBackendBoostrap: InitializingBean {
             this.dni = 37894513
             this.name = "Adrian"
             this.surname = "Ibarra"
-            this.photo = "photo.png"
+            this.photo = "/src/assets/adri.jfif"
             this.email = "adrian.ibarra@gmail.com"
-            this.telephone = "4739-1337"
+            this.telephone = "1147391337"
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
             this.professionalEmail = "adri-vetapp@gmail.com"
             this.professionalAddress = "Avenida Marquez 7548"
-            this.professionalTelephone = "1581591457"
+            this.professionalTelephone = "1181591457"
             this.professionalLocality = "San Isidro"
             this.professionalPostalCode = "1175"
             this.locationInfo = locationInfo6
