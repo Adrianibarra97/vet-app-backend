@@ -4,14 +4,17 @@ import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.Recipe
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.shift.MedicalShiftRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.shift.RecipeRepository
 
 @Service
 class MedicalShiftService: BaseService<MedicalShift> {
 
     @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
+    @Autowired lateinit var recipeService: RecipeService
 
     override fun getOneById(idMedicalShift: Int): MedicalShift {
         return this.medicalShiftRepository.findById(idMedicalShift).orElseThrow {
@@ -54,6 +57,10 @@ class MedicalShiftService: BaseService<MedicalShift> {
             medicalShiftFilter.beginningOfWeek,
             medicalShiftFilter.endingOfWeek
         )
+    }
+
+    fun getAllRecipes(idPet: Int): List<Recipe> {
+        return medicalShiftRepository.getAllPetRecipes(idPet)
     }
 
 }

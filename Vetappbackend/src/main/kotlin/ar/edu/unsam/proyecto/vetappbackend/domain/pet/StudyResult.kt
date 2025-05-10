@@ -15,7 +15,7 @@ class StudyResult {
 
     var date: LocalDate? = null
 
-    var interpretation: String = ""
+    var description: String = ""
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
     var type: TypeOfStudyResult? = null
