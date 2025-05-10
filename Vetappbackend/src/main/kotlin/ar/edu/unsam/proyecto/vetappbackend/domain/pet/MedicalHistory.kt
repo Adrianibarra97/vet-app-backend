@@ -13,9 +13,9 @@ class MedicalHistory {
 
     var summary: String = ""
 
-    var created_at: LocalDate? = null
+    var createdAt: LocalDate? = null
 
-    var updated_at: LocalDate? = null
+    var updatedAt: LocalDate? = null
 
     @OneToOne @JoinColumn(referencedColumnName = "id", name = "id_pet")
     @OnDelete(action = OnDeleteAction.CASCADE)

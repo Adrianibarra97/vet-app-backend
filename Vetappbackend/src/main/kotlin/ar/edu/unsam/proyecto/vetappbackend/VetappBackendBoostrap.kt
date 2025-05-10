@@ -491,68 +491,68 @@ class VetappBackendBoostrap: InitializingBean {
     fun createMedicalHistory() {
         medicalHistoryNala = MedicalHistory().apply {
             pet = nala
-            created_at = LocalDate.of(2025, 4, 20)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 4, 20)
+            updatedAt = LocalDate.now()
             summary = "Nala está mejorando."
         }
         medicalHistoryOli = MedicalHistory().apply {
             pet = oli
-            created_at = LocalDate.of(2025, 2, 20)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 2, 20)
+            updatedAt = LocalDate.now()
             summary = "Oli se encuentra bien."
         }
         medicalHistoryOwie = MedicalHistory().apply {
             pet = owie
-            created_at = LocalDate.of(2025, 3, 25)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 3, 25)
+            updatedAt = LocalDate.now()
             summary = "Owie está en excelente estado."
         }
         medicalHistoryRocky = MedicalHistory().apply {
             pet = rocky
-            created_at = LocalDate.of(2025, 3, 15)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 3, 15)
+            updatedAt = LocalDate.now()
             summary = "Rocky está en la lona."
         }
         medicalHistoryPipi = MedicalHistory().apply {
             pet = pipi
-            created_at = LocalDate.of(2025, 4, 15)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 4, 15)
+            updatedAt = LocalDate.now()
             summary = "Pipi está estable."
         }
         medicalHistoryMorena = MedicalHistory().apply {
             pet = morena
-            created_at = LocalDate.of(2025, 1, 10)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 1, 10)
+            updatedAt = LocalDate.now()
             summary = "More se encuentra muy bien."
         }
         medicalHistoryMileva = MedicalHistory().apply {
             pet = mileva
-            created_at = LocalDate.of(2025, 4, 10)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 4, 10)
+            updatedAt = LocalDate.now()
             summary = "Mileva tiene que hacer dieta."
         }
         medicalHistoryNapoleon = MedicalHistory().apply {
             pet = napoleon
-            created_at = LocalDate.of(2025, 4, 10)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2025, 4, 10)
+            updatedAt = LocalDate.now()
             summary = "Napoleón hay que cortarle las uñas."
         }
         medicalHistoryBurpee = MedicalHistory().apply {
             pet = burpee
-            created_at = LocalDate.of(2024, 12, 10)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2024, 12, 10)
+            updatedAt = LocalDate.now()
             summary = "Burpee se encuentra bien de salud."
         }
         medicalHistoryFreya = MedicalHistory().apply {
             pet = freya
-            created_at = LocalDate.of(2024, 12, 25)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2024, 12, 25)
+            updatedAt = LocalDate.now()
             summary = "Freya tiene que comer más."
         }
         medicalHistoryCleopatra = MedicalHistory().apply {
             pet = cleopatra
-            created_at = LocalDate.of(2024, 7, 10)
-            updated_at = LocalDate.now()
+            createdAt = LocalDate.of(2024, 7, 10)
+            updatedAt = LocalDate.now()
             summary = "Cleopatra, sos una reina, venís joya."
         }
 

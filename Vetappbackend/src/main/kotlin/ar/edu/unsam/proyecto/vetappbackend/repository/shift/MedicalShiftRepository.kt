@@ -1,6 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.repository.shift
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
+import ar.edu.unsam.proyecto.vetappbackend.domain.shift.Recipe
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
@@ -44,6 +45,12 @@ interface MedicalShiftRepository: CrudRepository<MedicalShift, Int> {
         @Param("endingOfWeek") endingOfWeek: LocalDate?
     ): List<MedicalShift>
 
+    @Query("""
+    SELECT r FROM Recipe r
+    JOIN r.medicalShift ms
+    WHERE ms.pet.id = :petId
+""")
+    fun getAllPetRecipes(@Param("petId") petId: Int): List<Recipe>
 }
 
 // Possible combinations for filtering medical appointments
