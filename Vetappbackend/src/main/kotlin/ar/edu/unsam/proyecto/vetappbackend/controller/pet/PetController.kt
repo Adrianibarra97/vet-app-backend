@@ -12,6 +12,8 @@ class PetController {
 
     @Autowired private lateinit var petService: PetService
 
+    @Autowired private lateinit var medicalHistoryService: MedicalHistoryService
+
     @GetMapping("/get-all")
     fun getAll(): List<PetDTO> {
         return this.petService.getAll().map { it.toDTO() }
@@ -24,12 +26,14 @@ class PetController {
 
     @PostMapping("/create")
     fun create(@RequestBody newPetDTO: PetDTO) {
-      this.petService.create(newPetDTO.fromJSON())
+        val medicalHistory: MedicalHistory = this.medicalHistoryService.getOneById(newPetDTO.idMedicalHistory)
+      this.petService.create(newPetDTO.fromJSON(medicalHistory))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody newPetDTO: PetDTO) {
-        this.petService.update(newPetDTO.fromJSON())
+        val medicalHistory: MedicalHistory = this.medicalHistoryService.getOneById(newPetDTO.idMedicalHistory)
+        this.petService.update(newPetDTO.fromJSON(medicalHistory))
     }
 
     @DeleteMapping("delete")

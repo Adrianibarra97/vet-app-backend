@@ -39,6 +39,10 @@ class Pet {
     @JoinTable(name = "pet_vet", joinColumns = [JoinColumn(name = "id_pet")], inverseJoinColumns = [JoinColumn(name = "id_vet")])
     var vets: MutableSet<Vet> = mutableSetOf()
 
+    @OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
+    var medicalHistory: MedicalHistory? = null
+
+
 }
 
 enum class TypeOfSex { Macho, Hembra }

@@ -14,7 +14,8 @@ data class PetDTO(
     val birth: String,
     val sex: String,
     val specie: String,
-    val sterilized: Boolean
+    val sterilized: Boolean,
+    val idMedicalHistory: Int
 )
 
 fun Pet.toDTO(): PetDTO {
@@ -28,11 +29,12 @@ fun Pet.toDTO(): PetDTO {
         birth = this.birth.toString(),
         sex = this.sex.toString(),
         specie = this.specie.toString(),
-        sterilized = this.sterilized
+        sterilized = this.sterilized,
+        idMedicalHistory = this.medicalHistory?.id!!
     )
 }
 
-fun PetDTO.fromJSON(): Pet {
+fun PetDTO.fromJSON(currentMedicalHistory: MedicalHistory): Pet {
     val petDTO = this
     return Pet().apply {
         id = petDTO.id
@@ -45,6 +47,7 @@ fun PetDTO.fromJSON(): Pet {
         sterilized = petDTO.sterilized
         sex = TypeOfSex.valueOf(petDTO.sex.toString())
         specie = TypeOfSpecie.valueOf(petDTO.specie.toString())
+        medicalHistory = currentMedicalHistory
     }
 }
 
