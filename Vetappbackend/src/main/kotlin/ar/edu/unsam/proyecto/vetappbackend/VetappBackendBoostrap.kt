@@ -131,10 +131,11 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var vaccineCleopatra: Vaccine
 
     // MedicalShift
-    lateinit var medicalShiftNala: MedicalShift
     lateinit var medicalShiftOli: MedicalShift
     lateinit var medicalShiftRocky: MedicalShift
+    lateinit var medicalShiftOwie: MedicalShift
     lateinit var medicalShiftMileva: MedicalShift
+    lateinit var medicalShiftNala: MedicalShift
     lateinit var medicalShiftNapoleon: MedicalShift
 
     // Recipe
@@ -377,7 +378,7 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpecie.BIRD
         }
         mileva = Pet().apply {
-            vets = mutableSetOf(lucasCjs)
+            vets = mutableSetOf(adrian)
             petOwner = caroline
             age = 4
             name = "Mileva"
@@ -391,7 +392,7 @@ class VetappBackendBoostrap: InitializingBean {
         }
         nala = Pet().apply {
             petOwner = tamara
-            vets = mutableSetOf(adrian)
+            vets = mutableSetOf(lucasCjs)
             age = 9
             name = "Nala"
             photo = "/src/assets/nala.jfif"
@@ -443,7 +444,7 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpecie.CAT
         }
         cleopatra = Pet().apply {
-            vets = mutableSetOf(lucasCjs, adrian)
+            vets = mutableSetOf(lucasCjs)
             petOwner = tamara
             age = 5
             name = "Cleopatra"
@@ -456,7 +457,7 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpecie.CAT
         }
         morena = Pet().apply {
-            vets = mutableSetOf(lucasCjs)
+            vets = mutableSetOf(adrian, lucasCjs)
             petOwner = lucasRdz
             age = 14
             name = "Morena"
@@ -837,12 +838,6 @@ class VetappBackendBoostrap: InitializingBean {
 
 
     fun createRecipe() {
-        recipeNala = Recipe().apply {
-            this.description = "Nala debe que aplicarse la vacuna de la rabia"
-            this.date = LocalDate.now()
-            this.vet = adrian
-            this.pet = nala
-        }
         recipeOli = Recipe().apply {
             this.description = "Oli tiene que bajar de peso, y hacer ejercicio"
             this.pet = oli
@@ -853,7 +848,13 @@ class VetappBackendBoostrap: InitializingBean {
             this.description = "Mileva tiene que ponerse la pipeta para las pulgas"
             this.pet = mileva
             this.date = LocalDate.now().plusDays(2)
+            this.vet = adrian
+        }
+        recipeNala = Recipe().apply {
+            this.description = "Nala debe que aplicarse la vacuna de la rabia"
+            this.date = LocalDate.now()
             this.vet = lucasCjs
+            this.pet = nala
         }
         recipeNapoleon = Recipe().apply {
             this.description = "Napoleon tiene que limarse las uñas"
@@ -861,35 +862,41 @@ class VetappBackendBoostrap: InitializingBean {
             this.date = LocalDate.now()
             this.vet = lucasCjs
         }
-        val allRecipe = listOf(recipeNala, recipeOli, recipeMileva, recipeNapoleon)
+        val allRecipe = listOf(recipeOli, recipeMileva, recipeNala, recipeNapoleon)
         recipeRepository.saveAll(allRecipe)
     }
 
 
     fun createMedicalShift() {
-        medicalShiftNala = MedicalShift().apply {
-            this.pet = nala
-            this.vet = adrian
-            this.hour = LocalTime.of(11, 0)
-            this.date = LocalDate.now()
-        }
         medicalShiftOli = MedicalShift().apply {
             this.pet = oli
             this.vet = adrian
             this.hour = LocalTime.of(13, 0)
-            this.date = LocalDate.now().plusDays(1)
+            this.date = LocalDate.now()
         }
         medicalShiftRocky = MedicalShift().apply {
             this.pet = rocky
             this.vet = adrian
             this.hour = LocalTime.of(13, 0)
-            this.date = LocalDate.now().plusMonths(1)
+            this.date = LocalDate.now().plusDays(1)
+        }
+        medicalShiftOwie = MedicalShift().apply {
+            this.pet = owie
+            this.vet = adrian
+            this.hour = LocalTime.of(13, 0)
+            this.date = LocalDate.now().plusWeeks(1)
         }
         medicalShiftMileva = MedicalShift().apply {
             this.pet = mileva
-            this.vet = lucasCjs
+            this.vet = adrian
             this.hour = LocalTime.of(11, 0)
-            this.date = LocalDate.now().plusDays(1)
+            this.date = LocalDate.now().plusMonths(1)
+        }
+        medicalShiftNala = MedicalShift().apply {
+            this.pet = nala
+            this.vet = adrian
+            this.hour = LocalTime.of(11, 0)
+            this.date = LocalDate.now()
         }
         medicalShiftNapoleon = MedicalShift().apply {
             this.pet = napoleon
@@ -897,7 +904,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.hour = LocalTime.of(15, 0)
             this.date = LocalDate.now().plusMonths(2)
         }
-        var allMedicalShift = listOf(medicalShiftNala, medicalShiftOli, medicalShiftMileva, medicalShiftNapoleon, medicalShiftRocky)
+        var allMedicalShift = listOf(medicalShiftOli, medicalShiftRocky, medicalShiftOwie, medicalShiftMileva, medicalShiftNala, medicalShiftNapoleon)
         this.medicalShiftRepository.saveAll(allMedicalShift)
     }
 
