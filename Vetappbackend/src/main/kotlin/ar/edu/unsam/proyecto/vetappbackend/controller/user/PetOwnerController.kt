@@ -18,8 +18,8 @@ class PetOwnerController {
     }
 
     @GetMapping("/get-one-by-id")
-    fun getOneById(idPetOwner: Int): PetOwnerDTO {
-        return this.petOwnerService.getOneById(idPetOwner).toDTO()
+    fun getOneById(idPetOwner: Int): PetOwnerFullDTO {
+        return this.petOwnerService.getOneById(idPetOwner).toFullDTO()
     }
 
     @DeleteMapping("/delete")
@@ -29,13 +29,13 @@ class PetOwnerController {
     }
 
     @PostMapping("/create")
-    fun create(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        this.petOwnerService.create(petOwnerDTO.fromJSON())
+    fun create(@RequestBody petOwnerFullDTO: PetOwnerFullDTO) {
+        this.petOwnerService.create(petOwnerFullDTO.fromJSON())
     }
 
     @PutMapping("/update")
-    fun update(@RequestBody petOwnerDTO: PetOwnerDTO) {
-        this.petOwnerService.update(petOwnerDTO.fromJSON())
+    fun update(@RequestBody petOwnerFullDTO: PetOwnerFullDTO) {
+        this.petOwnerService.update(petOwnerFullDTO.fromJSON())
     }
 
 }

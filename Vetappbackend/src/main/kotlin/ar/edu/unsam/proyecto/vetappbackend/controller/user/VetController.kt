@@ -18,8 +18,8 @@ class VetController {
     }
 
     @GetMapping("/get-one-by-id")
-    fun getOneById(@RequestParam idVet: Int): VetDTO {
-        return this.vetService.getOneById(idVet).toDTO()
+    fun getOneById(@RequestParam idVet: Int): VetFullDTO {
+        return this.vetService.getOneById(idVet).toFullDTO()
     }
 
     @DeleteMapping("/delete")
@@ -29,13 +29,13 @@ class VetController {
     }
 
     @PostMapping("/create")
-    fun create(@RequestBody vetDTO: VetDTO) {
-        this.vetService.create(vetDTO.fromJSON())
+    fun create(@RequestBody vetFullDTO: VetFullDTO) {
+        this.vetService.create(vetFullDTO.fromJSON())
     }
 
     @PutMapping("/update")
-    fun update(@RequestBody vetDTO: VetDTO) {
-        this.vetService.update(vetDTO.fromJSON())
+    fun update(@RequestBody vetFullDTO: VetFullDTO) {
+        this.vetService.update(vetFullDTO.fromJSON())
     }
 
 }

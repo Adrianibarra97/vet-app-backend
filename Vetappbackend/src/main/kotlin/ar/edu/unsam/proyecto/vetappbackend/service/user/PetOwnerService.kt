@@ -12,6 +12,8 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
 @Service
 class PetOwnerService : BaseService<PetOwner> {
 
+    @Autowired lateinit var authCredentialsService: AuthCredentialsService
+
     @Autowired lateinit var petOwnerRepository: PetOwnerRepository
 
     override fun getOneById(idPetOwner: Int): PetOwner {
@@ -20,13 +22,23 @@ class PetOwnerService : BaseService<PetOwner> {
         }
     }
 
-    override fun getAll(): List<PetOwner> { return this.petOwnerRepository.findAll().toList() }
+    override fun getAll(): List<PetOwner> {
+        return this.petOwnerRepository.findAll().toList()
+    }
 
-    override fun delete(petOwner: PetOwner) { this.petOwnerRepository.delete(petOwner) }
+    override fun delete(petOwner: PetOwner) {
+        this.petOwnerRepository.delete(petOwner)
+    }
 
-    override fun create(petOwner: PetOwner) { this.petOwnerRepository.save(petOwner) }
+    override fun create(petOwner: PetOwner) {
+        this.authCredentialsService.verifyCreate(petOwner.authCredentials!!)
+        this.petOwnerRepository.save(petOwner)
+    }
 
     @Transactional
-    override fun update(petOwner: PetOwner) { this.petOwnerRepository.save(petOwner) }
+    override fun update(petOwner: PetOwner) {
+        this.authCredentialsService.verifyUpdate(petOwner.authCredentials!!)
+        this.petOwnerRepository.save(petOwner)
+    }
 
 }

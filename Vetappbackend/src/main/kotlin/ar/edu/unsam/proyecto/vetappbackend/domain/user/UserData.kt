@@ -20,4 +20,10 @@ abstract class UserData {
 
     var telephone: String? = null
 
+    @OneToOne(mappedBy = "userData", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var locationInfo: LocationInfo? = null
+
+    @OneToOne(mappedBy = "userData", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var authCredentials: AuthCredentials? = null
+
 }
