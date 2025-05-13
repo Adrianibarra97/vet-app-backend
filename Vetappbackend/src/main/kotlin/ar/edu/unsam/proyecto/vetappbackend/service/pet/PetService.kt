@@ -20,24 +20,15 @@ class PetService : BaseService<Pet> {
         }
     }
 
-    override fun getAll(): List<Pet> {
-        return this.petRepository.findAll().toList()
-    }
+    override fun getAll(): List<Pet> { return this.petRepository.findAll().toList() }
 
-    override fun create(newPet: Pet) {
-        this.petRepository.save(newPet)
-    }
+    override fun delete(petDelete: Pet) { petRepository.delete(petDelete) }
+
+    override fun create(newPet: Pet) { this.petRepository.save(newPet) }
 
     @Transactional
-    override fun delete(petDelete: Pet) {
-        petRepository.delete(petDelete)
-    }
+    override fun update(petUpdate: Pet) { this.petRepository.save(petUpdate) }
 
-    @Transactional
-    override fun update(petUpdate: Pet) {
-        this.getOneById(petUpdate.id!!)
-        this.petRepository.save(petUpdate)
-    }
 
     fun getAllThisOwnersPet(idPetOwner: Int): List<Pet> {
         return this.petRepository.findAllPetsByOwnerId(idPetOwner)

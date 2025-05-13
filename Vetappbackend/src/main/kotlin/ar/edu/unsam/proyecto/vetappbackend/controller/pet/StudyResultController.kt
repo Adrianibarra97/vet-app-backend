@@ -10,9 +10,9 @@ import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
 @RequestMapping("/study-result")
 class StudyResultController {
 
-    @Autowired private lateinit var studyResultService: StudyResultService
+    @Autowired private lateinit var petService: PetService
 
-    @Autowired private lateinit var medicalHistoryService: MedicalHistoryService
+    @Autowired private lateinit var studyResultService: StudyResultService
 
     @GetMapping("/get-all")
     fun getAll(): List<StudyResultDTO> {
@@ -24,23 +24,25 @@ class StudyResultController {
         return this.studyResultService.getOneById(idStudyResult).toDTO()
     }
 
-    @PostMapping("/create")
-    fun create(@RequestBody newStudyResultDTO: StudyResultDTO) {
-        val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newStudyResultDTO.medicalHistoryId)
-        this.studyResultService.create(newStudyResultDTO.fromJSON(medicalHistory))
-    }
-
-    @PutMapping("/update")
-    fun update(@RequestBody newStudyResultDTO: StudyResultDTO) {
-        val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newStudyResultDTO.medicalHistoryId)
-        val studyResult: StudyResult = newStudyResultDTO.fromJSON(medicalHistory)
-        studyResultService.update(studyResult)
-    }
-
     @DeleteMapping("/delete")
     fun delete(@RequestParam idStudyResult: Int) {
         val studyResultForDelete: StudyResult = this.studyResultService.getOneById(idStudyResult)
         this.studyResultService.delete(studyResultForDelete)
     }
+
+    @PostMapping("/create")
+    fun create(@RequestBody studyResultDTO: StudyResultDTO, @RequestParam idPet: Int) {
+        val pet: Pet = this.petService.getOneById(idPet)
+        val studyResult: StudyResult = studyResultDTO.fromJSON(pet)
+        this.studyResultService.create(studyResult)
+    }
+
+    @PutMapping("/update")
+    fun update(@RequestBody studyResultDTO: StudyResultDTO, @RequestParam idPet: Int) {
+        val pet: Pet = this.petService.getOneById(idPet)
+        val studyResult: StudyResult = studyResultDTO.fromJSON(pet)
+        this.studyResultService.update(studyResult)
+    }
+
 
 }

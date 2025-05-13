@@ -3,17 +3,18 @@ import java.time.LocalDate
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfVaccine
 
 @Entity
 @Table(name = "vaccine")
 class Vaccine {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
+    var id: Int = 0
 
-    var batchNumber: Int = 0
+    var batchNumber: Int? = null
 
-    var description: String = ""
+    var description: String? = null
 
     var completed: Boolean = false
 
@@ -26,8 +27,6 @@ class Vaccine {
 
     @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_medical_history")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    var medicalHistory: MedicalHistory? = null
+    var pet: Pet? = null
 
 }
-
-enum class TypeOfVaccine { ANTIRABIES, DISTEMPER, PARVOVIRUS, HEPATITIS, LEPTOSPIROSIS, PARAINFLUENZA, DEWORMING, OTHER }

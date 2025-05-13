@@ -1,4 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.pet
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfSex
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfSpecie
 import java.time.LocalDate
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
@@ -11,15 +13,15 @@ class Pet {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
-    var age: Int = 0
+    var age: Int? = null
 
-    var name: String = ""
+    var name: String? = null
 
-    var photo: String = ""
+    var photo: String? = null
 
-    var breed: String = ""
+    var breed: String? = null
 
-    var weight: Double = 0.0
+    var weight: Double? = null
 
     var birth: LocalDate? = null
 
@@ -31,20 +33,16 @@ class Pet {
     @Enumerated(EnumType.STRING)
     var specie: TypeOfSpecie? = null
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "id_pet_owner") @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_pet_owner")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var petOwner: PetOwner? = null
 
     @ManyToMany
-    @JoinTable(name = "pet_vet", joinColumns = [JoinColumn(name = "id_pet")], inverseJoinColumns = [JoinColumn(name = "id_vet")])
+    @JoinTable(
+        name = "pet_vet",
+        joinColumns = [JoinColumn(name = "id_pet")],
+        inverseJoinColumns = [JoinColumn(name = "id_vet")]
+    )
     var vets: MutableSet<Vet> = mutableSetOf()
 
-    @OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
-    var medicalHistory: MedicalHistory? = null
-
-
 }
-
-enum class TypeOfSex { Macho, Hembra }
-
-enum class TypeOfSpecie{ CAT, DOG, BIRD, FISH, FARM, RODENT, REPTILE, HORSE, OTHER }

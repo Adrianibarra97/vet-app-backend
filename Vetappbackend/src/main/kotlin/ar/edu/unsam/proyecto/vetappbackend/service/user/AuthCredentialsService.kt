@@ -12,24 +12,40 @@ import org.springframework.http.HttpStatus
 
 
 @Service
-class AuthCredentialsService {
+class AuthCredentialsService: BaseService<AuthCredentials> {
 
     @Autowired private lateinit var authCredentialsRepository: AuthCredentialsRepository
 
-    fun getAll(): List<AuthCredentials> {
-        return this.authCredentialsRepository.findAll().toList()
-    }
-
-    fun getOneById(idAuthCredentials: Int): AuthCredentials {
+    override fun getOneById(idAuthCredentials: Int): AuthCredentials {
         return this.authCredentialsRepository.findById(idAuthCredentials).orElseThrow {
             NotFoundException("No se encontró al usuario indicado: $idAuthCredentials")
         }
     }
 
+    override fun getAll(): List<AuthCredentials> {
+        return this.authCredentialsRepository.findAll().toList()
+    }
+
+    override fun delete(deleteAuthCredentials: AuthCredentials) {
+        this.authCredentialsRepository.delete(deleteAuthCredentials)
+    }
+
+    override fun create(newAuthCredentials: AuthCredentials) {
+        this.verifyCreate(newAuthCredentials)
+        this.authCredentialsRepository.save(newAuthCredentials)
+    }
+
+    override fun update(updateAuthCredentials: AuthCredentials) {
+        this.verifyUpdate(updateAuthCredentials)
+        this.authCredentialsRepository.save(updateAuthCredentials)
+    }
+
+
+
     fun login(authCredentialsLoginDTO: AuthCredentialsLoginDTO): AuthCredentialsResponseDTO {
         val authCredentials: AuthCredentials = this.findByUsername(authCredentialsLoginDTO.username)
         this.verifyPassword(authCredentialsLoginDTO.password, authCredentials.password!!)
-        return AuthCredentialsResponseDTO(authCredentials.id, authCredentials.typeOfUser!!.name)
+        return AuthCredentialsResponseDTO(authCredentials.userData!!.id, authCredentials.typeOfUser!!.name)
     }
 
     fun verifyCreate(authCredentials: AuthCredentials) {
@@ -56,5 +72,6 @@ class AuthCredentialsService {
             CredencialesInvalidasException()
         }
     }
+
 
 }

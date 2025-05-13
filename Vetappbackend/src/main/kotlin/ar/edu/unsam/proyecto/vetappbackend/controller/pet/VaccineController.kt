@@ -10,9 +10,9 @@ import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
 @RequestMapping("/vaccines")
 class VaccineController {
 
-    @Autowired private lateinit var vaccineService: VaccineService
+    @Autowired private lateinit var petService: PetService
 
-    @Autowired private lateinit var medicalHistoryService: MedicalHistoryService
+    @Autowired private lateinit var vaccineService: VaccineService
 
     @GetMapping("/get-all")
     fun getAll(): List<VaccineDTO> {
@@ -25,16 +25,16 @@ class VaccineController {
     }
 
     @PostMapping("/create")
-    fun create(@RequestBody newVaccineDTO: VaccineDTO) {
-        val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newVaccineDTO.medicalHistoryId)
-        val vaccine: Vaccine = newVaccineDTO.fromJSON(medicalHistory)
+    fun create(@RequestBody newVaccineDTO: VaccineDTO, @RequestParam idPet: Int) {
+        val pet: Pet = this.petService.getOneById(idPet)
+        val vaccine: Vaccine = newVaccineDTO.fromJSON(pet)
         this.vaccineService.create(vaccine)
     }
 
     @PutMapping("/update")
-    fun update(@RequestBody newVaccineDTO: VaccineDTO) {
-        val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newVaccineDTO.medicalHistoryId)
-        val vaccine: Vaccine = newVaccineDTO.fromJSON(medicalHistory)
+    fun update(@RequestBody newVaccineDTO: VaccineDTO, @RequestParam idPet: Int) {
+        val pet: Pet = this.petService.getOneById(idPet)
+        val vaccine: Vaccine = newVaccineDTO.fromJSON(pet)
         this.vaccineService.update(vaccine)
     }
 

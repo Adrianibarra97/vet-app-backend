@@ -1,8 +1,8 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
-
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import java.time.LocalDate
-import kotlin.Int
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 
 data class PetDTO(
     val id: Int,
@@ -14,27 +14,25 @@ data class PetDTO(
     val birth: String,
     val sex: String,
     val specie: String,
-    val sterilized: Boolean,
-    val idMedicalHistory: Int
+    val sterilized: Boolean
 )
 
 fun Pet.toDTO(): PetDTO {
     return PetDTO(
         id = this.id!!,
-        age = this.age,
-        name = this.name,
-        photo = this.photo,
-        breed = this.breed,
-        weight = this.weight,
+        age = this.age!!,
+        name = this.name!!,
+        photo = this.photo!!,
+        breed = this.breed!!,
+        weight = this.weight!!,
         birth = this.birth.toString(),
-        sex = this.sex.toString(),
-        specie = this.specie.toString(),
-        sterilized = this.sterilized,
-        idMedicalHistory = this.medicalHistory?.id!!
+        sex = this.sex!!.name,
+        specie = this.specie!!.name,
+        sterilized = this.sterilized
     )
 }
 
-fun PetDTO.fromJSON(currentMedicalHistory: MedicalHistory): Pet {
+fun PetDTO.fromJSON(currentPetOwner: PetOwner): Pet {
     val petDTO = this
     return Pet().apply {
         id = petDTO.id
@@ -47,18 +45,6 @@ fun PetDTO.fromJSON(currentMedicalHistory: MedicalHistory): Pet {
         sterilized = petDTO.sterilized
         sex = TypeOfSex.valueOf(petDTO.sex.toString())
         specie = TypeOfSpecie.valueOf(petDTO.specie.toString())
-        medicalHistory = currentMedicalHistory
+        petOwner = currentPetOwner
     }
-}
-
-class PetMedicalShiftDTO(
-    val id: Int,
-    val name: String
-)
-
-fun Pet.toPetMedicalShiftDTO(): PetMedicalShiftDTO {
-    return PetMedicalShiftDTO(
-        id = this.id!!,
-        name = this.name
-    )
 }

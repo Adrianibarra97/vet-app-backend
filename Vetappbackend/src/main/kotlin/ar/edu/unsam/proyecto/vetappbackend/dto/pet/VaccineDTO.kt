@@ -1,11 +1,10 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
-
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import java.time.LocalDate
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 
 data class VaccineDTO(
     val id: Int,
-    val medicalHistoryId: Int,
     val applicationDate: String,
     val expirationDate: String,
     val description: String,
@@ -16,26 +15,26 @@ data class VaccineDTO(
 
 fun Vaccine.toDTO(): VaccineDTO {
     return VaccineDTO(
-        id = this.id!!,
-        medicalHistoryId = this.medicalHistory?.id!!,
+        id = this.id,
         applicationDate = this.applicationDate.toString(),
         expirationDate = this.expirationDate.toString(),
-        description = this.description,
-        batchNumber = this.batchNumber,
+        description = this.description!!,
+        batchNumber = this.batchNumber!!,
         completed = this.completed,
         type = this.type!!.name
     )
 }
 
-fun VaccineDTO.fromJSON(medicalHistory: MedicalHistory): Vaccine {
+fun VaccineDTO.fromJSON(currentPet: Pet): Vaccine {
+    val vaccineDTO = this
     return Vaccine().apply {
-        this.id = id
-        this.medicalHistory = medicalHistory
-        this.applicationDate = LocalDate.parse(applicationDate.toString())
-        this.expirationDate = LocalDate.parse(expirationDate.toString())
-        this.description = description
-        this.batchNumber = batchNumber
-        this.completed = completed
-        this.type = TypeOfVaccine.valueOf(type.toString())
+        id = vaccineDTO.id
+        applicationDate = LocalDate.parse(vaccineDTO.applicationDate.toString())
+        expirationDate = LocalDate.parse(vaccineDTO.expirationDate.toString())
+        description = vaccineDTO.description
+        batchNumber = vaccineDTO.batchNumber
+        completed = vaccineDTO.completed
+        type =TypeOfVaccine.valueOf(vaccineDTO.type)
+        pet = currentPet
     }
 }

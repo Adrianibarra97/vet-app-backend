@@ -31,7 +31,6 @@ class VaccineService: BaseService<Vaccine> {
     }
 
     override fun update(vaccineUpdate: Vaccine) {
-        this.getOneById(vaccineUpdate.id!!)
         this.vacinneRepository.save(vaccineUpdate)
     }
 }

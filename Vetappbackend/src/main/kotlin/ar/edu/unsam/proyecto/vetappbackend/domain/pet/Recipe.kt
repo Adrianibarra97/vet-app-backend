@@ -1,31 +1,28 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.pet
+
 import java.time.LocalDate
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
 
 @Entity
-@Table(name = "pre_existence_disease")
-class PreExistenceDisease {
+@Table(name = "recipe")
+class Recipe {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
 
-    var isActive: Boolean = true
+    var date: LocalDate? = null
 
-    var observation: String? = null
-
-    var diagnosisDate: LocalDate? = null
-
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
-    var severity: TypeOfSeverity? = null
-
-    @Column(nullable = false) @Enumerated(EnumType.STRING)
-    var type: TypeOfPreExistinceDisease? = null
+    var description: String? = null
 
     @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_pet")
     @OnDelete(action = OnDeleteAction.CASCADE)
     var pet: Pet? = null
+
+    @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_vet")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    var vet: Vet? = null
 
 }

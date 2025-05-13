@@ -10,7 +10,7 @@ import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
 @RequestMapping("/pre-existence-disease")
 class PreExistenceDiseaseController {
 
-    @Autowired private lateinit var medicalHistoryService: MedicalHistoryService
+    @Autowired private lateinit var petService: PetService
 
     @Autowired private lateinit var preExistenceDiseaseService: PreExistenceDiseaseService
 
@@ -24,24 +24,24 @@ class PreExistenceDiseaseController {
         return this.preExistenceDiseaseService.getOneById(idPreExistenceDisease).toDTO()
     }
 
-    @PostMapping("/create")
-    fun create(@RequestBody newPreExistenceDiseaseDTO: PreExistenceDiseaseDTO) {
-        val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newPreExistenceDiseaseDTO.medicalHistoryId)
-        val preExistenceDisease: PreExistenceDisease = newPreExistenceDiseaseDTO.fromJSON(medicalHistory)
-        this.preExistenceDiseaseService.create(preExistenceDisease)
-    }
-
-    @PutMapping("/update")
-    fun update(@RequestBody newPreExistenceDiseaseDTO: PreExistenceDiseaseDTO) {
-        val medicalHistory: MedicalHistory = medicalHistoryService.getOneById(newPreExistenceDiseaseDTO.medicalHistoryId)
-        val preExistenceDisease: PreExistenceDisease = newPreExistenceDiseaseDTO.fromJSON(medicalHistory)
-        this.preExistenceDiseaseService.update(preExistenceDisease)
-    }
-
     @DeleteMapping("/delete")
     fun delete(@RequestParam idPreExistenceDisease: Int) {
         val preExistenceDiseaseForDelete: PreExistenceDisease = this.preExistenceDiseaseService.getOneById(idPreExistenceDisease)
         this.preExistenceDiseaseService.delete(preExistenceDiseaseForDelete)
+    }
+
+    @PostMapping("/create")
+    fun create(@RequestBody preExistenceDiseaseDTO: PreExistenceDiseaseDTO, @RequestParam idPet:Int) {
+        val pet: Pet = this.petService.getOneById(idPet)
+        val preExistenceDisease: PreExistenceDisease = preExistenceDiseaseDTO.fromJSON(pet)
+        this.preExistenceDiseaseService.create(preExistenceDisease)
+    }
+
+    @PutMapping("/update")
+    fun update(@RequestBody preExistenceDiseaseDTO: PreExistenceDiseaseDTO, @RequestParam idPet:Int) {
+        val pet: Pet = this.petService.getOneById(idPet)
+        val preExistenceDisease: PreExistenceDisease = preExistenceDiseaseDTO.fromJSON(pet)
+        this.preExistenceDiseaseService.update(preExistenceDisease)
     }
 
 }

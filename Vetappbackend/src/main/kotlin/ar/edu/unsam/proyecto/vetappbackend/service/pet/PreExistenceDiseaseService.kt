@@ -1,5 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.pet
-
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
@@ -22,16 +22,19 @@ class PreExistenceDiseaseService: BaseService<PreExistenceDisease> {
         return this.preExistenceDiseaseRepository.findAll().toList()
     }
 
+    @Transactional
     override fun create(newPreExistenceDisease: PreExistenceDisease) {
         this.preExistenceDiseaseRepository.save(newPreExistenceDisease)
     }
 
+    @Transactional
     override fun delete(preExistenceDiseaseDelete: PreExistenceDisease) {
         return this.preExistenceDiseaseRepository.delete(preExistenceDiseaseDelete)
     }
 
+    @Transactional
     override fun update(preExistenceDiseaseUpdate: PreExistenceDisease) {
-        this.getOneById(preExistenceDiseaseUpdate.id!!)
         this.preExistenceDiseaseRepository.save(preExistenceDiseaseUpdate)
     }
+
 }
