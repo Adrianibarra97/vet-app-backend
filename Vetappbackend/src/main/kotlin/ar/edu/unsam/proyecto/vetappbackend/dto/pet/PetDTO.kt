@@ -1,11 +1,12 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.PetOwner
 import java.time.LocalDate
 import kotlin.Int
 
 data class PetDTO(
-    val id: Int,
+    val id: Int?,
     val age: Int,
     val name: String,
     val photo: String,
@@ -15,7 +16,13 @@ data class PetDTO(
     val sex: String,
     val specie: String,
     val sterilized: Boolean,
-    val idMedicalHistory: Int
+    //Medical History
+    val idMedicalHistory: Int?,
+    val summary: String,
+    val createdAt: String,
+    val updatedAt: String,
+    //PetOwner
+    val petOwnerId: Int
 )
 
 fun Pet.toDTO(): PetDTO {
@@ -30,14 +37,18 @@ fun Pet.toDTO(): PetDTO {
         sex = this.sex.toString(),
         specie = this.specie.toString(),
         sterilized = this.sterilized,
-        idMedicalHistory = this.medicalHistory?.id!!
+        idMedicalHistory = this.medicalHistory?.id!!,
+        summary = this.medicalHistory?.summary!!,
+        createdAt = this.medicalHistory?.createdAt!!.toString(),
+        updatedAt = this.medicalHistory?.updatedAt!!.toString(),
+        petOwnerId = this.petOwner?.id!!
     )
 }
 
-fun PetDTO.fromJSON(currentMedicalHistory: MedicalHistory): Pet {
+fun PetDTO.fromJSON(currentPetOwner: PetOwner): Pet {
     val petDTO = this
     return Pet().apply {
-        id = petDTO.id
+        id = petDTO.id?: 0
         age = petDTO.age
         name = petDTO.name
         photo = petDTO.photo
@@ -47,7 +58,13 @@ fun PetDTO.fromJSON(currentMedicalHistory: MedicalHistory): Pet {
         sterilized = petDTO.sterilized
         sex = TypeOfSex.valueOf(petDTO.sex.toString())
         specie = TypeOfSpecie.valueOf(petDTO.specie.toString())
-        medicalHistory = currentMedicalHistory
+        medicalHistory = MedicalHistory().apply {
+            id = petDTO.idMedicalHistory ?: 0
+            summary = petDTO.summary
+            createdAt = petDTO.createdAt.let { LocalDate.parse(it) }
+            updatedAt = petDTO.updatedAt.let { LocalDate.parse(it) }
+        }
+        petOwner = currentPetOwner
     }
 }
 
