@@ -1,6 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import java.time.LocalDate
 import kotlin.Int
 
@@ -45,8 +46,8 @@ fun PetDTO.fromJSON(currentMedicalHistory: MedicalHistory): Pet {
         weight = petDTO.weight
         birth = LocalDate.parse(petDTO.birth.toString())
         sterilized = petDTO.sterilized
-        sex = TypeOfSex.valueOf(petDTO.sex.toString())
-        specie = TypeOfSpecie.valueOf(petDTO.specie.toString())
+        sex = TypeOfSexPet.valueOf(petDTO.sex.toString())
+        specie = TypeOfSpeciePet.valueOf(petDTO.specie.toString())
         medicalHistory = currentMedicalHistory
     }
 }

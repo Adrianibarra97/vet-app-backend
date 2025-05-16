@@ -1,6 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import java.time.LocalDate
 
 data class StudyResultDTO(
@@ -31,6 +32,6 @@ fun StudyResultDTO.fromJSON(medicalHistoryCurrent: MedicalHistory): StudyResult 
         date = LocalDate.parse(studyResultDTO.date.toString())
         fileUrl = studyResultDTO.fileUrl
         description = studyResultDTO.description
-        type = TypeOfStudyResult.valueOf(studyResultDTO.type.toString())
+        type = TypeOfStudyResultPet.valueOf(studyResultDTO.type.toString())
     }
 }

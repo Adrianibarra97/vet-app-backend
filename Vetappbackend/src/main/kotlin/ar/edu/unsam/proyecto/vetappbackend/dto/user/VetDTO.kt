@@ -1,4 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.user
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfUser
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 
 data class VetDTO (

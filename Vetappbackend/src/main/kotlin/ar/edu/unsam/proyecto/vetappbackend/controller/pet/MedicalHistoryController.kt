@@ -3,9 +3,8 @@ package ar.edu.unsam.proyecto.vetappbackend.controller.pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.MedicalHistory
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
 import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.RecipeResponseDTO
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.toDTO
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.toResponseDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.RecipeResponseDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.toResponseDTO
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.MedicalHistoryService
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.PetService
 import org.springframework.beans.factory.annotation.Autowired

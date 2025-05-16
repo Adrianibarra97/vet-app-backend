@@ -1,5 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.user
 import jakarta.persistence.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfUser
 
 @Entity
 @Table(name = "auth_credentials")

@@ -3,7 +3,6 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.beans.factory.annotation.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPetDTO

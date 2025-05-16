@@ -1,9 +1,8 @@
-package ar.edu.unsam.proyecto.vetappbackend.dto.shift
+package ar.edu.unsam.proyecto.vetappbackend.dto.pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.MedicalHistory
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Recipe
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 data class RecipeResponseDTO (
     val id: Int,

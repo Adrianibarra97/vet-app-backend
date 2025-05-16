@@ -1,10 +1,9 @@
-package ar.edu.unsam.proyecto.vetappbackend.domain.shift
+package ar.edu.unsam.proyecto.vetappbackend.domain.user
 import java.time.*
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
 
 @Entity
 @Table(name = "medical_shift")

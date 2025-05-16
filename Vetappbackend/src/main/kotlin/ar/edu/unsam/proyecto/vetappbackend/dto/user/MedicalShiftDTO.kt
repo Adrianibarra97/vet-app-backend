@@ -1,9 +1,7 @@
-package ar.edu.unsam.proyecto.vetappbackend.dto.shift
+package ar.edu.unsam.proyecto.vetappbackend.dto.user
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.pet.PetMedicalShiftDTO
-import ar.edu.unsam.proyecto.vetappbackend.dto.pet.toPetMedicalShiftDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
 import java.time.*
 import kotlin.*
 

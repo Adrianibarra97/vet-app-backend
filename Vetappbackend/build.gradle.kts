@@ -41,6 +41,9 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    // conexion con Gmal
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+
     // testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:1.13.9")

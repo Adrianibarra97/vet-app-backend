@@ -1,5 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import java.time.LocalDate
 
 data class PreExistenceDiseaseDTO (
@@ -32,7 +33,7 @@ fun PreExistenceDiseaseDTO.fromJSON(medicalHistoryCurrent: MedicalHistory): PreE
         isActive = preExistenceDiseaseDTO.isActive
         observation = preExistenceDiseaseDTO.observation
         diagnosisDate = LocalDate.parse(preExistenceDiseaseDTO.diagnosisDate.toString())
-        severity = TypeOfSeverity.valueOf(preExistenceDiseaseDTO.severity.toString())
-        type = TypeOfPreExistinceDisease.valueOf(preExistenceDiseaseDTO.type.toString())
+        severity = TypeOfSeverityPet.valueOf(preExistenceDiseaseDTO.severity.toString())
+        type = TypeOfPreExistenceDiseasePet.valueOf(preExistenceDiseaseDTO.type.toString())
     }
 }

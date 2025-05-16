@@ -2,20 +2,17 @@ package ar.edu.unsam.proyecto.vetappbackend.service.user
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
-import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
-import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
-import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.*
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.PetService
-import ar.edu.unsam.proyecto.vetappbackend.service.shift.MedicalShiftService
+
 
 @Service
 class VetService: BaseService<Vet> {
-
 
     @Autowired private lateinit var authCredentialsService: AuthCredentialsService
 

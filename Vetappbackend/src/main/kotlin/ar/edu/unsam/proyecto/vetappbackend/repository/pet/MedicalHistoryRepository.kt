@@ -1,10 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend.repository.pet
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.MedicalHistory
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.PreExistenceDisease
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.StudyResult
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Vaccine
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.Recipe
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
