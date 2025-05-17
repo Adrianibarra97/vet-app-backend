@@ -9,7 +9,7 @@ import java.time.LocalDate
 class MedicalHistory {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
+    var id: Int = 0
 
     var summary: String = ""
 
@@ -17,8 +17,7 @@ class MedicalHistory {
 
     var updatedAt: LocalDate? = null
 
-    @OneToOne @JoinColumn(referencedColumnName = "id", name = "id_pet")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    var pet: Pet? = null
+    //@OneToOne(mappedBy = "medical_history", fetch = FetchType.LAZY)
+    //var pet: Pet? = null
 
 }

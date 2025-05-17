@@ -10,7 +10,7 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 @Table(name = "pet")
 class Pet {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
+    var id: Int = 0
 
     var age: Int = 0
 
@@ -32,16 +32,23 @@ class Pet {
     @Enumerated(EnumType.STRING)
     var specie: TypeOfSpeciePet? = null
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id", name = "id_pet_owner") @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne (cascade = [CascadeType.ALL])
+    @JoinColumn(referencedColumnName = "id", name = "id_medical_history")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    var medicalHistory: MedicalHistory? = null
+
+    @ManyToOne (cascade = [CascadeType.MERGE])
+    @JoinColumn(referencedColumnName = "id", name = "id_pet_owner")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var petOwner: PetOwner? = null
 
     @ManyToMany
     @JoinTable(name = "pet_vet", joinColumns = [JoinColumn(name = "id_pet")], inverseJoinColumns = [JoinColumn(name = "id_vet")])
+    @OnDelete(action = OnDeleteAction.CASCADE)
     var vets: MutableSet<Vet> = mutableSetOf()
 
-    @OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
-    var medicalHistory: MedicalHistory? = null
-
-
 }
+
+enum class TypeOfSex { Macho, Hembra }
+
+enum class TypeOfSpecie{ CAT, DOG, BIRD, FISH, FARM, RODENT, REPTILE, HORSE, OTHER }
