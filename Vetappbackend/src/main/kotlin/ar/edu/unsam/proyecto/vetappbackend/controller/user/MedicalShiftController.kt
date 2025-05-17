@@ -1,24 +1,29 @@
-package ar.edu.unsam.proyecto.vetappbackend.controller.shift
-import org.springframework.web.bind.annotation.*
-import org.springframework.beans.factory.annotation.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.*
+package ar.edu.unsam.proyecto.vetappbackend.controller.user
+
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.user.MedicalShiftRequestDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.user.MedicalShiftResponseDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.user.fromJSON
+import ar.edu.unsam.proyecto.vetappbackend.dto.user.toDTO
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.service.user.*
-import ar.edu.unsam.proyecto.vetappbackend.service.shift.*
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/medical-shift")
 class MedicalShiftController {
 
-    @Autowired private lateinit var vetService: VetService
+    @Autowired
+    private lateinit var vetService: VetService
 
-    @Autowired private lateinit var petService: PetService
+    @Autowired
+    private lateinit var petService: PetService
 
-    @Autowired private lateinit var medicalShiftService: MedicalShiftService
+    @Autowired
+    private lateinit var medicalShiftService: MedicalShiftService
 
     @GetMapping("/get-all")
     fun getAll(): List<MedicalShiftResponseDTO> {

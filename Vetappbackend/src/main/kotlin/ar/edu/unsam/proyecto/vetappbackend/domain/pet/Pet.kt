@@ -1,4 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.domain.pet
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import java.time.LocalDate
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
@@ -26,10 +27,10 @@ class Pet {
     var sterilized: Boolean = false
 
     @Enumerated(EnumType.STRING)
-    var sex: TypeOfSex? = null
+    var sex: TypeOfSexPet? = null
 
     @Enumerated(EnumType.STRING)
-    var specie: TypeOfSpecie? = null
+    var specie: TypeOfSpeciePet? = null
 
     @OneToOne (cascade = [CascadeType.ALL])
     @JoinColumn(referencedColumnName = "id", name = "id_medical_history")

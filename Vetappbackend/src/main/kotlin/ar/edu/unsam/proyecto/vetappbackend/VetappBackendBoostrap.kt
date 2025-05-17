@@ -1,16 +1,15 @@
 package ar.edu.unsam.proyecto.vetappbackend
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.PreExistenceDisease
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.MedicalHistoryRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PetRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PreExistenceDiseaseRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.StudyResultRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.VaccineRepository
-import ar.edu.unsam.proyecto.vetappbackend.repository.shift.MedicalShiftRepository
-import ar.edu.unsam.proyecto.vetappbackend.repository.shift.RecipeRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.user.MedicalShiftRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.pet.RecipeRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
 
@@ -144,6 +143,7 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var medicalShiftRocky: MedicalShift
     lateinit var medicalShiftMileva: MedicalShift
     lateinit var medicalShiftNapoleon: MedicalShift
+    lateinit var medicalShiftCleopatra: MedicalShift
 
     // Recipe
     lateinit var recipeNala: Recipe
@@ -236,7 +236,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.name = "Ezequiel"
             this.surname = "Iozzia"
             this.photo = "/src/assets/eche.jfif"
-            this.email = "eze.iozzia@gmail.com"
+            //Aca puse el mio de prueba, pero tiene que ir el de eze
+            this.email = "cejaslucasleonel@gmail.com"
             this.telephone = "1145340000"
             this.emergencyContactName = "Hermano de Ezze"
             this.emergencyContactPhone = "1113378995"
@@ -284,27 +285,6 @@ class VetappBackendBoostrap: InitializingBean {
     }
 
     fun createVet() {
-        lucasCjs = Vet().apply {
-            this.dni = 44264079
-            this.name = "Lucas"
-            this.surname = "Cejas"
-            this.photo = "/src/assets/vet.jfif"
-            this.email = "lucas.cejas@gmail.com"
-            this.telephone = "1147392234"
-            this.email = "lucas.cejas@gmail.com"
-            this.telephone = "4739-2234"
-
-            this.licence = "1869591337"
-            this.speciality = "surgery"
-            this.businessHours = "7 a 24 hs"
-            this.professionalEmail = "lucas-vetapp@gmail.com"
-            this.professionalAddress = "Vuelta de Obligado 7898"
-            this.professionalTelephone = "1169591337"
-            this.professionalLocality = "Munro"
-            this.professionalPostalCode = "1175"
-            this.locationInfo = locationInfo5
-            this.authCredentials = authCredentials5
-        }
         adrian = Vet().apply {
             this.dni = 37894513
             this.name = "Adrian"
@@ -315,13 +295,34 @@ class VetappBackendBoostrap: InitializingBean {
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
-            this.professionalEmail = "adri-vetapp@gmail.com"
+            //Aca puse mi mail de prueba pero iria el de arian
+            this.professionalEmail = "cejaslucasleonel@gmail.com"
             this.professionalAddress = "Avenida Marquez 7548"
             this.professionalTelephone = "1181591457"
             this.professionalLocality = "San Isidro"
             this.professionalPostalCode = "1175"
             this.locationInfo = locationInfo6
             this.authCredentials = authCredentials6
+        }
+        lucasCjs = Vet().apply {
+            this.dni = 44264079
+            this.name = "Lucas"
+            this.surname = "Cejas"
+            this.photo = "/src/assets/vet.jfif"
+            this.email = "lucas.cejas@gmail.com"
+            this.telephone = "1147392234"
+            this.email = "lucas.cejas@gmail.com"
+            this.telephone = "4739-2234"
+            this.licence = "1869591337"
+            this.speciality = "surgery"
+            this.businessHours = "7 a 24 hs"
+            this.professionalEmail = "lucas-vetapp@gmail.com"
+            this.professionalAddress = "Vuelta de Obligado 7898"
+            this.professionalTelephone = "1169591337"
+            this.professionalLocality = "Munro"
+            this.professionalPostalCode = "1175"
+            this.locationInfo = locationInfo5
+            this.authCredentials = authCredentials5
         }
         var allVet: List<Vet> = listOf(adrian, lucasCjs)
         vetRepository.saveAll(allVet)
@@ -527,7 +528,7 @@ class VetappBackendBoostrap: InitializingBean {
             medicalHistory = medicalHistoryFreya
         }
         cleopatra = Pet().apply {
-            vets = mutableSetOf(lucasCjs, adrian)
+            vets = mutableSetOf(lucasCjs)
             petOwner = tamara
             age = 5
             name = "Cleopatra"
@@ -541,233 +542,222 @@ class VetappBackendBoostrap: InitializingBean {
             medicalHistory = medicalHistoryCleopatra
         }
         val allPets = listOf(
-            nala,
             oli,
-            owie,
             rocky,
-            pipi,
-            morena,
             mileva,
+            owie,
+            pipi,
             napoleon,
             burpee,
             freya,
-            cleopatra
+            cleopatra,
+            nala,
+            morena
         )
         petRepository.saveAll(allPets)
     }
 
 
     fun createPreExistingDisease() {
-        preExistingDiseaseNala = PreExistenceDisease().apply {
-            medicalHistory = medicalHistoryNala
-            isActive = true
-            observation = "Está mejorando levemente Nala"
-            diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Moderate
-            type = TypeOfPreExistinceDisease.DISTETER
-        }
         preExistingDiseaseOli = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryOli
             isActive = true
             observation = "Está mejorando Oli"
             diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Stable
-            type = TypeOfPreExistinceDisease.PARVOVIRUS
-        }
-        preExistingDiseaseOwie = PreExistenceDisease().apply {
-            medicalHistory = medicalHistoryOwie
-            isActive = false
-            observation = "Corregido Owie"
-            diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Moderate
-            type = TypeOfPreExistinceDisease.EPILEPSY
+            severity = TypeOfSeverityPet.Stable
+            type = TypeOfPreExistenceDiseasePet.PARVOVIRUS
         }
         preExistingDiseaseRocky = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryRocky
             isActive = false
             observation = "Está grave Rocky"
             diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Critical
-            type = TypeOfPreExistinceDisease.ASTHMA
-        }
-        preExistingDiseasePipi = PreExistenceDisease().apply {
-            medicalHistory = medicalHistoryPipi
-            isActive = true
-            observation = "El estado es crítico Pipi"
-            diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Critical
-            type = TypeOfPreExistinceDisease.LEUKEMIA
-        }
-        preExistingDiseaseMorena = PreExistenceDisease().apply {
-            medicalHistory = medicalHistoryMorena
-            isActive = true
-            observation = "Trabajo en proceso Morena"
-            diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Moderate
-            type = TypeOfPreExistinceDisease.EPILEPSY
+            severity = TypeOfSeverityPet.Critical
+            type = TypeOfPreExistenceDiseasePet.ASTHMA
         }
         preExistingDiseaseMileva = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryMileva
             isActive = true
             observation = "Trabajando con Mileva"
             diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Critical
-            type = TypeOfPreExistinceDisease.DISTETER
+            severity = TypeOfSeverityPet.Critical
+            type = TypeOfPreExistenceDiseasePet.DISTETER
+        }
+        preExistingDiseaseOwie = PreExistenceDisease().apply {
+            medicalHistory = medicalHistoryOwie
+            isActive = false
+            observation = "Corregido Owie"
+            diagnosisDate = LocalDate.now()
+            severity = TypeOfSeverityPet.Moderate
+            type = TypeOfPreExistenceDiseasePet.EPILEPSY
+        }
+        preExistingDiseasePipi = PreExistenceDisease().apply {
+            medicalHistory = medicalHistoryPipi
+            isActive = true
+            observation = "El estado es crítico Pipi"
+            diagnosisDate = LocalDate.now()
+            severity = TypeOfSeverityPet.Critical
+            type = TypeOfPreExistenceDiseasePet.LEUKEMIA
         }
         preExistingDiseaseNapoleon = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryNapoleon
             isActive = false
             observation = "Corregido Napoleon, todo ok"
             diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Stable
-            type = TypeOfPreExistinceDisease.DIABETES
+            severity = TypeOfSeverityPet.Stable
+            type = TypeOfPreExistenceDiseasePet.DIABETES
         }
         preExistingDiseaseBurpee = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryBurpee
             isActive = true
             observation = "Con tratamientos Burpee"
             diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Critical
-            type = TypeOfPreExistinceDisease.LEUKEMIA
+            severity = TypeOfSeverityPet.Critical
+            type = TypeOfPreExistenceDiseasePet.LEUKEMIA
         }
         preExistingDiseaseFreya = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryFreya
             isActive = false
             observation = "Situación difícil Freya"
             diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Critical
-            type = TypeOfPreExistinceDisease.PARVOVIRUS
+            severity = TypeOfSeverityPet.Critical
+            type = TypeOfPreExistenceDiseasePet.PARVOVIRUS
         }
         preExistingDiseaseCleopatra = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryCleopatra
             isActive = true
             observation = "Corregido, pero con tratamiento Cleopatra"
             diagnosisDate = LocalDate.now()
-            severity = TypeOfSeverity.Moderate
-            type = TypeOfPreExistinceDisease.ASTHMA
+            severity = TypeOfSeverityPet.Moderate
+            type = TypeOfPreExistenceDiseasePet.ASTHMA
         }
-
+        preExistingDiseaseNala = PreExistenceDisease().apply {
+            medicalHistory = medicalHistoryNala
+            isActive = true
+            observation = "Está mejorando levemente Nala"
+            diagnosisDate = LocalDate.now()
+            severity = TypeOfSeverityPet.Moderate
+            type = TypeOfPreExistenceDiseasePet.DISTETER
+        }
+        preExistingDiseaseMorena = PreExistenceDisease().apply {
+            medicalHistory = medicalHistoryMorena
+            isActive = true
+            observation = "Trabajo en proceso Morena"
+            diagnosisDate = LocalDate.now()
+            severity = TypeOfSeverityPet.Moderate
+            type = TypeOfPreExistenceDiseasePet.EPILEPSY
+        }
         val allPreExistenceDisease = listOf(
-            preExistingDiseaseNala,
             preExistingDiseaseOli,
-            preExistingDiseaseBurpee,
-            preExistingDiseaseMileva,
-            preExistingDiseaseMorena,
             preExistingDiseaseRocky,
-            preExistingDiseaseFreya,
+            preExistingDiseaseMileva,
             preExistingDiseaseOwie,
             preExistingDiseasePipi,
             preExistingDiseaseNapoleon,
-            preExistingDiseaseCleopatra
+            preExistingDiseaseBurpee,
+            preExistingDiseaseFreya,
+            preExistingDiseaseCleopatra,
+            preExistingDiseaseNala,
+            preExistingDiseaseMorena
         )
         preExistenceDiseaseRepository.saveAll(allPreExistenceDisease)
     }
 
     fun createStudyResult() {
-        studyResultNala = StudyResult().apply {
-            medicalHistory = medicalHistoryNala
-            date = LocalDate.now()
-            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            description = "Todo salió perfecto Nala"
-            type = TypeOfStudyResult.CLINICAL
-        }
         studyResultOli = StudyResult().apply {
             medicalHistory = medicalHistoryOli
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
             description = "Algo salió mal Oli"
-            type = TypeOfStudyResult.GENETIC
-        }
-        studyResultOwie = StudyResult().apply {
-            medicalHistory = medicalHistoryOwie
-            date = LocalDate.now()
-            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            description = "Volver a realizar el estudio Owie"
-            type = TypeOfStudyResult.PATHOLOGICAL
+            type = TypeOfStudyResultPet.GENETIC
         }
         studyResultRocky = StudyResult().apply {
             medicalHistory = medicalHistoryRocky
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
             description = "Consumió alguna droga Rocky"
-            type = TypeOfStudyResult.PHARMACOLOGICAL
-        }
-        studyResultPipi = StudyResult().apply {
-            medicalHistory = medicalHistoryPipi
-            date = LocalDate.now()
-            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            description = "Se encuentra estresado Pipi"
-            type = TypeOfStudyResult.PHYSIOLOGICAL
-        }
-        studyResultMorena = StudyResult().apply {
-            medicalHistory = medicalHistoryMorena
-            date = LocalDate.now()
-            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            description = "Todo salió perfecto Morena"
-            type = TypeOfStudyResult.CLINICAL
+            type = TypeOfStudyResultPet.PHARMACOLOGICAL
         }
         studyResultMileva = StudyResult().apply {
             medicalHistory = medicalHistoryMileva
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
             description = "Algo defectuoso en su gen Mileva"
-            type = TypeOfStudyResult.GENETIC
+            type = TypeOfStudyResultPet.GENETIC
+        }
+        studyResultOwie = StudyResult().apply {
+            medicalHistory = medicalHistoryOwie
+            date = LocalDate.now()
+            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
+            description = "Volver a realizar el estudio Owie"
+            type = TypeOfStudyResultPet.PATHOLOGICAL
+        }
+        studyResultPipi = StudyResult().apply {
+            medicalHistory = medicalHistoryPipi
+            date = LocalDate.now()
+            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
+            description = "Se encuentra estresado Pipi"
+            type = TypeOfStudyResultPet.PHYSIOLOGICAL
         }
         studyResultNapoleon = StudyResult().apply {
             medicalHistory = medicalHistoryNapoleon
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
             description = "Tiene un ADN alterado Napoleon"
-            type = TypeOfStudyResult.PATHOLOGICAL
+            type = TypeOfStudyResultPet.PATHOLOGICAL
         }
         studyResultBurpee = StudyResult().apply {
             medicalHistory = medicalHistoryBurpee
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
             description = "Todo salió perfecto Burpee"
-            type = TypeOfStudyResult.CLINICAL
+            type = TypeOfStudyResultPet.CLINICAL
         }
         studyResultFreya = StudyResult().apply {
             medicalHistory = medicalHistoryFreya
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
             description = "Todo salió perfecto, falta el clínico Freya"
-            type = TypeOfStudyResult.PHYSIOLOGICAL
+            type = TypeOfStudyResultPet.PHYSIOLOGICAL
         }
         studyResultCleopatra = StudyResult().apply {
             medicalHistory = medicalHistoryCleopatra
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
             description = "Todo salió perfecto Cleopatra"
-            type = TypeOfStudyResult.PHARMACOLOGICAL
+            type = TypeOfStudyResultPet.PHARMACOLOGICAL
         }
-
+        studyResultNala = StudyResult().apply {
+            medicalHistory = medicalHistoryNala
+            date = LocalDate.now()
+            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
+            description = "Todo salió perfecto Nala"
+            type = TypeOfStudyResultPet.CLINICAL
+        }
+        studyResultMorena = StudyResult().apply {
+            medicalHistory = medicalHistoryMorena
+            date = LocalDate.now()
+            fileUrl = "this@VetAppBackendBoostrap.fileUrl"
+            description = "Todo salió perfecto Morena"
+            type = TypeOfStudyResultPet.CLINICAL
+        }
         val allStudyResult = listOf(
-            studyResultNala,
             studyResultOli,
-            studyResultOwie,
             studyResultRocky,
-            studyResultPipi,
-            studyResultMorena,
             studyResultMileva,
+            studyResultOwie,
+            studyResultPipi,
             studyResultNapoleon,
             studyResultBurpee,
             studyResultFreya,
-            studyResultCleopatra
+            studyResultCleopatra,
+            studyResultNala,
+            studyResultMorena
         )
         studyResultRepository.saveAll(allStudyResult)
     }
 
     fun createVaccine() {
-        vaccineNala = Vaccine().apply {
-            medicalHistory = medicalHistoryNala
-            description = "Vacuna contra la rabia para Nala"
-            batchNumber = 1123444
-            applicationDate = LocalDate.of(2024, 8, 14)
-            expirationDate = LocalDate.of(2026, 8, 14)
-            completed = false
-            type = TypeOfVaccine.ANTIRABIES
-        }
         vaccineOli = Vaccine().apply {
             medicalHistory = medicalHistoryOli
             description = "Vacuna contra el moquillo para Oli"
@@ -775,16 +765,7 @@ class VetappBackendBoostrap: InitializingBean {
             applicationDate = LocalDate.of(2025, 7, 10)
             expirationDate = LocalDate.of(2026, 7, 10)
             completed = false
-            type = TypeOfVaccine.DISTEMPER
-        }
-        vaccineOwie = Vaccine().apply {
-            medicalHistory = medicalHistoryOwie
-            description = "Vacuna contra el parvovirus para Owie"
-            batchNumber = 1123446
-            applicationDate = LocalDate.of(2025, 5, 13)
-            expirationDate = LocalDate.of(2026, 5, 13)
-            completed = false
-            type = TypeOfVaccine.PARVOVIRUS
+            type = TypeOfVaccinePet.DISTEMPER
         }
         vaccineRocky = Vaccine().apply {
             medicalHistory = medicalHistoryRocky
@@ -793,25 +774,7 @@ class VetappBackendBoostrap: InitializingBean {
             applicationDate = LocalDate.of(2024, 6, 5)
             expirationDate = LocalDate.of(2025, 6, 5)
             completed = true
-            type = TypeOfVaccine.HEPATITIS
-        }
-        vaccinePipi = Vaccine().apply {
-            medicalHistory = medicalHistoryPipi
-            description = "Vacunado contra la leptospirosis Pipi"
-            batchNumber = 1123448
-            applicationDate = LocalDate.of(2024, 7, 15)
-            expirationDate = LocalDate.of(2025, 7, 15)
-            completed = true
-            type = TypeOfVaccine.LEPTOSPIROSIS
-        }
-        vaccineMorena = Vaccine().apply {
-            medicalHistory = medicalHistoryMorena
-            description = "Vacuna contra la parainfluenza Morena"
-            batchNumber = 1123449
-            applicationDate = LocalDate.of(2024, 8, 20)
-            expirationDate = LocalDate.of(2025, 8, 20)
-            completed = false
-            type = TypeOfVaccine.PARAINFLUENZA
+            type = TypeOfVaccinePet.HEPATITIS
         }
         vaccineMileva = Vaccine().apply {
             medicalHistory = medicalHistoryMileva
@@ -820,7 +783,25 @@ class VetappBackendBoostrap: InitializingBean {
             applicationDate = LocalDate.of(2024, 9, 10)
             expirationDate = LocalDate.of(2025, 9, 10)
             completed = true
-            type = TypeOfVaccine.ANTIRABIES
+            type = TypeOfVaccinePet.ANTIRABIES
+        }
+        vaccineOwie = Vaccine().apply {
+            medicalHistory = medicalHistoryOwie
+            description = "Vacuna contra el parvovirus para Owie"
+            batchNumber = 1123446
+            applicationDate = LocalDate.of(2025, 5, 13)
+            expirationDate = LocalDate.of(2026, 5, 13)
+            completed = false
+            type = TypeOfVaccinePet.PARVOVIRUS
+        }
+        vaccinePipi = Vaccine().apply {
+            medicalHistory = medicalHistoryPipi
+            description = "Vacunado contra la leptospirosis Pipi"
+            batchNumber = 1123448
+            applicationDate = LocalDate.of(2024, 7, 15)
+            expirationDate = LocalDate.of(2025, 7, 15)
+            completed = true
+            type = TypeOfVaccinePet.LEPTOSPIROSIS
         }
         vaccineNapoleon = Vaccine().apply {
             medicalHistory = medicalHistoryNapoleon
@@ -829,7 +810,7 @@ class VetappBackendBoostrap: InitializingBean {
             applicationDate = LocalDate.of(2024, 10, 2)
             expirationDate = LocalDate.of(2025, 10, 2)
             completed = true
-            type = TypeOfVaccine.PARVOVIRUS
+            type = TypeOfVaccinePet.PARVOVIRUS
         }
         vaccineBurpee = Vaccine().apply {
             medicalHistory = medicalHistoryBurpee
@@ -838,7 +819,7 @@ class VetappBackendBoostrap: InitializingBean {
             applicationDate = LocalDate.of(2024, 11, 12)
             expirationDate = LocalDate.of(2025, 11, 12)
             completed = false
-            type = TypeOfVaccine.LEPTOSPIROSIS
+            type = TypeOfVaccinePet.LEPTOSPIROSIS
         }
         vaccineFreya = Vaccine().apply {
             medicalHistory = medicalHistoryFreya
@@ -847,7 +828,7 @@ class VetappBackendBoostrap: InitializingBean {
             applicationDate = LocalDate.of(2024, 12, 5)
             expirationDate = LocalDate.of(2025, 12, 5)
             completed = true
-            type = TypeOfVaccine.HEPATITIS
+            type = TypeOfVaccinePet.HEPATITIS
         }
         vaccineCleopatra = Vaccine().apply {
             medicalHistory = medicalHistoryCleopatra
@@ -856,49 +837,61 @@ class VetappBackendBoostrap: InitializingBean {
             applicationDate = LocalDate.of(2025, 1, 8)
             expirationDate = LocalDate.of(2026, 1, 8)
             completed = false
-            type = TypeOfVaccine.DISTEMPER
+            type = TypeOfVaccinePet.DISTEMPER
         }
-
+        vaccineNala = Vaccine().apply {
+            medicalHistory = medicalHistoryNala
+            description = "Vacuna contra la rabia para Nala"
+            batchNumber = 1123444
+            applicationDate = LocalDate.of(2024, 8, 14)
+            expirationDate = LocalDate.of(2026, 8, 14)
+            completed = false
+            type = TypeOfVaccinePet.ANTIRABIES
+        }
+        vaccineMorena = Vaccine().apply {
+            medicalHistory = medicalHistoryMorena
+            description = "Vacuna contra la parainfluenza Morena"
+            batchNumber = 1123449
+            applicationDate = LocalDate.of(2024, 8, 20)
+            expirationDate = LocalDate.of(2025, 8, 20)
+            completed = false
+            type = TypeOfVaccinePet.PARAINFLUENZA
+        }
         val allVaccines = listOf(
-            vaccineNala,
             vaccineOli,
-            vaccineOwie,
             vaccineRocky,
-            vaccinePipi,
-            vaccineMorena,
             vaccineMileva,
+            vaccineOwie,
+            vaccinePipi,
             vaccineNapoleon,
             vaccineBurpee,
             vaccineFreya,
-            vaccineCleopatra
+            vaccineCleopatra,
+            vaccineNala,
+            vaccineMorena
         )
         vaccineRepository.saveAll(allVaccines)
     }
 
+
     fun createMedicalShift() {
-        medicalShiftNala = MedicalShift().apply {
-            this.pet = nala
-            this.vet = adrian
-            this.hour = LocalTime.of(11, 0)
-            this.date = LocalDate.now()
-        }
         medicalShiftOli = MedicalShift().apply {
             this.pet = oli
             this.vet = adrian
             this.hour = LocalTime.of(13, 0)
-            this.date = LocalDate.now().plusDays(1)
+            this.date = LocalDate.now().plusMonths(1)
         }
         medicalShiftRocky = MedicalShift().apply {
             this.pet = rocky
             this.vet = adrian
             this.hour = LocalTime.of(13, 0)
-            this.date = LocalDate.now().plusMonths(1)
+            this.date = LocalDate.now().plusDays(1)
         }
         medicalShiftMileva = MedicalShift().apply {
             this.pet = mileva
-            this.vet = lucasCjs
+            this.vet = adrian
             this.hour = LocalTime.of(11, 0)
-            this.date = LocalDate.now().plusDays(1)
+            this.date = LocalDate.now()
         }
         medicalShiftNapoleon = MedicalShift().apply {
             this.pet = napoleon
@@ -906,7 +899,26 @@ class VetappBackendBoostrap: InitializingBean {
             this.hour = LocalTime.of(15, 0)
             this.date = LocalDate.now().plusMonths(2)
         }
-        var allMedicalShift = listOf(medicalShiftNala, medicalShiftOli, medicalShiftMileva, medicalShiftNapoleon, medicalShiftRocky)
+        medicalShiftCleopatra = MedicalShift().apply {
+            this.pet = cleopatra
+            this.vet = lucasCjs
+            this.hour = LocalTime.of(16, 0)
+            this.date = LocalDate.now().plusDays(2)
+        }
+        medicalShiftNala = MedicalShift().apply {
+            this.pet = nala
+            this.vet = lucasCjs
+            this.hour = LocalTime.of(11, 0)
+            this.date = LocalDate.now()
+        }
+        var allMedicalShift = listOf(
+            medicalShiftOli,
+            medicalShiftRocky,
+            medicalShiftMileva,
+            medicalShiftNapoleon,
+            medicalShiftCleopatra,
+            medicalShiftNala
+        )
         this.medicalShiftRepository.saveAll(allMedicalShift)
     }
 

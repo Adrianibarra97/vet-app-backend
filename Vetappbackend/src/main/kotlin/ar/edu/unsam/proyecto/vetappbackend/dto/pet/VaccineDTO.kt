@@ -1,6 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.pet
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import java.time.LocalDate
 
 data class VaccineDTO(
@@ -36,6 +37,6 @@ fun VaccineDTO.fromJSON(medicalHistory: MedicalHistory): Vaccine {
         this.description = description
         this.batchNumber = batchNumber
         this.completed = completed
-        this.type = TypeOfVaccine.valueOf(type.toString())
+        this.type = TypeOfVaccinePet.valueOf(type.toString())
     }
 }

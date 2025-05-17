@@ -1,24 +1,28 @@
-package ar.edu.unsam.proyecto.vetappbackend.controller.shift
-import ar.edu.unsam.proyecto.vetappbackend.domain.pet.MedicalHistory
+package ar.edu.unsam.proyecto.vetappbackend.controller.pet
+
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.RecipeDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.fromJSON
+import ar.edu.unsam.proyecto.vetappbackend.dto.pet.toDTO
+import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.service.user.*
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import org.springframework.beans.factory.annotation.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.shift.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
-import ar.edu.unsam.proyecto.vetappbackend.service.pet.MedicalHistoryService
-import ar.edu.unsam.proyecto.vetappbackend.service.shift.*
-import ar.edu.unsam.proyecto.vetappbackend.service.user.VetService
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/recipe")
 class RecipeController {
 
-    @Autowired private lateinit var recipeService: RecipeService
+    @Autowired
+    private lateinit var recipeService: RecipeService
 
-    @Autowired private lateinit var medicalHistoryService: MedicalHistoryService
+    @Autowired
+    private lateinit var medicalHistoryService: MedicalHistoryService
 
-    @Autowired private lateinit var vetService: VetService
+    @Autowired
+    private lateinit var vetService: VetService
 
     @GetMapping("/get-all")
     fun getAll(): List<RecipeDTO> {

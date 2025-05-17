@@ -1,4 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.dto.user
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 
 data class AuthCredentialsLoginDTO (val username: String, val password: String)

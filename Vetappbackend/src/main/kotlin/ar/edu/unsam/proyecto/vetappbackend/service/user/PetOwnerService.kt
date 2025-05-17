@@ -5,13 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 
 import ar.edu.unsam.proyecto.vetappbackend.service.*
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
-import ar.edu.unsam.proyecto.vetappbackend.service.shift.*
 
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository

@@ -1,16 +1,17 @@
-package ar.edu.unsam.proyecto.vetappbackend.service.shift
+package ar.edu.unsam.proyecto.vetappbackend.service.pet
 
-import org.springframework.stereotype.Service
-import org.springframework.beans.factory.annotation.Autowired
-import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.Recipe
+import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Recipe
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
-import ar.edu.unsam.proyecto.vetappbackend.repository.shift.RecipeRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.pet.RecipeRepository
+import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
 @Service
 class RecipeService: BaseService<Recipe> {
 
-    @Autowired lateinit var recipeRepository: RecipeRepository
+    @Autowired
+    lateinit var recipeRepository: RecipeRepository
 
     override fun getOneById(idRecipe: Int): Recipe {
         return this.recipeRepository.findById(idRecipe).orElseThrow {

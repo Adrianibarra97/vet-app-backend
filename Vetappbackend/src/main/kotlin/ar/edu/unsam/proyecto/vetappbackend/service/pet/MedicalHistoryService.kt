@@ -5,10 +5,9 @@ import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.Recipe
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.MedicalHistoryRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PetRepository
-import ar.edu.unsam.proyecto.vetappbackend.service.shift.MedicalShiftService
+import ar.edu.unsam.proyecto.vetappbackend.service.user.MedicalShiftService
 
 @Service
 class MedicalHistoryService: BaseService<MedicalHistory> {

@@ -3,6 +3,7 @@ import java.time.LocalDate
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 
 @Entity
 @Table(name = "pre_existence_disease")
@@ -18,10 +19,10 @@ class PreExistenceDisease {
     var diagnosisDate: LocalDate = LocalDate.now()
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    var severity: TypeOfSeverity? = null
+    var severity: TypeOfSeverityPet? = null
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
-    var type: TypeOfPreExistinceDisease? = null
+    var type: TypeOfPreExistenceDiseasePet? = null
 
     @ManyToOne @JoinColumn(referencedColumnName = "id", name = "id_medical_history")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -29,6 +30,3 @@ class PreExistenceDisease {
 
 }
 
-enum class TypeOfSeverity { Stable, Moderate, Critical }
-
-enum class TypeOfPreExistinceDisease { ASTHMA, DIABETES, DISTETER, PARVOVIRUS, EPILEPSY, LEUKEMIA, OTHER }

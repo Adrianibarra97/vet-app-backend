@@ -1,7 +1,6 @@
-package ar.edu.unsam.proyecto.vetappbackend.repository.shift
+package ar.edu.unsam.proyecto.vetappbackend.repository.user
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.MedicalShift
-import ar.edu.unsam.proyecto.vetappbackend.domain.shift.Recipe
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.MedicalShift
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
@@ -46,13 +45,3 @@ interface MedicalShiftRepository: CrudRepository<MedicalShift, Int> {
     ): List<MedicalShift>
 
 }
-
-// Possible combinations for filtering medical appointments
-// { "day": null, "today": false, "thisWeek": false }
-// { "day": null, "today": false, "thisWeek": true }
-// { "day": null, "today": true, "thisWeek": false }
-// { "day": null, "today": true, "thisWeek": true }
-// { "day": "2025-04-26", "today": false, "thisWeek": false }
-// { "day": "2025-04-26", "today": false, "thisWeek": true }
-// { "day": "2025-04-26", "today": true, "thisWeek": false }
-// { "day": "2025-04-26", "today": true, "thisWeek": true } ó { "day": "2025-06-26", "today": true, "thisWeek": true }
