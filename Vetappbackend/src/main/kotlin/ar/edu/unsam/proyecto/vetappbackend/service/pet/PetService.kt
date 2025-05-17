@@ -35,7 +35,7 @@ class PetService : BaseService<Pet> {
 
     @Transactional
     override fun update(petUpdate: Pet) {
-        this.getOneById(petUpdate.id!!)
+        this.getOneById(petUpdate.id)
         this.petRepository.save(petUpdate)
     }
 

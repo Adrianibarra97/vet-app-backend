@@ -28,7 +28,7 @@ data class PetDTO(
 
 fun Pet.toDTO(): PetDTO {
     return PetDTO(
-        id = this.id!!,
+        id = this.id,
         age = this.age,
         name = this.name,
         photo = this.photo,
@@ -76,7 +76,7 @@ class PetMedicalShiftDTO(
 
 fun Pet.toPetMedicalShiftDTO(): PetMedicalShiftDTO {
     return PetMedicalShiftDTO(
-        id = this.id!!,
+        id = this.id,
         name = this.name
     )
 }

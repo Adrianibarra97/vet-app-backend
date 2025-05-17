@@ -1,8 +1,10 @@
 package ar.edu.unsam.proyecto.vetappbackend
 
+import ar.edu.unsam.proyecto.vetappbackend.domain.notification.Notification
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
+import ar.edu.unsam.proyecto.vetappbackend.repository.notification.NotificationRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.MedicalHistoryRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PetRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PreExistenceDiseaseRepository
@@ -49,6 +51,8 @@ class VetappBackendBoostrap: InitializingBean {
     @Autowired
     lateinit var recipeRepository: RecipeRepository
 
+    @Autowired
+    lateinit var notificationRepository: NotificationRepository
 
     lateinit var authCredentials1: AuthCredentials
     lateinit var authCredentials2: AuthCredentials
@@ -151,6 +155,11 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var recipeMileva: Recipe
     lateinit var recipeNapoleon: Recipe
 
+    //Notication
+    lateinit var notification1: Notification
+    lateinit var notification2: Notification
+    lateinit var notification3: Notification
+    lateinit var notification4: Notification // -> Esta notificacion seria para una vacuna que esta por vencerse
 
     fun createAuthCredentials() {
         authCredentials1 = AuthCredentials(
@@ -329,20 +338,10 @@ class VetappBackendBoostrap: InitializingBean {
     }
 
     fun createMedicalHistory() {
-        medicalHistoryNala = MedicalHistory().apply {
-            createdAt = LocalDate.of(2025, 4, 20)
-            updatedAt = LocalDate.now()
-            summary = "Nala está mejorando."
-        }
         medicalHistoryOli = MedicalHistory().apply {
             createdAt = LocalDate.of(2025, 2, 20)
             updatedAt = LocalDate.now()
             summary = "Oli se encuentra bien."
-        }
-        medicalHistoryOwie = MedicalHistory().apply {
-            createdAt = LocalDate.of(2025, 3, 25)
-            updatedAt = LocalDate.now()
-            summary = "Owie está en excelente estado."
         }
         medicalHistoryRocky = MedicalHistory().apply {
             createdAt = LocalDate.of(2025, 3, 15)
@@ -354,10 +353,10 @@ class VetappBackendBoostrap: InitializingBean {
             updatedAt = LocalDate.now()
             summary = "Pipi está estable."
         }
-        medicalHistoryMorena = MedicalHistory().apply {
-            createdAt = LocalDate.of(2025, 1, 10)
+        medicalHistoryOwie = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 3, 25)
             updatedAt = LocalDate.now()
-            summary = "More se encuentra muy bien."
+            summary = "Owie está en excelente estado."
         }
         medicalHistoryMileva = MedicalHistory().apply {
             createdAt = LocalDate.of(2025, 4, 10)
@@ -384,23 +383,19 @@ class VetappBackendBoostrap: InitializingBean {
             updatedAt = LocalDate.now()
             summary = "Cleopatra, sos una reina, venís joya."
         }
+        medicalHistoryNala = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 4, 20)
+            updatedAt = LocalDate.now()
+            summary = "Nala está mejorando."
+        }
+        medicalHistoryMorena = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 1, 10)
+            updatedAt = LocalDate.now()
+            summary = "More se encuentra muy bien."
+        }
     }
 
     fun createPet() {
-        nala = Pet().apply {
-            petOwner = tamara
-            vets = mutableSetOf(adrian)
-            age = 9
-            name = "Nala"
-            photo = "/src/assets/nala.jfif"
-            breed = "Mestizo"
-            weight = 17.0
-            birth = LocalDate.of(2015, 10, 15)
-            sterilized = true
-            sex = TypeOfSexPet.Hembra
-            specie = TypeOfSpeciePet.DOG
-            medicalHistory = medicalHistoryNala
-        }
         oli = Pet().apply {
             petOwner = ezequiel
             vets = mutableSetOf(adrian)
@@ -414,20 +409,6 @@ class VetappBackendBoostrap: InitializingBean {
             sex = TypeOfSexPet.Macho
             specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryOli
-        }
-        owie = Pet().apply {
-            vets = mutableSetOf(adrian)
-            petOwner = caroline
-            age = 13
-            name = "Owie"
-            photo = "/src/assets/owie.jfif"
-            breed = "Mestizo"
-            weight = 15.0
-            birth = LocalDate.of(2012, 2, 19)
-            sterilized = true
-            sex = TypeOfSexPet.Macho
-            specie = TypeOfSpeciePet.DOG
-            medicalHistory = medicalHistoryOwie
         }
         rocky = Pet().apply {
             vets = mutableSetOf(adrian)
@@ -457,22 +438,22 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpeciePet.BIRD
             medicalHistory = medicalHistoryPipi
         }
-        morena = Pet().apply {
-            vets = mutableSetOf(lucasCjs)
-            petOwner = lucasRdz
-            age = 14
-            name = "Morena"
-            photo = "/src/assets/morena.jfif"
+        owie = Pet().apply {
+            vets = mutableSetOf(adrian)
+            petOwner = caroline
+            age = 13
+            name = "Owie"
+            photo = "/src/assets/owie.jfif"
             breed = "Mestizo"
             weight = 15.0
-            birth = LocalDate.of(2011, 5, 20)
-            sterilized = false
-            sex = TypeOfSexPet.Hembra
+            birth = LocalDate.of(2012, 2, 19)
+            sterilized = true
+            sex = TypeOfSexPet.Macho
             specie = TypeOfSpeciePet.DOG
-            medicalHistory = medicalHistoryMorena
+            medicalHistory = medicalHistoryOwie
         }
         mileva = Pet().apply {
-            vets = mutableSetOf(lucasCjs)
+            vets = mutableSetOf(adrian)
             petOwner = caroline
             age = 4
             name = "Mileva"
@@ -499,6 +480,7 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpeciePet.CAT
             medicalHistory = medicalHistoryNapoleon
         }
+
         burpee = Pet().apply {
             vets = mutableSetOf(lucasCjs)
             petOwner = tamara
@@ -513,6 +495,7 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryBurpee
         }
+
         freya = Pet().apply {
             vets = mutableSetOf(lucasCjs)
             petOwner = tamara
@@ -527,6 +510,7 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpeciePet.CAT
             medicalHistory = medicalHistoryFreya
         }
+
         cleopatra = Pet().apply {
             vets = mutableSetOf(lucasCjs)
             petOwner = tamara
@@ -541,12 +525,40 @@ class VetappBackendBoostrap: InitializingBean {
             specie = TypeOfSpeciePet.CAT
             medicalHistory = medicalHistoryCleopatra
         }
+        nala = Pet().apply {
+            petOwner = tamara
+            vets = mutableSetOf(lucasCjs)
+            age = 9
+            name = "Nala"
+            photo = "/src/assets/nala.jfif"
+            breed = "Mestizo"
+            weight = 17.0
+            birth = LocalDate.of(2015, 10, 15)
+            sterilized = true
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.DOG
+            medicalHistory = medicalHistoryNala
+        }
+        morena = Pet().apply {
+            vets = mutableSetOf(lucasCjs,adrian)
+            petOwner = lucasRdz
+            age = 14
+            name = "Morena"
+            photo = "/src/assets/morena.jfif"
+            breed = "Mestizo"
+            weight = 15.0
+            birth = LocalDate.of(2011, 5, 20)
+            sterilized = false
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.DOG
+            medicalHistory = medicalHistoryMorena
+        }
         val allPets = listOf(
             oli,
             rocky,
-            mileva,
-            owie,
             pipi,
+            owie,
+            mileva,
             napoleon,
             burpee,
             freya,
@@ -556,7 +568,6 @@ class VetappBackendBoostrap: InitializingBean {
         )
         petRepository.saveAll(allPets)
     }
-
 
     fun createPreExistingDisease() {
         preExistingDiseaseOli = PreExistenceDisease().apply {
@@ -575,13 +586,13 @@ class VetappBackendBoostrap: InitializingBean {
             severity = TypeOfSeverityPet.Critical
             type = TypeOfPreExistenceDiseasePet.ASTHMA
         }
-        preExistingDiseaseMileva = PreExistenceDisease().apply {
-            medicalHistory = medicalHistoryMileva
+        preExistingDiseasePipi = PreExistenceDisease().apply {
+            medicalHistory = medicalHistoryPipi
             isActive = true
-            observation = "Trabajando con Mileva"
+            observation = "El estado es crítico Pipi"
             diagnosisDate = LocalDate.now()
             severity = TypeOfSeverityPet.Critical
-            type = TypeOfPreExistenceDiseasePet.DISTETER
+            type = TypeOfPreExistenceDiseasePet.LEUKEMIA
         }
         preExistingDiseaseOwie = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryOwie
@@ -591,13 +602,13 @@ class VetappBackendBoostrap: InitializingBean {
             severity = TypeOfSeverityPet.Moderate
             type = TypeOfPreExistenceDiseasePet.EPILEPSY
         }
-        preExistingDiseasePipi = PreExistenceDisease().apply {
-            medicalHistory = medicalHistoryPipi
+        preExistingDiseaseMileva = PreExistenceDisease().apply {
+            medicalHistory = medicalHistoryMileva
             isActive = true
-            observation = "El estado es crítico Pipi"
+            observation = "Trabajando con Mileva"
             diagnosisDate = LocalDate.now()
             severity = TypeOfSeverityPet.Critical
-            type = TypeOfPreExistenceDiseasePet.LEUKEMIA
+            type = TypeOfPreExistenceDiseasePet.DISTETER
         }
         preExistingDiseaseNapoleon = PreExistenceDisease().apply {
             medicalHistory = medicalHistoryNapoleon
@@ -650,9 +661,9 @@ class VetappBackendBoostrap: InitializingBean {
         val allPreExistenceDisease = listOf(
             preExistingDiseaseOli,
             preExistingDiseaseRocky,
-            preExistingDiseaseMileva,
-            preExistingDiseaseOwie,
             preExistingDiseasePipi,
+            preExistingDiseaseOwie,
+            preExistingDiseaseMileva,
             preExistingDiseaseNapoleon,
             preExistingDiseaseBurpee,
             preExistingDiseaseFreya,
@@ -678,12 +689,12 @@ class VetappBackendBoostrap: InitializingBean {
             description = "Consumió alguna droga Rocky"
             type = TypeOfStudyResultPet.PHARMACOLOGICAL
         }
-        studyResultMileva = StudyResult().apply {
-            medicalHistory = medicalHistoryMileva
+        studyResultPipi = StudyResult().apply {
+            medicalHistory = medicalHistoryPipi
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            description = "Algo defectuoso en su gen Mileva"
-            type = TypeOfStudyResultPet.GENETIC
+            description = "Se encuentra estresado Pipi"
+            type = TypeOfStudyResultPet.PHYSIOLOGICAL
         }
         studyResultOwie = StudyResult().apply {
             medicalHistory = medicalHistoryOwie
@@ -692,12 +703,12 @@ class VetappBackendBoostrap: InitializingBean {
             description = "Volver a realizar el estudio Owie"
             type = TypeOfStudyResultPet.PATHOLOGICAL
         }
-        studyResultPipi = StudyResult().apply {
-            medicalHistory = medicalHistoryPipi
+        studyResultMileva = StudyResult().apply {
+            medicalHistory = medicalHistoryMileva
             date = LocalDate.now()
             fileUrl = "this@VetAppBackendBoostrap.fileUrl"
-            description = "Se encuentra estresado Pipi"
-            type = TypeOfStudyResultPet.PHYSIOLOGICAL
+            description = "Algo defectuoso en su gen Mileva"
+            type = TypeOfStudyResultPet.GENETIC
         }
         studyResultNapoleon = StudyResult().apply {
             medicalHistory = medicalHistoryNapoleon
@@ -744,9 +755,9 @@ class VetappBackendBoostrap: InitializingBean {
         val allStudyResult = listOf(
             studyResultOli,
             studyResultRocky,
-            studyResultMileva,
-            studyResultOwie,
             studyResultPipi,
+            studyResultOwie,
+            studyResultMileva,
             studyResultNapoleon,
             studyResultBurpee,
             studyResultFreya,
@@ -776,14 +787,14 @@ class VetappBackendBoostrap: InitializingBean {
             completed = true
             type = TypeOfVaccinePet.HEPATITIS
         }
-        vaccineMileva = Vaccine().apply {
-            medicalHistory = medicalHistoryMileva
-            description = "Vacuna contra la rabia para Mileva"
-            batchNumber = 1123450
-            applicationDate = LocalDate.of(2024, 9, 10)
-            expirationDate = LocalDate.of(2025, 9, 10)
+        vaccinePipi = Vaccine().apply {
+            medicalHistory = medicalHistoryPipi
+            description = "Vacunado contra la leptospirosis Pipi"
+            batchNumber = 1123448
+            applicationDate = LocalDate.of(2024, 7, 15)
+            expirationDate = LocalDate.of(2025, 7, 15)
             completed = true
-            type = TypeOfVaccinePet.ANTIRABIES
+            type = TypeOfVaccinePet.LEPTOSPIROSIS
         }
         vaccineOwie = Vaccine().apply {
             medicalHistory = medicalHistoryOwie
@@ -794,14 +805,14 @@ class VetappBackendBoostrap: InitializingBean {
             completed = false
             type = TypeOfVaccinePet.PARVOVIRUS
         }
-        vaccinePipi = Vaccine().apply {
-            medicalHistory = medicalHistoryPipi
-            description = "Vacunado contra la leptospirosis Pipi"
-            batchNumber = 1123448
-            applicationDate = LocalDate.of(2024, 7, 15)
-            expirationDate = LocalDate.of(2025, 7, 15)
+        vaccineMileva = Vaccine().apply {
+            medicalHistory = medicalHistoryMileva
+            description = "Vacuna contra la rabia para Mileva"
+            batchNumber = 1123450
+            applicationDate = LocalDate.of(2024, 9, 10)
+            expirationDate = LocalDate.of(2025, 9, 10)
             completed = true
-            type = TypeOfVaccinePet.LEPTOSPIROSIS
+            type = TypeOfVaccinePet.ANTIRABIES
         }
         vaccineNapoleon = Vaccine().apply {
             medicalHistory = medicalHistoryNapoleon
@@ -860,9 +871,9 @@ class VetappBackendBoostrap: InitializingBean {
         val allVaccines = listOf(
             vaccineOli,
             vaccineRocky,
-            vaccineMileva,
-            vaccineOwie,
             vaccinePipi,
+            vaccineOwie,
+            vaccineMileva,
             vaccineNapoleon,
             vaccineBurpee,
             vaccineFreya,
@@ -951,6 +962,38 @@ class VetappBackendBoostrap: InitializingBean {
         recipeRepository.saveAll(allRecipe)
     }
 
+    fun createNotification() {
+        notification1 = Notification(
+            vet = adrian,
+            pet = mileva,
+            petOwner = caroline,
+            date = medicalShiftMileva.date?.plusDays(5),
+            hour = medicalShiftMileva.hour,
+            notificationDate = medicalShiftMileva.date?.minusDays(1),
+            type = TypeOfNotification.SHIFT_UPDATE
+        )
+        notification2 = Notification(
+            vet = adrian,
+            pet = mileva,
+            petOwner = caroline,
+            date = medicalShiftMileva.date,
+            hour = medicalShiftMileva.hour,
+            notificationDate = medicalShiftMileva.date?.minusDays(1),
+            type = TypeOfNotification.SHIFT_DELETE
+        )
+        notification3 = Notification(
+            vet = lucasCjs,
+            pet = nala,
+            petOwner = tamara,
+            date = medicalShiftMileva.date,
+            hour = medicalShiftMileva.hour,
+            notificationDate = medicalShiftMileva.date,
+            type = TypeOfNotification.SHIFT_TODAY
+        )
+        val allNotification = listOf(notification1, notification2, notification3)
+        this.notificationRepository.saveAll(allNotification)
+    }
+
     override fun afterPropertiesSet() {
         this.createAuthCredentials()
         this.createLocationInfo()
@@ -966,5 +1009,6 @@ class VetappBackendBoostrap: InitializingBean {
 
         this.createMedicalShift()
         this.createRecipe()
+        this.createNotification()
     }
 }

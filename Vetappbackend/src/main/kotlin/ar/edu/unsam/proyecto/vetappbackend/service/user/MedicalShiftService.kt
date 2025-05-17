@@ -1,17 +1,23 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.user
 
+import ar.edu.unsam.proyecto.vetappbackend.domain.notification.Notification
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfNotification
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
+import ar.edu.unsam.proyecto.vetappbackend.service.notification.NotificationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class MedicalShiftService: BaseService<MedicalShift> {
 
     @Autowired lateinit var medicalShiftRepository: MedicalShiftRepository
+
+    @Autowired lateinit var notificationService: NotificationService
 
     @Autowired lateinit var emailService: EmailService
 
@@ -36,6 +42,16 @@ class MedicalShiftService: BaseService<MedicalShift> {
             petName = medicalShiftDelete.pet?.name!!,
             appointmentDateTime = medicalShiftDelete.date.toString(),
         )
+        val notification = Notification(
+            petOwner = medicalShiftDelete.pet?.petOwner,
+            vet = medicalShiftDelete.vet,
+            pet = medicalShiftDelete.pet,
+            date = medicalShiftDelete.date,
+            hour = medicalShiftDelete.hour,
+            notificationDate = LocalDate.now(),
+            type = TypeOfNotification.SHIFT_DELETE
+        )
+        this.notificationService.create(notification)
         this.medicalShiftRepository.delete(medicalShiftDelete)
     }
 
@@ -47,6 +63,16 @@ class MedicalShiftService: BaseService<MedicalShift> {
             petName = medicalShiftUpdate.pet?.name!!,
             appointmentDateTime = medicalShiftUpdate.date.toString(),
         )
+        val notification = Notification(
+            petOwner = medicalShiftUpdate.pet?.petOwner,
+            vet = medicalShiftUpdate.vet,
+            pet = medicalShiftUpdate.pet,
+            date = medicalShiftUpdate.date,
+            hour = medicalShiftUpdate.hour,
+            notificationDate = LocalDate.now(),
+            type = TypeOfNotification.SHIFT_UPDATE
+        )
+        this.notificationService.create(notification)
         this.medicalShiftRepository.save(medicalShiftUpdate)
     }
 

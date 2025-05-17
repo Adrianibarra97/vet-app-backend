@@ -9,6 +9,8 @@ import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPetDTO
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilterDTO
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.fromJSON
+import ar.edu.unsam.proyecto.vetappbackend.dto.notification.NotificationResponseDTO
+import ar.edu.unsam.proyecto.vetappbackend.dto.notification.toDTO
 import ar.edu.unsam.proyecto.vetappbackend.service.user.*
 
 @RestController
@@ -59,6 +61,11 @@ class PetOwnerController {
     fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam idPetOwner: Int): List<MedicalShiftResponseDTO> {
         val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON()
         return petOwnerService.getAllMedicalShiftFilter(medicalShiftFilter, idPetOwner).map { it.toDTO() }
+    }
+
+    @GetMapping("/get-all-notifications")
+    fun getAllNotifications(@RequestParam idPetOwner: Int): List<NotificationResponseDTO> {
+        return this.petOwnerService.getAllNotifications(idPetOwner).map { it.toDTO() }
     }
 
 }
