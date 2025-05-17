@@ -3,7 +3,9 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.beans.factory.annotation.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.PetOwner
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
+import ar.edu.unsam.proyecto.vetappbackend.service.user.PetOwnerService
 
 @RestController
 @CrossOrigin("*")
@@ -12,7 +14,7 @@ class PetController {
 
     @Autowired private lateinit var petService: PetService
 
-    @Autowired private lateinit var medicalHistoryService: MedicalHistoryService
+    @Autowired private lateinit var petOwnerService: PetOwnerService
 
     @GetMapping("/get-all")
     fun getAll(): List<PetDTO> {
@@ -26,14 +28,14 @@ class PetController {
 
     @PostMapping("/create")
     fun create(@RequestBody newPetDTO: PetDTO) {
-        val medicalHistory: MedicalHistory = this.medicalHistoryService.getOneById(newPetDTO.idMedicalHistory)
-      this.petService.create(newPetDTO.fromJSON(medicalHistory))
+        val petOwner: PetOwner = this.petOwnerService.getOneById(newPetDTO.petOwnerId)
+        this.petService.create(newPetDTO.fromJSON(petOwner))
     }
 
     @PutMapping("/update")
     fun update(@RequestBody newPetDTO: PetDTO) {
-        val medicalHistory: MedicalHistory = this.medicalHistoryService.getOneById(newPetDTO.idMedicalHistory)
-        this.petService.update(newPetDTO.fromJSON(medicalHistory))
+        val petOwner: PetOwner = this.petOwnerService.getOneById(newPetDTO.petOwnerId)
+        this.petService.update(newPetDTO.fromJSON(petOwner))
     }
 
     @DeleteMapping("delete")

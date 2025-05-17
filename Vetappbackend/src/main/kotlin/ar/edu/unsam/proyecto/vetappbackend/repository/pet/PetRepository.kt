@@ -18,8 +18,8 @@ interface PetRepository : CrudRepository<Pet, Int> {
     @Query("""
         SELECT DISTINCT p
         FROM Pet p 
-            LEFT JOIN MedicalHistory mh ON mh.pet.id = p.id  
-            LEFT JOIN MedicalShift ms ON ms.pet.id = mh.pet.id 
+            LEFT JOIN MedicalHistory mh ON mh.id = p.medicalHistory.id  
+            LEFT JOIN MedicalShift ms ON ms.pet.id = p.id 
             LEFT JOIN Vaccine vac ON vac.medicalHistory.id = mh.id 
         WHERE p.petOwner.id = :idOwner
             AND (:name IS NULL OR LOWER(p.name) LIKE '%' || LOWER(CAST(:name AS string)) || '%')
@@ -36,7 +36,7 @@ interface PetRepository : CrudRepository<Pet, Int> {
     @Query("""
         SELECT DISTINCT p
         FROM Pet p JOIN p.vets v
-            LEFT JOIN MedicalHistory mh ON mh.pet.id = p.id  
+            LEFT JOIN MedicalHistory mh ON mh.id = p.medicalHistory.id  
             LEFT JOIN MedicalShift ms ON ms.pet.id = p.id AND ms.vet.id = v.id
             LEFT JOIN Vaccine vac ON vac.medicalHistory.id = mh.id
         WHERE v.id = :idVet

@@ -34,15 +34,13 @@ class MedicalHistoryController {
     }
 
     @PostMapping("/create")
-    fun create(@RequestBody newMedicalHistoryDTO: MedicalHistoryDTO, @RequestParam idPet: Int) {
-        val currentPet: Pet = petService.getOneById(idPet)
-        this.medicalHistoryService.create(newMedicalHistoryDTO.fromJSON(currentPet))
+    fun create(@RequestBody newMedicalHistoryDTO: MedicalHistoryDTO) {
+        this.medicalHistoryService.create(newMedicalHistoryDTO.fromJSON())
     }
 
     @PutMapping("/update")
-    fun update(@RequestBody newMedicalHistoryDTO: MedicalHistoryDTO, @RequestParam idPet: Int) {
-        val currentPet: Pet = petService.getOneById(idPet)
-        this.medicalHistoryService.update(newMedicalHistoryDTO.fromJSON(currentPet))
+    fun update(@RequestBody newMedicalHistoryDTO: MedicalHistoryDTO) {
+        this.medicalHistoryService.update(newMedicalHistoryDTO.fromJSON())
     }
 
     @DeleteMapping("delete")

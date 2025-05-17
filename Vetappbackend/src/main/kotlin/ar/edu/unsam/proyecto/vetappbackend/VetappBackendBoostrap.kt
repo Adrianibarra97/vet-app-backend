@@ -327,6 +327,64 @@ class VetappBackendBoostrap: InitializingBean {
         vetRepository.saveAll(allVet)
     }
 
+    fun createMedicalHistory() {
+        medicalHistoryNala = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 4, 20)
+            updatedAt = LocalDate.now()
+            summary = "Nala está mejorando."
+        }
+        medicalHistoryOli = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 2, 20)
+            updatedAt = LocalDate.now()
+            summary = "Oli se encuentra bien."
+        }
+        medicalHistoryOwie = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 3, 25)
+            updatedAt = LocalDate.now()
+            summary = "Owie está en excelente estado."
+        }
+        medicalHistoryRocky = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 3, 15)
+            updatedAt = LocalDate.now()
+            summary = "Rocky está en la lona."
+        }
+        medicalHistoryPipi = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 4, 15)
+            updatedAt = LocalDate.now()
+            summary = "Pipi está estable."
+        }
+        medicalHistoryMorena = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 1, 10)
+            updatedAt = LocalDate.now()
+            summary = "More se encuentra muy bien."
+        }
+        medicalHistoryMileva = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 4, 10)
+            updatedAt = LocalDate.now()
+            summary = "Mileva tiene que hacer dieta."
+        }
+        medicalHistoryNapoleon = MedicalHistory().apply {
+            createdAt = LocalDate.of(2025, 4, 10)
+            updatedAt = LocalDate.now()
+            summary = "Napoleón hay que cortarle las uñas."
+        }
+        medicalHistoryBurpee = MedicalHistory().apply {
+            createdAt = LocalDate.of(2024, 12, 10)
+            updatedAt = LocalDate.now()
+            summary = "Burpee se encuentra bien de salud."
+        }
+        medicalHistoryFreya = MedicalHistory().apply {
+            createdAt = LocalDate.of(2024, 12, 25)
+            updatedAt = LocalDate.now()
+            summary = "Freya tiene que comer más."
+        }
+        medicalHistoryCleopatra = MedicalHistory().apply {
+            createdAt = LocalDate.of(2024, 7, 10)
+            updatedAt = LocalDate.now()
+            summary = "Cleopatra, sos una reina, venís joya."
+        }
+    }
+
     fun createPet() {
         nala = Pet().apply {
             petOwner = tamara
@@ -340,6 +398,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = true
             sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.DOG
+            medicalHistory = medicalHistoryNala
         }
         oli = Pet().apply {
             petOwner = ezequiel
@@ -353,6 +412,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = true
             sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
+            medicalHistory = medicalHistoryOli
         }
         owie = Pet().apply {
             vets = mutableSetOf(adrian)
@@ -366,6 +426,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = true
             sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
+            medicalHistory = medicalHistoryOwie
         }
         rocky = Pet().apply {
             vets = mutableSetOf(adrian)
@@ -379,6 +440,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = false
             sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
+            medicalHistory = medicalHistoryRocky
         }
         pipi = Pet().apply {
             vets = mutableSetOf(adrian)
@@ -392,6 +454,7 @@ class VetappBackendBoostrap: InitializingBean {
             birth = LocalDate.of(2020, 1, 1)
             sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.BIRD
+            medicalHistory = medicalHistoryPipi
         }
         morena = Pet().apply {
             vets = mutableSetOf(lucasCjs)
@@ -405,6 +468,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = false
             sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.DOG
+            medicalHistory = medicalHistoryMorena
         }
         mileva = Pet().apply {
             vets = mutableSetOf(lucasCjs)
@@ -418,6 +482,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = true
             sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.CAT
+            medicalHistory = medicalHistoryMileva
         }
         napoleon = Pet().apply {
             vets = mutableSetOf(lucasCjs)
@@ -431,6 +496,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = false
             sex = TypeOfSex.Macho
             specie = TypeOfSpecie.CAT
+            medicalHistory = medicalHistoryNapoleon
         }
         burpee = Pet().apply {
             vets = mutableSetOf(lucasCjs)
@@ -444,6 +510,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = false
             sex = TypeOfSex.Macho
             specie = TypeOfSpecie.DOG
+            medicalHistory = medicalHistoryBurpee
         }
         freya = Pet().apply {
             vets = mutableSetOf(lucasCjs)
@@ -457,6 +524,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = false
             sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.CAT
+            medicalHistory = medicalHistoryFreya
         }
         cleopatra = Pet().apply {
             vets = mutableSetOf(lucasCjs, adrian)
@@ -470,6 +538,7 @@ class VetappBackendBoostrap: InitializingBean {
             sterilized = true
             sex = TypeOfSex.Hembra
             specie = TypeOfSpecie.CAT
+            medicalHistory = medicalHistoryCleopatra
         }
         val allPets = listOf(
             nala,
@@ -487,89 +556,6 @@ class VetappBackendBoostrap: InitializingBean {
         petRepository.saveAll(allPets)
     }
 
-    fun createMedicalHistory() {
-        medicalHistoryNala = MedicalHistory().apply {
-            pet = nala
-            createdAt = LocalDate.of(2025, 4, 20)
-            updatedAt = LocalDate.now()
-            summary = "Nala está mejorando."
-        }
-        medicalHistoryOli = MedicalHistory().apply {
-            pet = oli
-            createdAt = LocalDate.of(2025, 2, 20)
-            updatedAt = LocalDate.now()
-            summary = "Oli se encuentra bien."
-        }
-        medicalHistoryOwie = MedicalHistory().apply {
-            pet = owie
-            createdAt = LocalDate.of(2025, 3, 25)
-            updatedAt = LocalDate.now()
-            summary = "Owie está en excelente estado."
-        }
-        medicalHistoryRocky = MedicalHistory().apply {
-            pet = rocky
-            createdAt = LocalDate.of(2025, 3, 15)
-            updatedAt = LocalDate.now()
-            summary = "Rocky está en la lona."
-        }
-        medicalHistoryPipi = MedicalHistory().apply {
-            pet = pipi
-            createdAt = LocalDate.of(2025, 4, 15)
-            updatedAt = LocalDate.now()
-            summary = "Pipi está estable."
-        }
-        medicalHistoryMorena = MedicalHistory().apply {
-            pet = morena
-            createdAt = LocalDate.of(2025, 1, 10)
-            updatedAt = LocalDate.now()
-            summary = "More se encuentra muy bien."
-        }
-        medicalHistoryMileva = MedicalHistory().apply {
-            pet = mileva
-            createdAt = LocalDate.of(2025, 4, 10)
-            updatedAt = LocalDate.now()
-            summary = "Mileva tiene que hacer dieta."
-        }
-        medicalHistoryNapoleon = MedicalHistory().apply {
-            pet = napoleon
-            createdAt = LocalDate.of(2025, 4, 10)
-            updatedAt = LocalDate.now()
-            summary = "Napoleón hay que cortarle las uñas."
-        }
-        medicalHistoryBurpee = MedicalHistory().apply {
-            pet = burpee
-            createdAt = LocalDate.of(2024, 12, 10)
-            updatedAt = LocalDate.now()
-            summary = "Burpee se encuentra bien de salud."
-        }
-        medicalHistoryFreya = MedicalHistory().apply {
-            pet = freya
-            createdAt = LocalDate.of(2024, 12, 25)
-            updatedAt = LocalDate.now()
-            summary = "Freya tiene que comer más."
-        }
-        medicalHistoryCleopatra = MedicalHistory().apply {
-            pet = cleopatra
-            createdAt = LocalDate.of(2024, 7, 10)
-            updatedAt = LocalDate.now()
-            summary = "Cleopatra, sos una reina, venís joya."
-        }
-
-        val allMedicalHistory = listOf(
-            medicalHistoryNala,
-            medicalHistoryBurpee,
-            medicalHistoryMileva,
-            medicalHistoryMorena,
-            medicalHistoryRocky,
-            medicalHistoryFreya,
-            medicalHistoryOwie,
-            medicalHistoryPipi,
-            medicalHistoryNapoleon,
-            medicalHistoryCleopatra,
-            medicalHistoryOli
-        )
-        medicalHistoryRepository.saveAll(allMedicalHistory)
-    }
 
     fun createPreExistingDisease() {
         preExistingDiseaseNala = PreExistenceDisease().apply {
@@ -959,8 +945,8 @@ class VetappBackendBoostrap: InitializingBean {
         this.createPetOwner()
         this.createVet()
 
-        this.createPet()
         this.createMedicalHistory()
+        this.createPet()
 
         this.createVaccine()
         this.createStudyResult()
