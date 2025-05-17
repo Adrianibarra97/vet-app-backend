@@ -237,7 +237,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.surname = "Iozzia"
             this.photo = "/src/assets/eche.jfif"
             //Aca puse el mio de prueba, pero tiene que ir el de eze
-            this.email = "cejaslucasleonel@gmail.com"
+            this.email = "eze.iozzia@gmail.com"
             this.telephone = "1145340000"
             this.emergencyContactName = "Hermano de Ezze"
             this.emergencyContactPhone = "1113378995"
@@ -296,7 +296,7 @@ class VetappBackendBoostrap: InitializingBean {
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
             //Aca puse mi mail de prueba pero iria el de arian
-            this.professionalEmail = "cejaslucasleonel@gmail.com"
+            this.professionalEmail = "ccoronel@estudiantes.unsam.edu.ar"
             this.professionalAddress = "Avenida Marquez 7548"
             this.professionalTelephone = "1181591457"
             this.professionalLocality = "San Isidro"
@@ -397,8 +397,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 17.0
             birth = LocalDate.of(2015, 10, 15)
             sterilized = true
-            sex = TypeOfSex.Hembra
-            specie = TypeOfSpecie.DOG
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryNala
         }
         oli = Pet().apply {
@@ -411,8 +411,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 14.0
             birth = LocalDate.of(2021, 2, 20)
             sterilized = true
-            sex = TypeOfSex.Macho
-            specie = TypeOfSpecie.DOG
+            sex = TypeOfSexPet.Macho
+            specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryOli
         }
         owie = Pet().apply {
@@ -425,8 +425,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 15.0
             birth = LocalDate.of(2012, 2, 19)
             sterilized = true
-            sex = TypeOfSex.Macho
-            specie = TypeOfSpecie.DOG
+            sex = TypeOfSexPet.Macho
+            specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryOwie
         }
         rocky = Pet().apply {
@@ -439,8 +439,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 25.0
             birth = LocalDate.of(2020, 7, 2)
             sterilized = false
-            sex = TypeOfSex.Macho
-            specie = TypeOfSpecie.DOG
+            sex = TypeOfSexPet.Macho
+            specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryRocky
         }
         pipi = Pet().apply {
@@ -453,8 +453,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 0.119
             sterilized = false
             birth = LocalDate.of(2020, 1, 1)
-            sex = TypeOfSex.Hembra
-            specie = TypeOfSpecie.BIRD
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.BIRD
             medicalHistory = medicalHistoryPipi
         }
         morena = Pet().apply {
@@ -467,8 +467,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 15.0
             birth = LocalDate.of(2011, 5, 20)
             sterilized = false
-            sex = TypeOfSex.Hembra
-            specie = TypeOfSpecie.DOG
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryMorena
         }
         mileva = Pet().apply {
@@ -481,8 +481,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 2.9
             birth = LocalDate.of(2020, 9, 26)
             sterilized = true
-            sex = TypeOfSex.Hembra
-            specie = TypeOfSpecie.CAT
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.CAT
             medicalHistory = medicalHistoryMileva
         }
         napoleon = Pet().apply {
@@ -495,8 +495,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 6.0
             birth = LocalDate.of(2015, 9, 11)
             sterilized = false
-            sex = TypeOfSex.Macho
-            specie = TypeOfSpecie.CAT
+            sex = TypeOfSexPet.Macho
+            specie = TypeOfSpeciePet.CAT
             medicalHistory = medicalHistoryNapoleon
         }
         burpee = Pet().apply {
@@ -509,8 +509,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 19.0
             birth = LocalDate.of(2016, 10, 1)
             sterilized = false
-            sex = TypeOfSex.Macho
-            specie = TypeOfSpecie.DOG
+            sex = TypeOfSexPet.Macho
+            specie = TypeOfSpeciePet.DOG
             medicalHistory = medicalHistoryBurpee
         }
         freya = Pet().apply {
@@ -523,8 +523,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 5.0
             birth = LocalDate.of(2019, 10, 30)
             sterilized = false
-            sex = TypeOfSex.Hembra
-            specie = TypeOfSpecie.CAT
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.CAT
             medicalHistory = medicalHistoryFreya
         }
         cleopatra = Pet().apply {
@@ -537,8 +537,8 @@ class VetappBackendBoostrap: InitializingBean {
             weight = 4.0
             birth = LocalDate.of(2019, 10, 30)
             sterilized = true
-            sex = TypeOfSex.Hembra
-            specie = TypeOfSpecie.CAT
+            sex = TypeOfSexPet.Hembra
+            specie = TypeOfSpeciePet.CAT
             medicalHistory = medicalHistoryCleopatra
         }
         val allPets = listOf(
