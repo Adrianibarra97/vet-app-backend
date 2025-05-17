@@ -30,7 +30,7 @@ class MedicalShiftService: BaseService<MedicalShift> {
     }
 
     override fun delete(medicalShiftDelete: MedicalShift) {
-        this.emailService.sendAppointmentCancellation(
+        this.emailService.sendAppointmentDelete(
             vetEmail = medicalShiftDelete.vet?.professionalEmail!!,
             ownerEmail = medicalShiftDelete.pet?.petOwner?.email!!,
             petName = medicalShiftDelete.pet?.name!!,
@@ -41,6 +41,12 @@ class MedicalShiftService: BaseService<MedicalShift> {
 
     override fun update(medicalShiftUpdate: MedicalShift) {
         this.getOneById(medicalShiftUpdate.id!!)
+        this.emailService.sendAppointmentUpdate(
+            vetEmail = medicalShiftUpdate.vet?.professionalEmail!!,
+            ownerEmail = medicalShiftUpdate.pet?.petOwner?.email!!,
+            petName = medicalShiftUpdate.pet?.name!!,
+            appointmentDateTime = medicalShiftUpdate.date.toString(),
+        )
         this.medicalShiftRepository.save(medicalShiftUpdate)
     }
 
