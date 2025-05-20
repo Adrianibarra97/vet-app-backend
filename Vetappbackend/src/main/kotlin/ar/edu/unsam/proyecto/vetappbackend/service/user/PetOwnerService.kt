@@ -41,12 +41,10 @@ class PetOwnerService : BaseService<PetOwner> {
         return this.petOwnerRepository.findAll().toList()
     }
 
-    @Transactional
     override fun delete(petOwnerDelete: PetOwner) {
         this.petOwnerRepository.delete(petOwnerDelete)
     }
 
-    @Transactional
     override fun create(newPetOwner: PetOwner) {
         this.authCredentialsService.verifyCreate(newPetOwner.authCredentials)
         this.petOwnerRepository.save(newPetOwner)
@@ -79,9 +77,9 @@ class PetOwnerService : BaseService<PetOwner> {
         return this.notificationService.getAllNotificationsPetOwner(petOwner.id)
     }
 
-    fun findByAuthCredentialsId(idUserData: Int): PetOwner {
-        return this.petOwnerRepository.findByAuthCredentialsId(idUserData).orElseThrow {
-            NotFoundException("No se encontró los datos del usuario: $idUserData")
+    fun findByAuthCredentialsId(idAuthCredentials: Int): PetOwner {
+        return this.petOwnerRepository.findByAuthCredentialsId(idAuthCredentials).orElseThrow {
+            NotFoundException("No se encontró los datos del usuario: $idAuthCredentials")
         }
     }
 

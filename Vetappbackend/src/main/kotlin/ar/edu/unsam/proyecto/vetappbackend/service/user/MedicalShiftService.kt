@@ -1,16 +1,15 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.user
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.notification.Notification
-import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfNotification
+import ar.edu.unsam.proyecto.vetappbackend.domain.notification.NotificationFactory
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
-import ar.edu.unsam.proyecto.vetappbackend.service.notification.NotificationService
+import ar.edu.unsam.proyecto.vetappbackend.service.notification.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.time.LocalDate
 
 @Service
 class MedicalShiftService: BaseService<MedicalShift> {
@@ -32,47 +31,21 @@ class MedicalShiftService: BaseService<MedicalShift> {
     }
 
     override fun create(newMedicalShift: MedicalShift) {
+        this.sendEmail(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
+        this.createNotification(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
         this.medicalShiftRepository.save(newMedicalShift)
     }
 
     override fun delete(medicalShiftDelete: MedicalShift) {
-        this.emailService.sendAppointmentDelete(
-            vetEmail = medicalShiftDelete.vet?.professionalEmail!!,
-            ownerEmail = medicalShiftDelete.pet?.petOwner?.email!!,
-            petName = medicalShiftDelete.pet?.name!!,
-            appointmentDateTime = medicalShiftDelete.date.toString(),
-        )
-        val notification = Notification(
-            petOwner = medicalShiftDelete.pet?.petOwner,
-            vet = medicalShiftDelete.vet,
-            pet = medicalShiftDelete.pet,
-            date = medicalShiftDelete.date,
-            hour = medicalShiftDelete.hour,
-            notificationDate = LocalDate.now(),
-            type = TypeOfNotification.SHIFT_DELETE
-        )
-        this.notificationService.create(notification)
+        this.sendEmail(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
+        this.createNotification(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
         this.medicalShiftRepository.delete(medicalShiftDelete)
     }
 
     override fun update(medicalShiftUpdate: MedicalShift) {
         this.getOneById(medicalShiftUpdate.id!!)
-        this.emailService.sendAppointmentUpdate(
-            vetEmail = medicalShiftUpdate.vet?.professionalEmail!!,
-            ownerEmail = medicalShiftUpdate.pet?.petOwner?.email!!,
-            petName = medicalShiftUpdate.pet?.name!!,
-            appointmentDateTime = medicalShiftUpdate.date.toString(),
-        )
-        val notification = Notification(
-            petOwner = medicalShiftUpdate.pet?.petOwner,
-            vet = medicalShiftUpdate.vet,
-            pet = medicalShiftUpdate.pet,
-            date = medicalShiftUpdate.date,
-            hour = medicalShiftUpdate.hour,
-            notificationDate = LocalDate.now(),
-            type = TypeOfNotification.SHIFT_UPDATE
-        )
-        this.notificationService.create(notification)
+        this.sendEmail(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
+        this.createNotification(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
         this.medicalShiftRepository.save(medicalShiftUpdate)
     }
 
@@ -95,4 +68,21 @@ class MedicalShiftService: BaseService<MedicalShift> {
             medicalShiftFilter.endingOfWeek
         )
     }
+
+    private fun createNotification(shift: MedicalShift, type: TypeOfNotification) {
+        val notification = NotificationFactory().fromMedicalShift(shift, type)
+        this.notificationService.create(notification)
+    }
+
+    private fun sendEmail(shift: MedicalShift, type: TypeOfNotification) {
+        this.emailService.sendAppointmentNotification(
+            shift.pet!!,
+            shift.vet!!,
+            shift.pet?.petOwner!!,
+            shift.date!!,
+            shift.hour!!,
+            type
+        )
+    }
+
 }

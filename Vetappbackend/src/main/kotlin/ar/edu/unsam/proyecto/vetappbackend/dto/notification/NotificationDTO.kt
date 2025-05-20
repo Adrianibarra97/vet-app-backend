@@ -13,7 +13,9 @@ data class NotificationResponseDTO (
     val date: String,
     val hour: String,
     val notificationDate: String,
-    val type: String
+    val type: String,
+    val subject: String,
+    val message: String
 )
 
 fun Notification.toDTO(): NotificationResponseDTO {
@@ -25,7 +27,9 @@ fun Notification.toDTO(): NotificationResponseDTO {
         date = this.date.toString(),
         hour = this.hour.toString(),
         notificationDate = this.notificationDate.toString(),
-        type = this.type?.name!!
+        type = this.type?.name!!,
+        subject = this.subject!!,
+        message = this.message!!
     )
 }
 
@@ -37,7 +41,9 @@ data class NotificationRequestDTO(
     val date: String,
     val hour: String,
     val notificationDate: String,
-    val type: String
+    val type: String,
+    val subject: String,
+    val message: String
 )
 
 fun NotificationRequestDTO.fromJSON(currentPet: Pet, currentVet: Vet, currentPetOwner: PetOwner ): Notification {
@@ -50,5 +56,7 @@ fun NotificationRequestDTO.fromJSON(currentPet: Pet, currentVet: Vet, currentPet
         hour = notificationDTO.hour.let { LocalTime.parse(it) },
         notificationDate = notificationDTO.notificationDate.let { LocalDate.parse(it) },
         type = TypeOfNotification.valueOf(notificationDTO.type),
+        subject = notificationDTO.subject,
+        message = notificationDTO.message
     ).apply { id = currentPet.id }
 }

@@ -33,8 +33,6 @@ class VetappBackendBoostrap: InitializingBean {
     @Autowired
     lateinit var petRepository: PetRepository
 
-    @Autowired
-    lateinit var medicalHistoryRepository: MedicalHistoryRepository
 
     @Autowired
     lateinit var preExistenceDiseaseRepository: PreExistenceDiseaseRepository
@@ -51,9 +49,8 @@ class VetappBackendBoostrap: InitializingBean {
     @Autowired
     lateinit var recipeRepository: RecipeRepository
 
-    @Autowired
-    lateinit var notificationRepository: NotificationRepository
 
+    //AuthCredentials
     lateinit var authCredentials1: AuthCredentials
     lateinit var authCredentials2: AuthCredentials
     lateinit var authCredentials3: AuthCredentials
@@ -61,6 +58,7 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var authCredentials5: AuthCredentials
     lateinit var authCredentials6: AuthCredentials
 
+    //LocationInfo
     lateinit var locationInfo1: LocationInfo
     lateinit var locationInfo2: LocationInfo
     lateinit var locationInfo3: LocationInfo
@@ -68,7 +66,7 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var locationInfo5: LocationInfo
     lateinit var locationInfo6: LocationInfo
 
-
+    //UserData
     lateinit var ezequiel: PetOwner
     lateinit var caroline: PetOwner
     lateinit var lucasRdz: PetOwner
@@ -155,12 +153,6 @@ class VetappBackendBoostrap: InitializingBean {
     lateinit var recipeMileva: Recipe
     lateinit var recipeNapoleon: Recipe
 
-    //Notication
-    lateinit var notification1: Notification
-    lateinit var notification2: Notification
-    lateinit var notification3: Notification
-    lateinit var notification4: Notification // -> Esta notificacion seria para una vacuna que esta por vencerse
-
     fun createAuthCredentials() {
         authCredentials1 = AuthCredentials(
             password = "1234",
@@ -245,8 +237,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.name = "Ezequiel"
             this.surname = "Iozzia"
             this.photo = "/src/assets/eche.jfif"
-            //Aca puse el mio de prueba, pero tiene que ir el de eze
-            this.email = "eze.iozzia@gmail.com"
+            //this.email = "eze.iozzia@gmail.com"
+            this.email = "cejaslucasleonel@gmail.com"
             this.telephone = "1145340000"
             this.emergencyContactName = "Hermano de Ezze"
             this.emergencyContactPhone = "1113378995"
@@ -304,8 +296,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
-            //Aca puse mi mail de prueba pero iria el de arian
-            this.professionalEmail = "ccoronel@estudiantes.unsam.edu.ar"
+            //ACA PUSE MI EMAIL PERO VA EL DE ADRIAN
+            this.professionalEmail = "cejaslucasleonel@gmail.com"
             this.professionalAddress = "Avenida Marquez 7548"
             this.professionalTelephone = "1181591457"
             this.professionalLocality = "San Isidro"
@@ -962,38 +954,6 @@ class VetappBackendBoostrap: InitializingBean {
         recipeRepository.saveAll(allRecipe)
     }
 
-    fun createNotification() {
-        notification1 = Notification(
-            vet = adrian,
-            pet = mileva,
-            petOwner = caroline,
-            date = medicalShiftMileva.date?.plusDays(5),
-            hour = medicalShiftMileva.hour,
-            notificationDate = medicalShiftMileva.date?.minusDays(1),
-            type = TypeOfNotification.SHIFT_UPDATE
-        )
-        notification2 = Notification(
-            vet = adrian,
-            pet = mileva,
-            petOwner = caroline,
-            date = medicalShiftMileva.date,
-            hour = medicalShiftMileva.hour,
-            notificationDate = medicalShiftMileva.date?.minusDays(1),
-            type = TypeOfNotification.SHIFT_DELETE
-        )
-        notification3 = Notification(
-            vet = lucasCjs,
-            pet = nala,
-            petOwner = tamara,
-            date = medicalShiftMileva.date,
-            hour = medicalShiftMileva.hour,
-            notificationDate = medicalShiftMileva.date,
-            type = TypeOfNotification.SHIFT_TODAY
-        )
-        val allNotification = listOf(notification1, notification2, notification3)
-        this.notificationRepository.saveAll(allNotification)
-    }
-
     override fun afterPropertiesSet() {
         this.createAuthCredentials()
         this.createLocationInfo()
@@ -1009,6 +969,6 @@ class VetappBackendBoostrap: InitializingBean {
 
         this.createMedicalShift()
         this.createRecipe()
-        this.createNotification()
     }
+
 }

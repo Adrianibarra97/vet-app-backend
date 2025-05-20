@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service
 @Service
 class RecipeService: BaseService<Recipe> {
 
-    @Autowired
-    lateinit var recipeRepository: RecipeRepository
+    @Autowired lateinit var recipeRepository: RecipeRepository
 
     override fun getOneById(idRecipe: Int): Recipe {
         return this.recipeRepository.findById(idRecipe).orElseThrow {

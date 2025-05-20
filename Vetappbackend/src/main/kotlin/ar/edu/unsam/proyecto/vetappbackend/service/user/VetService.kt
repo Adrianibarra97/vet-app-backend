@@ -12,7 +12,6 @@ import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
 import ar.edu.unsam.proyecto.vetappbackend.service.notification.NotificationService
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.PetService
 
-
 @Service
 class VetService: BaseService<Vet> {
 
@@ -37,12 +36,10 @@ class VetService: BaseService<Vet> {
         return this.vetRepository.findAll().toList()
     }
 
-    @Transactional
     override fun delete(vetDelete: Vet) {
         this.vetRepository.delete(vetDelete)
     }
 
-    @Transactional
     override fun create(newVet: Vet) {
         this.authCredentialsService.verifyCreate(newVet.authCredentials)
         this.vetRepository.save(newVet)
@@ -76,9 +73,9 @@ class VetService: BaseService<Vet> {
         return this.notificationService.getAllNotificationsVet(vet.id)
     }
 
-    fun findByAuthCredentialsId(idUserData: Int): Vet {
-        return this.vetRepository.findByAuthCredentialsId(idUserData).orElseThrow {
-            NotFoundException("No se encontró los datos del usuario: $idUserData")
+    fun findByAuthCredentialsId(idAuthCredentials: Int): Vet {
+        return this.vetRepository.findByAuthCredentialsId(idAuthCredentials).orElseThrow {
+            NotFoundException("No se encontró los datos del usuario: $idAuthCredentials")
         }
     }
 
