@@ -237,8 +237,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.name = "Ezequiel"
             this.surname = "Iozzia"
             this.photo = "/src/assets/eche.jfif"
-            //this.email = "eze.iozzia@gmail.com"
-            this.email = "cejaslucasleonel@gmail.com"
+            this.email = "eze.iozzia@gmail.com"
+            //this.email = "cejaslucasleonel@gmail.com"
             this.telephone = "1145340000"
             this.emergencyContactName = "Hermano de Ezze"
             this.emergencyContactPhone = "1113378995"
@@ -296,8 +296,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.licence = "123455435"
             this.speciality = "surgery"
             this.businessHours = "7 a 14 hs"
-            //ACA PUSE MI EMAIL PERO VA EL DE ADRIAN
-            this.professionalEmail = "cejaslucasleonel@gmail.com"
+            //EMAIL VA EL DE ADRIAN ESTUDIANTE
+            this.professionalEmail = "ccoronel@estudiantes.unsam.edu.ar"
             this.professionalAddress = "Avenida Marquez 7548"
             this.professionalTelephone = "1181591457"
             this.professionalLocality = "San Isidro"
