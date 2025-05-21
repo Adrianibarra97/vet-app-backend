@@ -1,18 +1,28 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.user
 
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfUser
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.error.*
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.*
+import ar.edu.unsam.proyecto.vetappbackend.service.notification.EmailService
+import org.apache.catalina.User
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.http.HttpStatus
+import java.util.*
 
 @Service
 class AuthCredentialsService {
 
     @Autowired private lateinit var authCredentialsRepository: AuthCredentialsRepository
+
+    @Autowired lateinit var emailService: EmailService
+
+    @Autowired lateinit var vetService: VetService
+
+    @Autowired lateinit var petOwnerService: PetOwnerService
 
     fun getAll(): List<AuthCredentials> {
         return this.authCredentialsRepository.findAll().toList()
@@ -28,6 +38,24 @@ class AuthCredentialsService {
         val authCredentials: AuthCredentials = this.findByUsername(authCredentialsLoginDTO.username)
         this.verifyPassword(authCredentialsLoginDTO.password, authCredentials.password!!)
         return AuthCredentialsResponseDTO(authCredentials.id, authCredentials.typeOfUser!!.name)
+    }
+
+    fun resetPassword(username: String): String {
+
+        val authCredentials: AuthCredentials = this.findByUsername(username)
+        val verificationCode = this.generateVerificationCode()
+        var user: UserData? = null
+
+        if(authCredentials.typeOfUser==TypeOfUser.VET){
+            user = vetService.getOneById(authCredentials.id)
+        }
+        else{
+            user = petOwnerService.getOneById(authCredentials.id)
+        }
+
+        this.emailService.sendVerificationCode(user, verificationCode)
+        return verificationCode
+
     }
 
     fun verifyCreate(authCredentials: AuthCredentials) {
@@ -53,6 +81,10 @@ class AuthCredentialsService {
         return authCredentialsRepository.findByUsername(username).orElseThrow {
             CredencialesInvalidasException()
         }
+    }
+
+    private fun generateVerificationCode(): String {
+        return UUID.randomUUID().toString().substring(0, 6)
     }
 
 }

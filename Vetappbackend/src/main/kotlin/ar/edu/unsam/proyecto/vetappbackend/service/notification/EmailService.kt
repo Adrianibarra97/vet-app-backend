@@ -6,6 +6,7 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.notification.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.PetOwner
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.UserData
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
 
 @Service
@@ -48,6 +49,15 @@ class EmailService {
                 </body>
             </html>
         """.trimIndent()
+    }
+
+    fun sendVerificationCode(user: UserData, verificationCode: String) {
+
+        val subject= "Código de verificación VetApp"
+
+        val message= "Tu código de verificación es: $verificationCode"
+
+        mailSender.send(user.email!!, subject, message)
     }
 
 }
