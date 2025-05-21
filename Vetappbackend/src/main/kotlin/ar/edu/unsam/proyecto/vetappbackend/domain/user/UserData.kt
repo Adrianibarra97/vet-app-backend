@@ -20,11 +20,11 @@ abstract class UserData {
 
     var telephone: String? = null
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(name = "location_info_id", nullable = false, unique = true)
     lateinit var locationInfo: LocationInfo
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.MERGE])
     @JoinColumn(name = "auth_credentials_id", nullable = false, unique = true)
     lateinit var authCredentials: AuthCredentials
 
