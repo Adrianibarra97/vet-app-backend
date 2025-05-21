@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
-import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
-import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPetDTO
-import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
-import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilterDTO
-import ar.edu.unsam.proyecto.vetappbackend.dto.filter.fromJSON
+import ar.edu.unsam.proyecto.vetappbackend.dto.filter.*
+import ar.edu.unsam.proyecto.vetappbackend.dto.notification.*
 import ar.edu.unsam.proyecto.vetappbackend.service.user.*
 
 @RestController
@@ -25,7 +22,7 @@ class VetController {
 
     @GetMapping("/get-one-by-id")
     fun getOneById(@RequestParam idVet: Int): VetDTO {
-        return this.vetService.findByUserDataId(idVet).toDTO()
+        return this.vetService.findByAuthCredentialsId(idVet).toDTO()
     }
 
     @PostMapping("/create")
@@ -40,7 +37,7 @@ class VetController {
 
     @DeleteMapping("/delete")
     fun delete(@RequestParam idVet: Int) {
-        val vetForDelete: Vet = this.vetService.findByUserDataId(idVet)
+        val vetForDelete: Vet = this.vetService.findByAuthCredentialsId(idVet)
         this.vetService.delete(vetForDelete)
     }
 
@@ -59,6 +56,11 @@ class VetController {
     fun getAllByFilterMedicalShift(@RequestBody medicalShiftFilterDTO: MedicalShiftFilterDTO, @RequestParam idVet: Int): List<MedicalShiftResponseDTO> {
         val medicalShiftFilter: MedicalShiftFilter = medicalShiftFilterDTO.fromJSON()
         return vetService.getAllMedicalShiftFilter(medicalShiftFilter, idVet).map { it.toDTO() }
+    }
+
+    @GetMapping("/get-all-notifications")
+    fun getAllNotifications(@RequestParam idVet: Int): List<NotificationResponseDTO> {
+        return this.vetService.getAllNotifications(idVet).map { it.toDTO() }
     }
 
 }

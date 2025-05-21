@@ -1,4 +1,5 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.user
+import ar.edu.unsam.proyecto.vetappbackend.domain.notification.Notification
 import jakarta.transaction.*
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
@@ -7,12 +8,14 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.FilterPet
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
+import ar.edu.unsam.proyecto.vetappbackend.dto.notification.NotificationResponseDTO
 
 import ar.edu.unsam.proyecto.vetappbackend.service.*
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.*
 
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
+import ar.edu.unsam.proyecto.vetappbackend.service.notification.NotificationService
 
 
 @Service
@@ -21,6 +24,8 @@ class PetOwnerService : BaseService<PetOwner> {
     @Autowired lateinit var petOwnerRepository: PetOwnerRepository
 
     @Autowired private lateinit var authCredentialsService: AuthCredentialsService
+
+    @Autowired lateinit var notificationService: NotificationService
 
     @Autowired lateinit var medicalShiftService: MedicalShiftService
 
@@ -36,12 +41,10 @@ class PetOwnerService : BaseService<PetOwner> {
         return this.petOwnerRepository.findAll().toList()
     }
 
-    @Transactional
     override fun delete(petOwnerDelete: PetOwner) {
         this.petOwnerRepository.delete(petOwnerDelete)
     }
 
-    @Transactional
     override fun create(newPetOwner: PetOwner) {
         this.authCredentialsService.verifyCreate(newPetOwner.authCredentials)
         this.petOwnerRepository.save(newPetOwner)
@@ -69,9 +72,14 @@ class PetOwnerService : BaseService<PetOwner> {
         return this.medicalShiftService.getMedicalShiftFilterPetOwner(medicalShiftFilter, petOwner.id)
     }
 
-    fun findByAuthCredentialsId(idUserData: Int): PetOwner {
-        return this.petOwnerRepository.findByAuthCredentialsId(idUserData).orElseThrow {
-            NotFoundException("No se encontró los datos del usuario: $idUserData")
+    fun getAllNotifications(idPetOwner: Int): List<Notification> {
+        val petOwner: PetOwner = this.findByAuthCredentialsId(idPetOwner)
+        return this.notificationService.getAllNotificationsPetOwner(petOwner.id)
+    }
+
+    fun findByAuthCredentialsId(idAuthCredentials: Int): PetOwner {
+        return this.petOwnerRepository.findByAuthCredentialsId(idAuthCredentials).orElseThrow {
+            NotFoundException("No se encontró los datos del usuario: $idAuthCredentials")
         }
     }
 

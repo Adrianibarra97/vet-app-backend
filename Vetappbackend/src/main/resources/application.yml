@@ -14,8 +14,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: llcejas@estudiantes.unsam.edu.ar
-    password: "gvmr dnwb yzlf iory"
+    username: notifications.vetapp@gmail.com
+    password: "egnv stjb nafp duze"
     properties:
       mail:
         smtp:
