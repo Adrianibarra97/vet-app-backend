@@ -10,10 +10,8 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PetRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.PreExistenceDiseaseRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.StudyResultRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.VaccineRepository
-import ar.edu.unsam.proyecto.vetappbackend.repository.user.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.repository.pet.RecipeRepository
-import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
-import ar.edu.unsam.proyecto.vetappbackend.repository.user.VetRepository
+import ar.edu.unsam.proyecto.vetappbackend.repository.user.*
 
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -48,6 +46,12 @@ class VetappBackendBoostrap: InitializingBean {
 
     @Autowired
     lateinit var recipeRepository: RecipeRepository
+
+    @Autowired
+    lateinit var authCredentialsRepository: AuthCredentialsRepository
+
+    @Autowired
+    lateinit var locationInfoRepository: LocationInfoRepository
 
 
     //AuthCredentials
@@ -184,6 +188,10 @@ class VetappBackendBoostrap: InitializingBean {
             username = "Adrian",
             typeOfUser = TypeOfUser.VET
         )
+
+        var allAuthCredentials: List<AuthCredentials> = listOf(authCredentials1, authCredentials2, authCredentials3, authCredentials4,authCredentials5,authCredentials6)
+        this.authCredentialsRepository.saveAll(allAuthCredentials)
+
     }
 
     fun createLocationInfo() {
@@ -229,6 +237,9 @@ class VetappBackendBoostrap: InitializingBean {
             locality = "Villa Puyrredon",
             postalCode = "1814",
         )
+
+        var allLocationInfo: List<LocationInfo> = listOf(locationInfo1, locationInfo2, locationInfo3, locationInfo4,locationInfo5,locationInfo6)
+        this.locationInfoRepository.saveAll(allLocationInfo)
     }
 
     fun createPetOwner() {

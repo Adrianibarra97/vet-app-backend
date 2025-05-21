@@ -20,9 +20,9 @@ class AuthCredentialsService {
 
     @Autowired lateinit var emailService: EmailService
 
-    @Autowired lateinit var vetService: VetService
+    @Autowired lateinit var userDataService: UserDataService
 
-    @Autowired lateinit var petOwnerService: PetOwnerService
+
 
     fun getAll(): List<AuthCredentials> {
         return this.authCredentialsRepository.findAll().toList()
@@ -44,18 +44,10 @@ class AuthCredentialsService {
 
         val authCredentials: AuthCredentials = this.findByUsername(username)
         val verificationCode = this.generateVerificationCode()
-        var user: UserData? = null
-
-        if(authCredentials.typeOfUser==TypeOfUser.VET){
-            user = vetService.getOneById(authCredentials.id)
-        }
-        else{
-            user = petOwnerService.getOneById(authCredentials.id)
-        }
+        var user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
 
         this.emailService.sendVerificationCode(user, verificationCode)
         return verificationCode
-
     }
 
     fun verifyCreate(authCredentials: AuthCredentials) {

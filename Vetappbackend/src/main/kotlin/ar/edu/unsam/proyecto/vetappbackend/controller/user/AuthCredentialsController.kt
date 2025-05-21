@@ -27,4 +27,9 @@ class AuthCredentialsController {
         return this.authCredentialsService.getOneById(idAuthCredentials).toDTO()
     }
 
+    @PostMapping("/reset-password")
+    fun resetPassword(@RequestParam username: String): String {
+        return this.authCredentialsService.resetPassword(username)
+    }
+
 }
