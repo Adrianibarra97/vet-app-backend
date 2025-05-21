@@ -8,6 +8,7 @@ import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.error.*
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.*
 import ar.edu.unsam.proyecto.vetappbackend.service.notification.EmailService
+import jakarta.transaction.Transactional
 import org.apache.catalina.User
 import org.springframework.web.server.ResponseStatusException
 import org.springframework.http.HttpStatus
@@ -48,6 +49,19 @@ class AuthCredentialsService {
 
         this.emailService.sendVerificationCode(user, verificationCode)
         return verificationCode
+    }
+
+    @Transactional
+    fun updatePassword(newPassword: String, idAuthCredentials: Int) {
+
+        val authCredentials: AuthCredentials = this.getOneById(idAuthCredentials)
+        authCredentials.apply {
+            password = newPassword
+        }
+        this.authCredentialsRepository.save(authCredentials)
+        var user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
+
+        this.emailService.updatePassword(user)
     }
 
     fun verifyCreate(authCredentials: AuthCredentials) {

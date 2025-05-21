@@ -32,4 +32,9 @@ class AuthCredentialsController {
         return this.authCredentialsService.resetPassword(username)
     }
 
+    @PutMapping("/update-password")
+    fun updatePassword(@RequestParam newPassword: String, @RequestParam idAuthCredentials: Int) {
+        return this.authCredentialsService.updatePassword(newPassword, idAuthCredentials)
+    }
+
 }

@@ -28,6 +28,24 @@ class EmailService {
         mailSender.send(petOwner.email!!, subject, htmlContentOwner)
     }
 
+    fun sendVerificationCode(user: UserData, verificationCode: String) {
+
+        val subject= "Código de verificación VetApp"
+
+        val message= "Tu código de verificación es: $verificationCode"
+
+        mailSender.send(user.email!!, subject, message)
+    }
+
+    fun updatePassword(userData: UserData) {
+
+        val subject= "La contraseña a sido actualizada con éxito"
+
+        val message= "Hola ${userData.name} ${userData.surname} tu contraseña de VetApp a sido actualizada con éxito "
+
+        mailSender.send(userData.email!!, subject, message)
+    }
+
     private fun generateHtmlContent(nameRecipient: String, surnameRecipient: String, plainText: String ): String {
 
         val headerImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmYy1zpAo31nzp0H0B-rbaPrPDkCNqpPrThA&s"
@@ -49,15 +67,6 @@ class EmailService {
                 </body>
             </html>
         """.trimIndent()
-    }
-
-    fun sendVerificationCode(user: UserData, verificationCode: String) {
-
-        val subject= "Código de verificación VetApp"
-
-        val message= "Tu código de verificación es: $verificationCode"
-
-        mailSender.send(user.email!!, subject, message)
     }
 
 }
