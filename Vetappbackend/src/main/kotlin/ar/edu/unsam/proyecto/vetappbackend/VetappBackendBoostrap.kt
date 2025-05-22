@@ -180,12 +180,12 @@ class VetappBackendBoostrap: InitializingBean {
         )
         authCredentials5 = AuthCredentials(
             password = "123",
-            username = "LuckC",
+            username = "Adrian",
             typeOfUser = TypeOfUser.VET
         )
         authCredentials6 = AuthCredentials(
             password = "123",
-            username = "Adrian",
+            username = "LuckC",
             typeOfUser = TypeOfUser.VET
         )
 
@@ -224,19 +224,20 @@ class VetappBackendBoostrap: InitializingBean {
             postalCode = "1652"
         )
         locationInfo5 = LocationInfo(
-            address = "Eva Pero 5730",
-            country = "Argentina",
-            province = "Buenos Aires",
-            locality = "Pablo Podesta",
-            postalCode = "1652"
-        )
-        locationInfo6 = LocationInfo(
             address = "Los Constituyentes 5789",
             country = "Argentina",
             province = "Buenos Aires",
             locality = "Villa Puyrredon",
             postalCode = "1814",
         )
+        locationInfo6 = LocationInfo(
+            address = "Eva Pero 5730",
+            country = "Argentina",
+            province = "Buenos Aires",
+            locality = "Pablo Podesta",
+            postalCode = "1652"
+        )
+
 
         var allLocationInfo: List<LocationInfo> = listOf(locationInfo1, locationInfo2, locationInfo3, locationInfo4,locationInfo5,locationInfo6)
         this.locationInfoRepository.saveAll(allLocationInfo)
@@ -313,8 +314,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.professionalTelephone = "1181591457"
             this.professionalLocality = "San Isidro"
             this.professionalPostalCode = "1175"
-            this.locationInfo = locationInfo6
-            this.authCredentials = authCredentials6
+            this.locationInfo = locationInfo5
+            this.authCredentials = authCredentials5
         }
         lucasCjs = Vet().apply {
             this.dni = 44264079
@@ -333,8 +334,8 @@ class VetappBackendBoostrap: InitializingBean {
             this.professionalTelephone = "1169591337"
             this.professionalLocality = "Munro"
             this.professionalPostalCode = "1175"
-            this.locationInfo = locationInfo5
-            this.authCredentials = authCredentials5
+            this.locationInfo = locationInfo6
+            this.authCredentials = authCredentials6
         }
         var allVet: List<Vet> = listOf(adrian, lucasCjs)
         vetRepository.saveAll(allVet)

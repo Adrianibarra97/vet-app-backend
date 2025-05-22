@@ -31,22 +31,22 @@ class MedicalShiftService: BaseService<MedicalShift> {
     }
 
     override fun create(newMedicalShift: MedicalShift) {
+        this.medicalShiftRepository.save(newMedicalShift)
         this.sendEmail(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
         this.createNotification(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
-        this.medicalShiftRepository.save(newMedicalShift)
     }
 
     override fun delete(medicalShiftDelete: MedicalShift) {
+        this.medicalShiftRepository.delete(medicalShiftDelete)
         this.sendEmail(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
         this.createNotification(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
-        this.medicalShiftRepository.delete(medicalShiftDelete)
     }
 
     override fun update(medicalShiftUpdate: MedicalShift) {
         this.getOneById(medicalShiftUpdate.id!!)
+        this.medicalShiftRepository.save(medicalShiftUpdate)
         this.sendEmail(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
         this.createNotification(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
-        this.medicalShiftRepository.save(medicalShiftUpdate)
     }
 
     fun getMedicalShiftFilterVet(medicalShiftFilter: MedicalShiftFilter, idVet: Int): List<MedicalShift> {
