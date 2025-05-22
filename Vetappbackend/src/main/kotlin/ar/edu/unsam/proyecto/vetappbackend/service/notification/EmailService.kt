@@ -6,6 +6,7 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.pet.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.notification.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.PetOwner
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.UserData
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
 
 @Service
@@ -25,6 +26,24 @@ class EmailService {
 
         mailSender.send(vet.professionalEmail!!, subject, htmlContentVet)
         mailSender.send(petOwner.email!!, subject, htmlContentOwner)
+    }
+
+    fun sendVerificationCode(user: UserData, verificationCode: String) {
+
+        val subject= "Código de verificación VetApp"
+
+        val message= "Tu código de verificación es: $verificationCode"
+
+        mailSender.send(user.email!!, subject, message)
+    }
+
+    fun updatePassword(userData: UserData) {
+
+        val subject= "La contraseña a sido actualizada con éxito"
+
+        val message= "Hola ${userData.name} ${userData.surname} tu contraseña de VetApp a sido actualizada con éxito "
+
+        mailSender.send(userData.email!!, subject, message)
     }
 
     private fun generateHtmlContent(nameRecipient: String, surnameRecipient: String, plainText: String ): String {
