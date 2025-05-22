@@ -31,14 +31,14 @@ fun Vaccine.toDTO(): VaccineDTO {
 fun VaccineDTO.fromJSON(medicalHistoryCurrnet: MedicalHistory): Vaccine {
     val vaccineDTO = this
     return Vaccine().apply {
-        id = id
+        id = vaccineDTO.id
         medicalHistory = medicalHistoryCurrnet
-        applicationDate = applicationDate?.let { LocalDate.parse(it.toString()) }
-        expirationDate = expirationDate?.let { LocalDate.parse(it.toString()) }
-        description = description
-        batchNumber = batchNumber
-        completed = completed
-        type = TypeOfVaccinePet.valueOf(vaccineDTO.type.toString())
+        applicationDate = vaccineDTO.applicationDate.let { LocalDate.parse(it) }
+        expirationDate = vaccineDTO.expirationDate.let { LocalDate.parse(it) }
+        description = vaccineDTO.description
+        batchNumber = vaccineDTO.batchNumber
+        completed = vaccineDTO.completed
+        type = TypeOfVaccinePet.valueOf(vaccineDTO.type)
     }
 
 }
