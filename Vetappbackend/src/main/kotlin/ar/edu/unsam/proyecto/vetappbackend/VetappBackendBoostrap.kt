@@ -197,7 +197,7 @@ class VetappBackendBoostrap: InitializingBean {
     fun createLocationInfo() {
         locationInfo1 = LocationInfo(
             country = "Argentina",
-            province = "Buenos Aires",
+            province = "Ciudad Autónoma de Buenos Aires",
             locality = "Villa Urquiza",
             postalCode = "1652",
             address = "Olazabal 2243"
@@ -213,28 +213,28 @@ class VetappBackendBoostrap: InitializingBean {
             address = "Moreno 2243",
             country = "Argentina",
             province = "Buenos Aires",
-            locality = "Gral San Martin",
+            locality = "Ciudad del Libertador General San Martín",
             postalCode = "1652"
         )
         locationInfo4 = LocationInfo(
             address = "9 de Julio 7589",
             country = "Argentina",
             province = "Buenos Aires",
-            locality = "Los Polvorines",
-            postalCode = "1652"
+            locality = "Villa Ballester",
+            postalCode = "1653"
         )
         locationInfo5 = LocationInfo(
             address = "Los Constituyentes 5789",
             country = "Argentina",
-            province = "Buenos Aires",
-            locality = "Villa Puyrredon",
+            province = "Ciudad Autónoma de Buenos Aires",
+            locality = "Villa Pueyrredón",
             postalCode = "1814",
         )
         locationInfo6 = LocationInfo(
-            address = "Eva Pero 5730",
+            address = "Eva Peron 5730",
             country = "Argentina",
             province = "Buenos Aires",
-            locality = "Pablo Podesta",
+            locality = "Pablo Podestá",
             postalCode = "1652"
         )
 
