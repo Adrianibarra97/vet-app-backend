@@ -5,7 +5,6 @@ import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfNotification
 import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfUser
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.AuthCredentials
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.LocationInfo
-import ar.edu.unsam.proyecto.vetappbackend.domain.user.PetOwner
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.VetDTO
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.toDTO
 import ar.edu.unsam.proyecto.vetappbackend.repository.notification.NotificationRepository
