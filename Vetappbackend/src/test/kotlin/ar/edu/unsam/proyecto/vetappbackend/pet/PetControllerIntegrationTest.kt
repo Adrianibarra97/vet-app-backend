@@ -30,9 +30,6 @@ import java.time.LocalDate
 class PetControllerIntegrationTest {
 
     @Autowired
-    private lateinit var medicalHistoryRepository: MedicalHistoryRepository
-
-    @Autowired
     private lateinit var petOwnerRepository: PetOwnerRepository
 
     @Autowired
