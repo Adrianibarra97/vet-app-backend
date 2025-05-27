@@ -371,6 +371,22 @@ class VetControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Debe fallar al intentar obtener mascotas de un veterinario inexistente")
+    @Transactional
+    fun getAllPets_de_veterinario_inexistente() {
+        // Arrange
+        val idVet = -1
+        val url = "/vet/get-all-pets"
+
+        // Act & Assert
+        mockMvc.perform(get(url).param("idVet", idVet.toString()))
+            .andExpect(status().isNotFound)
+            .andDo { result ->
+                println("Respuesta al intentar obtener mascotas de un veterinario inexistente: ${result.response.contentAsString}")
+            }
+    }
+
+    @Test
     @DisplayName("Debe devolver a Oli como mascota  por nombre, vacunas pendientes y turnos")
     @Transactional
     fun getAllByFilterPet_de_veterinario_existente_con_filtros() {
@@ -409,7 +425,7 @@ class VetControllerIntegrationTest {
         val idVet = 5
         val url = "/vet/get-all-pets-by-filter"
 
-        val filtroVacio = "{}" // Representa un FilterPetDTO vacío
+        val filtroVacio = "{}"
 
         // Act & Assert
         mockMvc.perform(
@@ -485,6 +501,33 @@ class VetControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Debe fallar al intentar obtener turnos con un filtro today inválido")
+    @Transactional
+    fun getAllMedicalShiftFilter_debeFallarConTodayInvalido() {
+        // Arrange
+        val idVet = 5
+        val url = "/vet/get-all-medical-shift-by-filter"
+
+        val filtroInvalido = """
+    {
+        "today": "invalid-value" // Valor incorrecto en lugar de un booleano
+    }
+    """.trimIndent()
+
+        // Act & Assert
+        mockMvc.perform(
+            post(url)
+                .param("idVet", idVet.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(filtroInvalido)
+        )
+            .andExpect(status().isBadRequest)
+            .andDo { result ->
+                println("Respuesta al buscar turnos con filtro today inválido: ${result.response.contentAsString}")
+            }
+    }
+
+    @Test
     @DisplayName("Debe devolver los turnos médicos de la semana actual para un veterinario")
     @Transactional
     fun getAllMedicalShiftFilter_turnosDeEstaSemana() {
@@ -512,6 +555,34 @@ class VetControllerIntegrationTest {
             .andExpect(jsonPath("$.length()").value(org.hamcrest.Matchers.greaterThan(0)))
             .andExpect(jsonPath("$[0].id").exists())
             .andExpect(jsonPath("$[0].date").exists())
+    }
+
+
+
+    @Test
+    @DisplayName("Debe fallar al intentar obtener turnos con un filtro thisWeek inválido")
+    @Transactional
+    fun getAllMedicalShiftFilter_debeFallarConThisWeekInvalido() {
+        // Arrange
+        val idVet = 5
+        val url = "/vet/get-all-medical-shift-by-filter"
+        val filtroInvalido = """
+    {
+        "thisWeek": "invalid-value"
+    }
+    """.trimIndent()
+
+        // Act & Assert
+        mockMvc.perform(
+            post(url)
+                .param("idVet", idVet.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(filtroInvalido)
+        )
+            .andExpect(status().isBadRequest)
+            .andDo { result ->
+                println("Respuesta al buscar turnos con filtro thisWeek inválido: ${result.response.contentAsString}")
+            }
     }
 
     @Test
@@ -545,6 +616,7 @@ class VetControllerIntegrationTest {
             .andExpect(jsonPath("$[0].date").exists())
             .andExpect(jsonPath("$[0].date").value(fechaEspecifica))
     }
+
 
     @Test
     @DisplayName("Debe devolver todas las notificaciones asociadas a un veterinario existente")
