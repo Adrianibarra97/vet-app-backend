@@ -81,6 +81,22 @@ class PetControllerIntegrationTest {
             }
     }
 
+    @Test
+    @DisplayName("Debe fallar al intentar obtener un Pet con ID incorrecto")
+    @Transactional
+    fun getOneById_debeFallarCuandoIdPetEsIncorrecto() {
+        // Arrange
+        val idPet = -1
+        val url = "/pet/get-one-by-id"
+
+        // Act & Assert
+        mockMvc.perform(get(url).param("idPet", idPet.toString()))
+            .andExpect(status().isNotFound)
+            .andDo { result ->
+                println("Respuesta al buscar mascota con ID inválido: ${result.response.contentAsString}")
+            }
+    }
+
 
     @DisplayName("Debe crear un nuevo Pet correctamente")
     @Transactional
@@ -138,7 +154,6 @@ class PetControllerIntegrationTest {
         println("Mascota creada: $petCreado")
     }
 
-
     @DisplayName("Debe actualizar un Pet existente correctamente")
     @Transactional
     @ParameterizedTest(name = "ID petId = {0}")
@@ -182,6 +197,44 @@ class PetControllerIntegrationTest {
         val petActualizado = petRepository.findById(petId).orElseThrow()
         assertEquals("Firulais Actualizado", petActualizado.name)
         assertEquals(15.0, petActualizado.weight)
+    }
+
+    @ParameterizedTest(name = "ID petId = {0}")
+    @CsvSource("-1", "99999") // IDs inexistentes o inválidos
+    @DisplayName("Debe fallar al intentar actualizar un Pet inexistente")
+    @Transactional
+    fun updatePet_debeFallarCuandoPetNoExiste(petId: Int) {
+        // Arrange
+        val updatedPetDTO = PetDTO(
+            id = petId,
+            age = 2,
+            name = "Firulais Actualizado",
+            photo = "/src/assets/firulais.jpg",
+            breed = "Labrador",
+            weight = 15.0,
+            birth = "2023-05-26",
+            sex = "Macho",
+            specie = "DOG",
+            sterilized = true,
+            idMedicalHistory = null,
+            summary = "Actualización fallida",
+            createdAt = LocalDate.now().toString(),
+            updatedAt = LocalDate.now().toString(),
+            petOwnerId = 1
+        )
+
+        val updatedPetJson = objectMapper.writeValueAsString(updatedPetDTO)
+
+        // Act & Assert
+        mockMvc.perform(
+            put("/pet/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedPetJson)
+        )
+            .andExpect(status().isNotFound)
+            .andDo { result ->
+                println("Respuesta al intentar actualizar un Pet inexistente: ${result.response.contentAsString}")
+            }
     }
 
     @DisplayName("Debe eliminar un Pet existente correctamente")
