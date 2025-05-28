@@ -1,6 +1,9 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.notification
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.notification.Notification
+import ar.edu.unsam.proyecto.vetappbackend.domain.notification.NotificationFactory
+import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfNotification
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.notification.NotificationRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
@@ -40,6 +43,11 @@ class NotificationService: BaseService<Notification> {
 
     fun getAllNotificationsPetOwner(idPetOwner: Int): List<Notification>{
         return  this.notificationRepository.findByPetOwnerId(idPetOwner)
+    }
+
+    fun createNotification(shift: MedicalShift, type: TypeOfNotification) {
+        val notification = NotificationFactory().fromMedicalShift(shift, type)
+        this.notificationRepository.save(notification)
     }
 
 }
