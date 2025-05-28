@@ -189,8 +189,8 @@ class VetappBackendBoostrap: InitializingBean {
             typeOfUser = TypeOfUser.VET
         )
 
-        var allAuthCredentials: List<AuthCredentials> = listOf(authCredentials1, authCredentials2, authCredentials3, authCredentials4,authCredentials5,authCredentials6)
-        this.authCredentialsRepository.saveAll(allAuthCredentials)
+        //var allAuthCredentials: List<AuthCredentials> = listOf(authCredentials1, authCredentials2, authCredentials3, authCredentials4,authCredentials5,authCredentials6)
+        //this.authCredentialsRepository.saveAll(allAuthCredentials)
 
     }
 
@@ -239,8 +239,8 @@ class VetappBackendBoostrap: InitializingBean {
         )
 
 
-        var allLocationInfo: List<LocationInfo> = listOf(locationInfo1, locationInfo2, locationInfo3, locationInfo4,locationInfo5,locationInfo6)
-        this.locationInfoRepository.saveAll(allLocationInfo)
+        //var allLocationInfo: List<LocationInfo> = listOf(locationInfo1, locationInfo2, locationInfo3, locationInfo4,locationInfo5,locationInfo6)
+        //this.locationInfoRepository.saveAll(allLocationInfo)
     }
 
     fun createPetOwner() {
