@@ -33,7 +33,7 @@ class PetOwnerService : BaseService<PetOwner> {
 
     override fun getOneById(idPetOwner: Int): PetOwner {
         return this.petOwnerRepository.findById(idPetOwner).orElseThrow {
-            NotFoundException("No se encontró al petOwner indicado: $idPetOwner")
+            NotFoundException("No se encontró al dueño de la mascota indicado: $idPetOwner")
         }
     }
 
@@ -46,14 +46,14 @@ class PetOwnerService : BaseService<PetOwner> {
     }
 
     override fun create(newPetOwner: PetOwner) {
-        this.authCredentialsService.verifyCreate(newPetOwner.authCredentials)
+        this.authCredentialsService.verifyUsernameCreate(newPetOwner.authCredentials.username!!)
         this.petOwnerRepository.save(newPetOwner)
     }
 
     @Transactional
     override fun update(petOwnerUpdate: PetOwner) {
-        this.authCredentialsService.verifyUpdate(petOwnerUpdate.authCredentials)
         this.getOneById(petOwnerUpdate.id)
+        this.authCredentialsService.verifyUsernameUpdate(petOwnerUpdate.authCredentials.id, petOwnerUpdate.authCredentials.username!!)
         this.petOwnerRepository.save(petOwnerUpdate)
     }
 

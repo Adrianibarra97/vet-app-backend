@@ -41,13 +41,13 @@ class VetService: BaseService<Vet> {
     }
 
     override fun create(newVet: Vet) {
-        this.authCredentialsService.verifyCreate(newVet.authCredentials)
+        this.authCredentialsService.verifyUsernameCreate(newVet.authCredentials.username!!)
         this.vetRepository.save(newVet)
     }
 
     @Transactional
     override fun update(vetUpdate: Vet) {
-        this.authCredentialsService.verifyUpdate(vetUpdate.authCredentials)
+        this.authCredentialsService.verifyUsernameUpdate(vetUpdate.authCredentials.id, vetUpdate.authCredentials.username!!)
         this.getOneById(vetUpdate.id)
         this.vetRepository.save(vetUpdate)
     }
