@@ -30,6 +30,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -525,13 +526,9 @@ class VetControllerIntegrationTest {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-medical-shift-by-filter"
-        val fechaEspecifica = "2025-05-27"
-
-        val filtroFecha = """
-        {
-            "day": "$fechaEspecifica"
-        }
-    """.trimIndent()
+        val fechaHoy = LocalDate.now()
+        val fechaHoyStr = fechaHoy.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val filtroFecha = """ { "day": "$fechaHoyStr" } """.trimIndent()
 
         // Act & Assert
         mockMvc.perform(
@@ -541,13 +538,13 @@ class VetControllerIntegrationTest {
                 .content(filtroFecha)
         )
             .andDo { result ->
-                println("Turnos en la fecha $fechaEspecifica: ${result.response.contentAsString}")
+                println("Turnos en la fecha $fechaHoyStr: ${result.response.contentAsString}")
             }
             .andExpect(status().isOk)
             .andExpect(jsonPath("$").isArray)
             .andExpect(jsonPath("$.length()").value(org.hamcrest.Matchers.greaterThanOrEqualTo(0)))
             .andExpect(jsonPath("$[0].date").exists())
-            .andExpect(jsonPath("$[0].date").value(fechaEspecifica))
+            .andExpect(jsonPath("$[0].date").value(fechaHoyStr))
     }
 
 
