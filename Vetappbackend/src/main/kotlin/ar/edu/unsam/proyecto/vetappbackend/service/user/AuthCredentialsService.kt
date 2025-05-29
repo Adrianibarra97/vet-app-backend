@@ -41,16 +41,17 @@ class AuthCredentialsService {
         return AuthCredentialsResponseDTO(authCredentials.id, authCredentials.typeOfUser!!.name)
     }
 
-    fun resetPassword(username: String): String {
+    fun resetPassword(username: String): ValidAuthchredentialsResponseDTO {
         try {
             val authCredentials: AuthCredentials = this.findByUsername(username)
             val verificationCode = this.generateVerificationCode()
+            val response = ValidAuthchredentialsResponseDTO(authCredentials.id,verificationCode)
             var user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
 
             this.emailService.sendVerificationCode(user, verificationCode)
-            return verificationCode
+            return response
         }catch(e: Exception){
-            return ""
+            return ValidAuthchredentialsResponseDTO(-1,"")
         }
 
     }

@@ -30,4 +30,10 @@ fun AuthCredentialsDTO.fromJSON(): AuthCredentials {
         this.password = AuthCredentialsDTO.password
         this.typeOfUser = TypeOfUser.valueOf(AuthCredentialsDTO.type)
     }
+
 }
+
+data class ValidAuthchredentialsResponseDTO(
+    val id: Int?,
+    val validCode: String
+)
