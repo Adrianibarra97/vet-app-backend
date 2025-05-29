@@ -42,12 +42,17 @@ class AuthCredentialsService {
     }
 
     fun resetPassword(username: String): String {
-        val verificationCode = this.generateVerificationCode()
-        val authCredentials: AuthCredentials = this.findByUsername(username)
-        val user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
+        try {
+            val authCredentials: AuthCredentials = this.findByUsername(username)
+            val verificationCode = this.generateVerificationCode()
+            var user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
 
-        this.emailService.sendVerificationCode(user, verificationCode)
-        return verificationCode
+            this.emailService.sendVerificationCode(user, verificationCode)
+            return verificationCode
+        }catch(e: Exception){
+            return ""
+        }
+
     }
 
     @Transactional
