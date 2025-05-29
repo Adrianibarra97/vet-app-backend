@@ -114,7 +114,7 @@ class PetOwnerControllerIntegrationTest {
 
 
     @ParameterizedTest(name = "ID valid petowner = {0}, Username = {1}, NewUsername = {2}")
-    @CsvSource("1, Eche, Caro")
+    @CsvSource("2, Caro, Tami")
     @DisplayName("No debe actualizar el username del dueño de la mascota si el nuevo username está ocupado")
     fun returnExceptionPutUsernamePetOwner(idPetOwner: Int, username: String, newUsername: String) {
         val putUrl = "/pet-owner/update"
