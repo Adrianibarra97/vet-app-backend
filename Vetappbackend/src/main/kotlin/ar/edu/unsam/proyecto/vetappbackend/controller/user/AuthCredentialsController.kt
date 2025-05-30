@@ -28,7 +28,7 @@ class AuthCredentialsController {
     }
 
     @PostMapping("/reset-password")
-    fun resetPassword(@RequestParam username: String): String {
+    fun resetPassword(@RequestParam username: String): ValidAuthchredentialsResponseDTO {
         return this.authCredentialsService.resetPassword(username)
     }
 

@@ -41,39 +41,39 @@ class AuthCredentialsService {
         return AuthCredentialsResponseDTO(authCredentials.id, authCredentials.typeOfUser!!.name)
     }
 
-    fun resetPassword(username: String): String {
+    fun resetPassword(username: String): ValidAuthchredentialsResponseDTO {
+        try {
+            val authCredentials: AuthCredentials = this.findByUsername(username)
+            val verificationCode = this.generateVerificationCode()
+            val response = ValidAuthchredentialsResponseDTO(authCredentials.id,verificationCode)
+            var user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
 
-        val authCredentials: AuthCredentials = this.findByUsername(username)
-        val verificationCode = this.generateVerificationCode()
-        var user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
+            this.emailService.sendVerificationCode(user, verificationCode)
+            return response
+        }catch(e: Exception){
+            return ValidAuthchredentialsResponseDTO(-1,"")
+        }
 
-        this.emailService.sendVerificationCode(user, verificationCode)
-        return verificationCode
     }
 
     @Transactional
     fun updatePassword(newPassword: String, idAuthCredentials: Int) {
-
-        val authCredentials: AuthCredentials = this.getOneById(idAuthCredentials)
-        authCredentials.apply {
-            password = newPassword
-        }
+        val authCredentials: AuthCredentials = this.getOneById(idAuthCredentials).apply { password = newPassword }
+        val user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
         this.authCredentialsRepository.save(authCredentials)
-        var user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
-
         this.emailService.updatePassword(user)
     }
 
-    fun verifyCreate(authCredentials: AuthCredentials) {
-        if (authCredentialsRepository.findByUsername(authCredentials.username!!).isPresent) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username en uso: ${authCredentials.username!!}")
+    fun verifyUsernameCreate(username: String) {
+        if (authCredentialsRepository.findByUsername(username).isPresent) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username en uso: $username")
         }
     }
 
-    fun verifyUpdate(authCredentials: AuthCredentials) {
-        val existing = getOneById(authCredentials.id)
-        if (authCredentials.username != existing.username) {
-            verifyCreate(authCredentials)
+    fun verifyUsernameUpdate(idAuthCredentials: Int, username: String) {
+        val existingAuthCredentials = this.getOneById(idAuthCredentials)
+        if (existingAuthCredentials.username != username) {
+            verifyUsernameCreate(username)
         }
     }
 

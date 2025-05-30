@@ -44,4 +44,6 @@ interface MedicalShiftRepository: CrudRepository<MedicalShift, Int> {
         @Param("endingOfWeek") endingOfWeek: LocalDate?
     ): List<MedicalShift>
 
+    fun findAllByDate(date: LocalDate): List<MedicalShift>
+
 }

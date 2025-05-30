@@ -27,7 +27,7 @@ class PetOwnerController {
 
     @GetMapping("/get-one-by-id")
     fun getOneById(idPetOwner: Int): PetOwnerDTO {
-        return this.petOwnerService.getOneById(idPetOwner).toDTO()
+        return this.petOwnerService.findByAuthCredentialsId(idPetOwner).toDTO()
     }
 
     @PostMapping("/create")

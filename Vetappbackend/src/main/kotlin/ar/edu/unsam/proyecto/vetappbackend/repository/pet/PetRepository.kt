@@ -1,6 +1,7 @@
 package ar.edu.unsam.proyecto.vetappbackend.repository.pet
 
 import ar.edu.unsam.proyecto.vetappbackend.domain.pet.Pet
+import ar.edu.unsam.proyecto.vetappbackend.domain.user.Vet
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
@@ -50,4 +51,8 @@ interface PetRepository : CrudRepository<Pet, Int> {
         @Param("hasMedicalShift") hasMedicalShift: Boolean?,
         @Param("hasPendingVaccine") hasPendingVaccine: Boolean?
     ): List<Pet>
+
+    @Query("SELECT p FROM Pet p JOIN FETCH p.vets WHERE :vet MEMBER OF p.vets")
+    fun findAllByVetsContains(@Param("vet") vet: Vet): List<Pet>
+
 }
