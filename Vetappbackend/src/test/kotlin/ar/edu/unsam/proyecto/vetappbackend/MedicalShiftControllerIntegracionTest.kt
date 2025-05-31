@@ -1,5 +1,6 @@
 package ar.edu.unsam.proyecto.vetappbackend
 
+import ar.edu.unsam.proyecto.vetappbackend.service.user.MedicalShiftService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
@@ -23,9 +24,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 class MedicalShiftControllerIntegracionTest {
 
     @Autowired
-    //private lateinit var service: TipoService
+    private lateinit var medicalShiftService: MedicalShiftService
 
-    // @Autowired
+    @Autowired
     lateinit var mockMvc: MockMvc
 
 
@@ -56,5 +57,20 @@ class MedicalShiftControllerIntegracionTest {
 //
 //    }
 
+    @Test
+    @DisplayName("Se obtienen correctamente todos los medical shifts")
+    fun medicalShiftService_shouldReturnMedicalShifts() {
+        // Arrange
+        val url = "/medical-shift/get-all"
+
+        // Act
+        mockMvc.perform(
+            get(url)
+        )
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+
+    }
 
 }
