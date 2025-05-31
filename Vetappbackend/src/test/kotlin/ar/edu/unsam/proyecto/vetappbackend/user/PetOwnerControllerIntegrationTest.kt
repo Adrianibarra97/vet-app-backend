@@ -4,6 +4,7 @@ import ar.edu.unsam.proyecto.vetappbackend.dto.user.toDTO
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
 import org.springframework.beans.factory.annotation.Autowired
 import com.fasterxml.jackson.databind.ObjectMapper
+import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 
@@ -134,5 +136,21 @@ class PetOwnerControllerIntegrationTest {
     }
 
 
+    @DisplayName("Debe devolver a Morena como la unica mascota de Lucas Rodriguez.")
+    @ParameterizedTest(name = "ID valid petowner = {0}, NamePet = {1}")
+    @CsvSource("4, Morena")
+    @Transactional
+    fun getAllPetsOwner(idPetOwner: Int, namePet: String) {
+        // Arrange
+        val url = "/pet-owner/get-all-pets"
+        // Act
+        val resultGet = mockMvc.perform(get(url).param("idPetOwner", idPetOwner.toString())).andExpect(status().isOk).andReturn()
+        val json = objectMapper.readTree(resultGet.response.contentAsString)
+        assertEquals(1, json.size())
+        // Assert
+        val firstPet = json[0]
+        assertEquals(idPetOwner.toString(), firstPet["petOwnerId"].asText())
+        assertEquals(namePet, firstPet["name"].asText())
+    }
 
 }

@@ -1,18 +1,16 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.user
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.type.TypeOfUser
+import java.util.*
+import jakarta.transaction.Transactional
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.server.ResponseStatusException
+import ar.edu.unsam.proyecto.vetappbackend.repository.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.error.*
-import ar.edu.unsam.proyecto.vetappbackend.repository.user.*
 import ar.edu.unsam.proyecto.vetappbackend.service.notification.EmailService
-import jakarta.transaction.Transactional
-import org.apache.catalina.User
-import org.springframework.web.server.ResponseStatusException
-import org.springframework.http.HttpStatus
-import java.util.*
 
 @Service
 class AuthCredentialsService {
