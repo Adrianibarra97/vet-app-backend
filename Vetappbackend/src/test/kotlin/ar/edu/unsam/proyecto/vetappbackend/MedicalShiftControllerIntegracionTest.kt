@@ -73,4 +73,45 @@ class MedicalShiftControllerIntegracionTest {
 
     }
 
+    @ParameterizedTest(name = "idMedicalShift = {0}")
+    @CsvSource(
+        "1",
+        "3"
+    )
+    @DisplayName("Devuelve correctamente un medicalShift con id válido")
+    fun medicalShiftService_shouldReturnMedicalShift_whenIdValido(idMedicalShift: Int) {
+        // Arrange
+        val url = "/medical-shift/get-one-by-id"
+
+        // Act
+        val result = mockMvc.perform(
+            get(url)
+                .param("idMedicalShift", idMedicalShift.toString())
+        )
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn()
+
+    }
+
+    @ParameterizedTest(name = "idMedicalShift = {0}")
+    @CsvSource(
+        "0",
+        "24"
+    )
+    @DisplayName("Devuelve 404 cuando se pide un medicalShift con id inválido")
+    fun medicalShiftService_shouldReturn404_whenIdNoValido(idMedicalShift: Int) {
+        // Arrange
+        val url = "/medical-shift/get-one-by-id"
+
+        // Act
+        val result = mockMvc.perform(
+            get(url)
+                .param("idMedicalShift", idMedicalShift.toString())
+        )
+            .andExpect(status().isNotFound)
+
+    }
+
+
 }
