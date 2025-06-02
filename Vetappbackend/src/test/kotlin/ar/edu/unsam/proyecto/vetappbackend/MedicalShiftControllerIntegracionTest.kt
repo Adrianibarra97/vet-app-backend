@@ -2,6 +2,7 @@ package ar.edu.unsam.proyecto.vetappbackend
 
 import ar.edu.unsam.proyecto.vetappbackend.service.user.MedicalShiftService
 import com.fasterxml.jackson.databind.ObjectMapper
+import jakarta.transaction.Transactional
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integracion")
+@Transactional
 
 class MedicalShiftControllerIntegracionTest {
 
