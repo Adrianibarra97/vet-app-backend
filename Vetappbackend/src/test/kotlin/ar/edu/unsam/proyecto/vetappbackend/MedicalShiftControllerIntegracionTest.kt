@@ -84,7 +84,7 @@ class MedicalShiftControllerIntegracionTest {
         val url = "/medical-shift/get-one-by-id"
 
         // Act
-        val result = mockMvc.perform(
+        mockMvc.perform(
             get(url)
                 .param("idMedicalShift", idMedicalShift.toString())
         )
@@ -105,13 +105,127 @@ class MedicalShiftControllerIntegracionTest {
         val url = "/medical-shift/get-one-by-id"
 
         // Act
-        val result = mockMvc.perform(
+        mockMvc.perform(
             get(url)
                 .param("idMedicalShift", idMedicalShift.toString())
         )
             .andExpect(status().isNotFound)
 
     }
+
+//    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+//    @CsvSource( "7, '2025-09-29', '11:00', 1,  1" )
+//    @DisplayName("Debe crear correctamente el medicalShift cuando los datos son válidos")
+//    fun medicalShiftService_shouldCrearMedicalShift_whenCamposValidos(
+//        id: Int,
+//        date: String,
+//        hour: String,
+//        vetId: Int,
+//        petId: Int
+//    ) {
+//
+//        // Arrange
+//        val url = "/medical-shift/create"
+//
+//        val datos = mapOf(
+//            "id" to id,
+//            "date" to date,
+//            "hour" to hour,
+//            "vetId" to vetId,
+//            "petId" to petId
+//        )
+//
+//        val requestBody = objectMapper.writeValueAsString(datos)
+//
+//
+//        // Act
+//        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk)
+//
+//    }
+
+    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+    @CsvSource("6, '2025-06-02' ,'12:00', 6, 10" )
+    @DisplayName("MedicalShift debe actualizar turno correctamente")
+    fun medicalShiftService_shouldUpdateMedicalShift_whenCamposCorrectos(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
+
+        val putUrl = "/medical-shift/update"
+
+        val turnoActualizado = mapOf(
+            "id" to id,
+            "date" to date,
+            "hour" to hour,
+            "vetId" to vetId,
+            "petId" to petId,
+            )
+
+        val requestBody = objectMapper.writeValueAsString(turnoActualizado)
+
+        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk).andReturn()
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+    @CsvSource("6, '2025-06-02' ,'12:00', 2, 10" )
+    @DisplayName("MedicalShift no debe actualizar turno correctamente si id de veterinario es incorrecto")
+    fun medicalShiftService_shouldNotUpdateMedicalShift_whenVeterinarioIncorrecto(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
+
+        val putUrl = "/medical-shift/update"
+
+        val turnoActualizado = mapOf(
+            "id" to id,
+            "date" to date,
+            "hour" to hour,
+            "vetId" to vetId,
+            "petId" to petId,
+        )
+
+        val requestBody = objectMapper.writeValueAsString(turnoActualizado)
+
+        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+    @CsvSource("6, '2025-06-02' ,'12:00', 6, 25" )
+    @DisplayName("MedicalShift no debe actualizar turno correctamente si id de mascota es incorrecto")
+    fun medicalShiftService_shouldNotUpdateMedicalShift_whenMascotaIncorrecta(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
+
+        val putUrl = "/medical-shift/update"
+
+        val turnoActualizado = mapOf(
+            "id" to id,
+            "date" to date,
+            "hour" to hour,
+            "vetId" to vetId,
+            "petId" to petId,
+        )
+
+        val requestBody = objectMapper.writeValueAsString(turnoActualizado)
+
+        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
+
+    }
+
+//    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+//    @CsvSource("6, '2025-06-35' ,'12:00', 6, 10" )
+//    @DisplayName("MedicalShift no debe actualizar turno correctamente si fecha es incorrecta")
+//    fun medicalShiftService_shouldNotUpdateMedicalShift_whenFechaIncorrecta(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
+//
+//        val putUrl = "/medical-shift/update"
+//
+//        val turnoActualizado = mapOf(
+//            "id" to id,
+//            "date" to date,
+//            "hour" to hour,
+//            "vetId" to vetId,
+//            "petId" to petId,
+//        )
+//
+//        val requestBody = objectMapper.writeValueAsString(turnoActualizado)
+//
+//        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isInternalServerError)
+//
+//    }
 
 
 }
