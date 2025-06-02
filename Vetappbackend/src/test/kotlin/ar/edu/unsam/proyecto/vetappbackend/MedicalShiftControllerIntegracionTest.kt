@@ -59,7 +59,7 @@ class MedicalShiftControllerIntegracionTest {
 
     @Test
     @DisplayName("Se obtienen correctamente todos los medical shifts")
-    fun medicalShiftService_shouldReturnMedicalShifts() {
+    fun medicalShift_shouldReturnMedicalShifts() {
         // Arrange
         val url = "/medical-shift/get-all"
 
@@ -79,7 +79,7 @@ class MedicalShiftControllerIntegracionTest {
         "3"
     )
     @DisplayName("Devuelve correctamente un medicalShift con id válido")
-    fun medicalShiftService_shouldReturnMedicalShift_whenIdValido(idMedicalShift: Int) {
+    fun medicalShift_shouldReturnMedicalShift_whenIdValido(idMedicalShift: Int) {
         // Arrange
         val url = "/medical-shift/get-one-by-id"
 
@@ -100,7 +100,7 @@ class MedicalShiftControllerIntegracionTest {
         "24"
     )
     @DisplayName("Devuelve 404 cuando se pide un medicalShift con id inválido")
-    fun medicalShiftService_shouldReturn404_whenIdNoValido(idMedicalShift: Int) {
+    fun medicalShift_shouldReturn404_whenIdNoValido(idMedicalShift: Int) {
         // Arrange
         val url = "/medical-shift/get-one-by-id"
 
@@ -146,7 +146,7 @@ class MedicalShiftControllerIntegracionTest {
     @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
     @CsvSource("6, '2025-06-02' ,'12:00', 6, 10" )
     @DisplayName("MedicalShift debe actualizar turno correctamente")
-    fun medicalShiftService_shouldUpdateMedicalShift_whenCamposCorrectos(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
+    fun medicalShift_shouldUpdateMedicalShift_whenCamposCorrectos(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
 
         val putUrl = "/medical-shift/update"
 
@@ -167,7 +167,7 @@ class MedicalShiftControllerIntegracionTest {
     @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
     @CsvSource("6, '2025-06-02' ,'12:00', 2, 10" )
     @DisplayName("MedicalShift no debe actualizar turno correctamente si id de veterinario es incorrecto")
-    fun medicalShiftService_shouldNotUpdateMedicalShift_whenVeterinarioIncorrecto(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
+    fun medicalShift_shouldNotUpdateMedicalShift_whenVeterinarioIncorrecto(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
 
         val putUrl = "/medical-shift/update"
 
@@ -188,7 +188,7 @@ class MedicalShiftControllerIntegracionTest {
     @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
     @CsvSource("6, '2025-06-02' ,'12:00', 6, 25" )
     @DisplayName("MedicalShift no debe actualizar turno correctamente si id de mascota es incorrecto")
-    fun medicalShiftService_shouldNotUpdateMedicalShift_whenMascotaIncorrecta(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
+    fun medicalShift_shouldNotUpdateMedicalShift_whenMascotaIncorrecta(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
 
         val putUrl = "/medical-shift/update"
 
@@ -226,6 +226,34 @@ class MedicalShiftControllerIntegracionTest {
 //        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isInternalServerError)
 //
 //    }
+
+    @ParameterizedTest(name = "id= {0}")
+    @CsvSource("1, 6")
+    @DisplayName("Debe eliminar correctamente medicalShift si existe")
+    fun medicalShift_shouldReturn200_whenEliminaMedicalShiftCorrectamnete(idMedicalShift: Int) {
+
+        //
+
+        mockMvc.perform(
+            delete("/medical-shift/delete")
+                .param("idMedicalShift", idMedicalShift.toString())
+        )
+            .andExpect(status().isOk)
+    }
+
+    @ParameterizedTest(name = "id= {0}")
+    @CsvSource("7, 10")
+    @DisplayName("No puede eliminar medicalShift con id incorrecto")
+    fun medicalShift_shouldReturn404_whenNoEliminaMedicalShiftIdIncorrecto(idMedicalShift: Int) {
+
+        //
+
+        mockMvc.perform(
+            delete("/medical-shift/delete")
+                .param("idMedicalShift", idMedicalShift.toString())
+        )
+            .andExpect(status().isNotFound)
+    }
 
 
 }
