@@ -31,30 +31,6 @@ class MedicalShiftControllerIntegracionTest {
     @Autowired
     lateinit var objectMapper: ObjectMapper
 
-    @BeforeEach
-    fun setup() {
-    }
-
-//    @ParameterizedTest(name = "parametro1 = {0}, parametro2 = {1}")
-//    @CsvSource(
-//        "valor1, valor1.1",
-//        "valor2, valor2.2"
-//    )
-    //   @DisplayName("Nombre de lo que debe hacer el tests")
-//    fun algo_shouldReturnLoQueDevuelve_whenCondcion(parametro: Tipo) {
-//        // Arrange
-//        val url = "/pet/medical-history/get-all"
-//
-//        // Act
-//        val result = mockMvc.perform(
-//            get(url)
-//        )
-//            .andExpect(status().isOk)
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//            .andReturn()
-//
-//    }
-
     @Test
     @DisplayName("Se obtienen correctamente todos los medical shifts")
     fun medicalShift_shouldReturnMedicalShifts() {
@@ -263,27 +239,6 @@ class MedicalShiftControllerIntegracionTest {
         mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
 
     }
-
-//    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
-//    @CsvSource("6, '2025-06-35' ,'12:00', 6, 10" )
-//    @DisplayName("MedicalShift no debe actualizar turno correctamente si fecha es incorrecta")
-//    fun medicalShiftService_shouldNotUpdateMedicalShift_whenFechaIncorrecta(id: Int, date: String, hour: String, vetId: Int, petId: Int) {
-//
-//        val putUrl = "/medical-shift/update"
-//
-//        val turnoActualizado = mapOf(
-//            "id" to id,
-//            "date" to date,
-//            "hour" to hour,
-//            "vetId" to vetId,
-//            "petId" to petId,
-//        )
-//
-//        val requestBody = objectMapper.writeValueAsString(turnoActualizado)
-//
-//        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isInternalServerError)
-//
-//    }
 
     @ParameterizedTest(name = "id= {0}")
     @CsvSource("1, 6")
