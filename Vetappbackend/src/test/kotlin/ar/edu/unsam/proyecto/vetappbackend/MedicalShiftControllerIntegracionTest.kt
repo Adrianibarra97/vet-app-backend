@@ -3,13 +3,11 @@ package ar.edu.unsam.proyecto.vetappbackend
 import ar.edu.unsam.proyecto.vetappbackend.service.user.MedicalShiftService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
@@ -113,35 +111,35 @@ class MedicalShiftControllerIntegracionTest {
 
     }
 
-//    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
-//    @CsvSource( "7, '2025-09-29', '11:00', 1,  1" )
-//    @DisplayName("Debe crear correctamente el medicalShift cuando los datos son válidos")
-//    fun medicalShiftService_shouldCrearMedicalShift_whenCamposValidos(
-//        id: Int,
-//        date: String,
-//        hour: String,
-//        vetId: Int,
-//        petId: Int
-//    ) {
-//
-//        // Arrange
-//        val url = "/medical-shift/create"
-//
-//        val datos = mapOf(
-//            "id" to id,
-//            "date" to date,
-//            "hour" to hour,
-//            "vetId" to vetId,
-//            "petId" to petId
-//        )
-//
-//        val requestBody = objectMapper.writeValueAsString(datos)
-//
-//
-//        // Act
-//        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk)
-//
-//    }
+    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+    @CsvSource( "7, '2025-09-29', '11:00', 6,  1" )
+    @DisplayName("Debe crear correctamente el medicalShift cuando los datos son válidos")
+    fun medicalShift_shouldCrearMedicalShift_whenCamposValidos(
+        id: Int,
+        date: String,
+        hour: String,
+        vetId: Int,
+        petId: Int
+    ) {
+
+        // Arrange
+        val url = "/medical-shift/create"
+
+        val datos = mapOf(
+            "id" to id,
+            "date" to date,
+            "hour" to hour,
+            "vetId" to vetId,
+            "petId" to petId
+        )
+
+        val requestBody = objectMapper.writeValueAsString(datos)
+
+
+        // Act
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk)
+
+    }
 
     @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
     @CsvSource("6, '2025-06-02' ,'12:00', 6, 10" )
@@ -161,6 +159,66 @@ class MedicalShiftControllerIntegracionTest {
         val requestBody = objectMapper.writeValueAsString(turnoActualizado)
 
         mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk).andReturn()
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+    @CsvSource( "7, '2025-09-29', '11:00', 2,  1" )
+    @DisplayName("Debe fallar la creacion del medicaShift cuando id de veterinario es incorrecto")
+    fun medicalShift_shouldNoCrearMedicalShift_whenIdVeterinarioIncorrecto(
+        id: Int,
+        date: String,
+        hour: String,
+        vetId: Int,
+        petId: Int
+    ) {
+
+        // Arrange
+        val url = "/medical-shift/create"
+
+        val datos = mapOf(
+            "id" to id,
+            "date" to date,
+            "hour" to hour,
+            "vetId" to vetId,
+            "petId" to petId
+        )
+
+        val requestBody = objectMapper.writeValueAsString(datos)
+
+
+        // Act
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, date = {1}, hour = {2}, vetId = {3}, petId = {4}")
+    @CsvSource( "7, '2025-09-29', '11:00', 6,  25" )
+    @DisplayName("Debe fallar la creacion del medicaShift cuando id de mascota es incorrecto")
+    fun medicalShift_shouldNoCrearMedicalShift_whenIdMascotaIncorrecto(
+        id: Int,
+        date: String,
+        hour: String,
+        vetId: Int,
+        petId: Int
+    ) {
+
+        // Arrange
+        val url = "/medical-shift/create"
+
+        val datos = mapOf(
+            "id" to id,
+            "date" to date,
+            "hour" to hour,
+            "vetId" to vetId,
+            "petId" to petId
+        )
+
+        val requestBody = objectMapper.writeValueAsString(datos)
+
+
+        // Act
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
 
     }
 
