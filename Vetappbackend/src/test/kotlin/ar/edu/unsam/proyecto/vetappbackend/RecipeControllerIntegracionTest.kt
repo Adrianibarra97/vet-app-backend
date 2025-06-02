@@ -1,8 +1,8 @@
 package ar.edu.unsam.proyecto.vetappbackend
 
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.RecipeService
-import ar.edu.unsam.proyecto.vetappbackend.service.user.MedicalShiftService
 import com.fasterxml.jackson.databind.ObjectMapper
+import jakarta.transaction.Transactional
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integracion")
+@Transactional
 
 class RecipeControllerIntegracionTest {
 
@@ -88,56 +89,158 @@ class RecipeControllerIntegracionTest {
 
     }
 
-//    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistory = {2}, vetId = {3}, date = {4}")
-//    @CsvSource( "5, 'Receta nueva', 5, 6,  '2025-06-02'" )
-//    @DisplayName("Debe crear correctamente el recipe cuando los datos son válidos")
-//    fun recipe_shouldCrearRecipe_whenCamposValidos(
-//        id: Int,
-//        description: String,
-//        medicalHistory: Int,
-//        vetId: Int,
-//        date: String
-//    ) {
-//
-//        // Arrange
-//        val url = "/recipe/create"
-//
-//        val datos = mapOf(
-//            "id" to id,
-//            "description" to description,
-//            "medicalHistory" to medicalHistory,
-//            "vetId" to vetId,
-//            "date" to date
-//        )
-//
-//        val requestBody = objectMapper.writeValueAsString(datos)
-//
-//
-//        // Act
-//        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk)
-//
-//    }
+    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistoryId = {2}, vetId = {3}, date = {4}")
+    @CsvSource( "15, 'Receta nueva', 1, 6, '2025-06-02'" )
+    @DisplayName("Debe crear correctamente el recipe cuando los datos son válidos")
+    fun recipe_shouldCrearRecipe_whenCamposValidos(
+        id: Int,
+        description: String,
+        medicalHistoryId: Int,
+        vetId: Int,
+        date: String
+    ) {
 
-//    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistory = {2}, vetId = {3}, date = {4}")
-//    @CsvSource("1, 'nueva descripcion' , 10, 5, '2025-06-02'" )
-//    @DisplayName("Recipe debe actualizarse correctamente")
-//    fun recipe_shouldUpdate_whenCamposCorrectos(id: Int, description: String, medicalHistory: Int, vetId: Int, date: String) {
-//
-//        val putUrl = "/recipe/update"
-//
-//        val recetaActualizada = mapOf(
-//            "id" to id,
-//            "description" to description,
-//            "medicalHistory" to medicalHistory,
-//            "vetId" to vetId,
-//            "date" to date,
-//        )
-//
-//        val requestBody = objectMapper.writeValueAsString(recetaActualizada)
-//
-//        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk)
-//
-//    }
+        // Arrange
+        val url = "/recipe/create"
+
+        val datos = mapOf(
+            "id" to id,
+            "description" to description,
+            "medicalHistoryId" to medicalHistoryId,
+            "vetId" to vetId,
+            "date" to date
+        )
+
+        val requestBody = objectMapper.writeValueAsString(datos)
+
+
+        // Act
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk)
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistoryId = {2}, vetId = {3}, date = {4}")
+    @CsvSource( "16, 'Receta nueva', 50, 6, '2025-06-02'" )
+    @DisplayName("No crea el recipe cuando el id del medical history es invalido")
+    fun recipe_shouldNotCrearRecipe_whenMedicalHistoryInvalido(
+        id: Int,
+        description: String,
+        medicalHistoryId: Int,
+        vetId: Int,
+        date: String
+    ) {
+
+        // Arrange
+        val url = "/recipe/create"
+
+        val datos = mapOf(
+            "id" to id,
+            "description" to description,
+            "medicalHistoryId" to medicalHistoryId,
+            "vetId" to vetId,
+            "date" to date
+        )
+
+        val requestBody = objectMapper.writeValueAsString(datos)
+
+
+        // Act
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistoryId = {2}, vetId = {3}, date = {4}")
+    @CsvSource( "16, 'Receta nueva', 1, 36, '2025-06-02'" )
+    @DisplayName("No crea el recipe cuando el id del veterinario es invalido")
+    fun recipe_shouldNotCrearRecipe_whenVetInvalido(
+        id: Int,
+        description: String,
+        medicalHistoryId: Int,
+        vetId: Int,
+        date: String
+    ) {
+
+        // Arrange
+        val url = "/recipe/create"
+
+        val datos = mapOf(
+            "id" to id,
+            "description" to description,
+            "medicalHistoryId" to medicalHistoryId,
+            "vetId" to vetId,
+            "date" to date
+        )
+
+        val requestBody = objectMapper.writeValueAsString(datos)
+
+
+        // Act
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistoryId = {2}, vetId = {3}, date = {4}")
+    @CsvSource("4, 'nueva descripcion 2' , 6, 6, '2025-06-02'" )
+    @DisplayName("Recipe debe actualizarse correctamente")
+    fun recipe_shouldUpdate_whenCamposCorrectos(id: Int, description: String, medicalHistoryId: Int, vetId: Int, date: String) {
+
+        val putUrl = "/recipe/update"
+
+        val recetaActualizada = mapOf(
+            "id" to id,
+            "description" to description,
+            "medicalHistoryId" to medicalHistoryId,
+            "vetId" to vetId,
+            "date" to date,
+        )
+
+        val requestBody = objectMapper.writeValueAsString(recetaActualizada)
+
+        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk)
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistoryId = {2}, vetId = {3}, date = {4}")
+    @CsvSource("4, 'nueva descripcion 2' , 16, 6, '2025-06-02'" )
+    @DisplayName("Recipe no puede actualizarse , medical history incorrecto")
+    fun recipe_shouldNotUpdate_whenMedicalHistoryIncorrecto(id: Int, description: String, medicalHistoryId: Int, vetId: Int, date: String) {
+
+        val putUrl = "/recipe/update"
+
+        val recetaActualizada = mapOf(
+            "id" to id,
+            "description" to description,
+            "medicalHistoryId" to medicalHistoryId,
+            "vetId" to vetId,
+            "date" to date,
+        )
+
+        val requestBody = objectMapper.writeValueAsString(recetaActualizada)
+
+        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
+
+    }
+
+    @ParameterizedTest(name = "id = {0}, description = {1}, medicalHistoryId = {2}, vetId = {3}, date = {4}")
+    @CsvSource("4, 'nueva descripcion 2' , 6, 16, '2025-06-02'" )
+    @DisplayName("Recipe no puede actualizarse , veterinario incorrecto")
+    fun recipe_shouldNotUpdate_whenVeterinarioIncorrecto(id: Int, description: String, medicalHistoryId: Int, vetId: Int, date: String) {
+
+        val putUrl = "/recipe/update"
+
+        val recetaActualizada = mapOf(
+            "id" to id,
+            "description" to description,
+            "medicalHistoryId" to medicalHistoryId,
+            "vetId" to vetId,
+            "date" to date,
+        )
+
+        val requestBody = objectMapper.writeValueAsString(recetaActualizada)
+
+        mockMvc.perform(put(putUrl).contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isNotFound)
+
+    }
 
     @ParameterizedTest(name = "id= {0}")
     @CsvSource("2, 3")
