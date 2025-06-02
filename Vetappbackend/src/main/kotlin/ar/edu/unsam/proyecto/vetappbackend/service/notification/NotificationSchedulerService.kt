@@ -16,7 +16,7 @@ class NotificationSchedulerService {
 
     @Autowired lateinit var emailService: EmailService
 
-    @Scheduled(cron = "0 25 23 * * *", zone = "America/Argentina/Buenos_Aires") // cron = "sec min hour * * *, zone = "cont country province" "
+    @Scheduled(cron = "0 0 0 * * *", zone = "America/Argentina/Buenos_Aires") // cron = "sec min hour * * *, zone = "cont country province" "
     fun verifyMedicalShift() {
         val date = LocalDate.now()
         val medicalShifts = medicalShiftService.findAllByDate(date)
