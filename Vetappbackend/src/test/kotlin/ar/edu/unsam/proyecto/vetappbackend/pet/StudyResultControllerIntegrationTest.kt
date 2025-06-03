@@ -25,7 +25,7 @@ import kotlin.test.assertTrue
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integration")
-class StudyResultControllerIntegrationTest {
+open class StudyResultControllerIntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc //Permite simular peticiones HTTP.
@@ -39,7 +39,7 @@ class StudyResultControllerIntegrationTest {
     @DisplayName("Debe obtener todos los StudyResults correctamente")
     @Test
     @Transactional
-    fun getAllStudyResults_debeRetornarListaDeStudyResults() {
+    open fun getAllStudyResults_debeRetornarListaDeStudyResults() {
         // Act & Assert
         val result = mockMvc.perform(get("/study-result/get-all"))
             .andExpect(status().isOk)
@@ -56,7 +56,7 @@ class StudyResultControllerIntegrationTest {
     @CsvSource("1")
     @DisplayName("Debe retornar un StudyResult por ID")
     @Transactional
-    fun getOneStudyResultById_debeRetornarStudyResultPorId(idStudyResult: Int) {
+    open fun getOneStudyResultById_debeRetornarStudyResultPorId(idStudyResult: Int) {
         val result = mockMvc.perform(get("/study-result/get-one-by-id")
             .param("idStudyResult", idStudyResult.toString()))
             .andExpect(status().isOk)
@@ -70,7 +70,7 @@ class StudyResultControllerIntegrationTest {
     @CsvSource("99999")
     @DisplayName("Debe retornar error cuando el ID del studyResult es incorrecto")
     @Transactional
-    fun getOneStudyResultById_debeRetornarErrorCuandoIdEsIncorrecto(idStudyResult: Int) {
+    open fun getOneStudyResultById_debeRetornarErrorCuandoIdEsIncorrecto(idStudyResult: Int) {
 
         //Arrange
         val url = "/study-result/get-one-by-id"
@@ -91,7 +91,7 @@ class StudyResultControllerIntegrationTest {
     @Transactional
     @ParameterizedTest(name = "medicalHistoryId = {0}")
     @CsvSource("1")
-    fun createStudyResult_debeCrearNuevoStudyResult(medicalHistoryId: Int) {
+    open fun createStudyResult_debeCrearNuevoStudyResult(medicalHistoryId: Int) {
         // Arrange
         val newStudyResult = StudyResultDTO(
             id = 0,
@@ -117,7 +117,7 @@ class StudyResultControllerIntegrationTest {
     @CsvSource("-1")
     @DisplayName("Debe fallar cuando el medicalHistoryId es incorrecto")
     @Transactional
-    fun createStudyResult_debeFallarCuandoMedicalHistoryIdEsIncorrecto(medicalHistoryId: String) {
+    open fun createStudyResult_debeFallarCuandoMedicalHistoryIdEsIncorrecto(medicalHistoryId: String) {
         // Arrange
         val newStudyResult = StudyResultDTO(
             id = 0,
@@ -143,7 +143,7 @@ class StudyResultControllerIntegrationTest {
     @Transactional
     @ParameterizedTest(name = "studyResultId = {0}")
     @CsvSource("1")
-    fun updateStudyResult_debeActualizarStudyResultExistente(studyResultId: Int) {
+    open fun updateStudyResult_debeActualizarStudyResultExistente(studyResultId: Int) {
         // Arrange
         val existingStudyResult = studyResultRepository.findById(studyResultId)
             .orElseThrow { RuntimeException("StudyResult no encontrado") }
@@ -172,7 +172,7 @@ class StudyResultControllerIntegrationTest {
     @CsvSource("-1")
     @DisplayName("Debe fallar al intentar actualizar un StudyResult con medicalHistoryId incorrecto")
     @Transactional
-    fun updateStudyResult_debeFallarCuandoMedicalHistoryIdEsIncorrecto(medicalHistoryId: String) {
+    open fun updateStudyResult_debeFallarCuandoMedicalHistoryIdEsIncorrecto(medicalHistoryId: String) {
         // Arrange
         val existingStudyResult = studyResultRepository.findById(1)
             .orElseThrow { RuntimeException("StudyResult no encontrado") }
@@ -201,7 +201,7 @@ class StudyResultControllerIntegrationTest {
     @Transactional
     @ParameterizedTest(name = "studyResultId = {0}")
     @CsvSource("1")
-    fun deleteStudyResult_debeEliminarStudyResultExistente(studyResultId: Int) {
+    open fun deleteStudyResult_debeEliminarStudyResultExistente(studyResultId: Int) {
 
         //Arrange
         val studyResult = studyResultRepository.findById(studyResultId)
@@ -223,7 +223,7 @@ class StudyResultControllerIntegrationTest {
     @CsvSource("-1")
     @DisplayName("Debe fallar al intentar eliminar un StudyResult inexistente")
     @Transactional
-    fun deleteStudyResult_debeFallarCuandoStudyResultNoExiste(studyResultId: Int) {
+    open fun deleteStudyResult_debeFallarCuandoStudyResultNoExiste(studyResultId: Int) {
         //Arrange
         val url = "/study-result/delete"
 
