@@ -1,4 +1,4 @@
-package ar.edu.unsam.proyecto.vetappbackend
+package ar.edu.unsam.proyecto.vetappbackend.pet
 
 import ar.edu.unsam.proyecto.vetappbackend.service.pet.RecipeService
 import com.fasterxml.jackson.databind.ObjectMapper
