@@ -15,7 +15,9 @@ data class NotificationResponseDTO (
     val notificationDate: String,
     val type: String,
     val subject: String,
-    val message: String
+    val message: String,
+    val professionalEmail: String,
+    val professionalTelephone: String
 )
 
 fun Notification.toDTO(): NotificationResponseDTO {
@@ -29,7 +31,9 @@ fun Notification.toDTO(): NotificationResponseDTO {
         notificationDate = this.notificationDate.toString(),
         type = this.type?.name!!,
         subject = this.subject!!,
-        message = this.message!!
+        message = this.message!!,
+        professionalEmail = this.vet?.professionalEmail!!,
+        professionalTelephone = this.vet?.professionalTelephone!!
     )
 }
 
@@ -57,6 +61,6 @@ fun NotificationRequestDTO.fromJSON(currentPet: Pet, currentVet: Vet, currentPet
         notificationDate = notificationDTO.notificationDate.let { LocalDate.parse(it) },
         type = TypeOfNotification.valueOf(notificationDTO.type),
         subject = notificationDTO.subject,
-        message = notificationDTO.message
+        message = notificationDTO.message,
     ).apply { id = currentPet.id }
 }
