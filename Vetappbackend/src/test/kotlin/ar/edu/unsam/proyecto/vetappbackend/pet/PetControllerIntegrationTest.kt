@@ -27,7 +27,7 @@ import java.time.LocalDate
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integration")
-class PetControllerIntegrationTest {
+open class PetControllerIntegrationTest {
 
     @Autowired
     private lateinit var petOwnerRepository: PetOwnerRepository
@@ -44,7 +44,7 @@ class PetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver todos los pets del sistema")
     @Transactional
-    fun getAllPets_debeDevolverListaDePets() {
+    open fun getAllPets_debeDevolverListaDePets() {
         // Arrange
         val url = "/pet/get-all"
 
@@ -64,7 +64,7 @@ class PetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver un pet existente según su ID")
     @Transactional
-    fun getOneById_debeDevolverPetCorrecto() {
+    open fun getOneById_debeDevolverPetCorrecto() {
         // Arrange
         val idPet = 1 // Asegurate de que este ID exista en tu base de datos de prueba
         val url = "/pet/get-one-by-id"
@@ -84,7 +84,7 @@ class PetControllerIntegrationTest {
     @Test
     @DisplayName("Debe fallar al intentar obtener un Pet con ID incorrecto")
     @Transactional
-    fun getOneById_debeFallarCuandoIdPetEsIncorrecto() {
+    open fun getOneById_debeFallarCuandoIdPetEsIncorrecto() {
         // Arrange
         val idPet = -1
         val url = "/pet/get-one-by-id"
@@ -104,7 +104,7 @@ class PetControllerIntegrationTest {
     @CsvSource(
         "1"
     )
-    fun createPet_debeCrearNuevoPet(petOwnerId: Int) {
+    open fun createPet_debeCrearNuevoPet(petOwnerId: Int) {
         // Arrange
         val owner = petOwnerRepository.findById(petOwnerId).orElseThrow { RuntimeException("Dueño no encontrado") }
 
@@ -158,7 +158,7 @@ class PetControllerIntegrationTest {
     @Transactional
     @ParameterizedTest(name = "ID petId = {0}")
     @CsvSource("1")
-    fun updatePet_debeActualizarPetExistente(petId: Int) {
+    open fun updatePet_debeActualizarPetExistente(petId: Int) {
         // Arrange
         val existingPet = petRepository.findById(petId).orElseThrow { RuntimeException("Pet no encontrado") }
         val petOwner = existingPet.petOwner?.let { petOwnerRepository.findById(it.id).orElseThrow { RuntimeException("Dueño no encontrado") } }
@@ -203,7 +203,7 @@ class PetControllerIntegrationTest {
     @CsvSource("-1", "99999") // IDs inexistentes o inválidos
     @DisplayName("Debe fallar al intentar actualizar un Pet inexistente")
     @Transactional
-    fun updatePet_debeFallarCuandoPetNoExiste(petId: Int) {
+    open fun updatePet_debeFallarCuandoPetNoExiste(petId: Int) {
         // Arrange
         val updatedPetDTO = PetDTO(
             id = petId,
@@ -241,7 +241,7 @@ class PetControllerIntegrationTest {
     @Transactional
     @ParameterizedTest(name = "ID petId = {0}")
     @CsvSource("1")
-    fun deletePet_debeEliminarPetExistente(petId: Int) {
+    open fun deletePet_debeEliminarPetExistente(petId: Int) {
         // Arrange
         val existingPet = petRepository.findById(petId).orElseThrow { RuntimeException("Pet no encontrado") }
 

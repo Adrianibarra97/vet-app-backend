@@ -29,7 +29,7 @@ import java.time.LocalDateTime
 @ActiveProfiles("test")
 @Tag("integration")
 @SpringBootTest
-class VaccineControllerIntegrationTest {
+open class VaccineControllerIntegrationTest {
 
     @Autowired private lateinit var mockMvc: MockMvc
 
@@ -37,7 +37,7 @@ class VaccineControllerIntegrationTest {
 
     @Test
     @DisplayName("Debe obtener todos las vacunas correctamente")
-    fun getAllVaccine() {
+    open fun getAllVaccine() {
         val url = "/vaccines/get-all"
         val result = mockMvc.perform(get(url))
             .andExpect(status().isOk)
@@ -54,7 +54,7 @@ class VaccineControllerIntegrationTest {
     @ParameterizedTest(name = "idVaccine = {0}")
     @CsvSource("1")
     @Transactional
-    fun getOneVaccineByIdExistent(idVaccine: Int) {
+    open fun getOneVaccineByIdExistent(idVaccine: Int) {
         val url = "/vaccines/get-one-by-id"
         val result = mockMvc.perform(get(url).param("idVaccine", idVaccine.toString())).andExpect(status().isOk).andReturn()
         val content = result.response.contentAsString
@@ -66,7 +66,7 @@ class VaccineControllerIntegrationTest {
     @CsvSource("-1, 0, 99")
     @DisplayName("Debe lanzar una exepcion cuando el ID de una vacuna es incorrecto")
     @Transactional
-    fun getOneVaccineByIdNonExistent(idVaccine: Int) {
+    open fun getOneVaccineByIdNonExistent(idVaccine: Int) {
         val url = "/vaccines/get-one-by-id"
         val result = mockMvc.perform(get(url)
             .param("idVaccine", idVaccine.toString()))
@@ -80,7 +80,7 @@ class VaccineControllerIntegrationTest {
     @DisplayName("Debe crear una nueva vacuna correctamente")
     @ParameterizedTest(name = "medicalHistoryId = {0}")
     @CsvSource("1")
-    fun createVaccine(idMedicalHistory: Int) {
+    open fun createVaccine(idMedicalHistory: Int) {
         // Arrange
         val newVaccine = VaccineDTO(
             id = 0,
@@ -102,7 +102,7 @@ class VaccineControllerIntegrationTest {
     @DisplayName("No puede crear una nueva vacuna correctamente, historial medico inexistente")
     @ParameterizedTest(name = "medicalHistoryId = {0}")
     @CsvSource("-1, 0, 99")
-    fun createVaccineNonExistent(idMedicalHistory: Int) {
+    open fun createVaccineNonExistent(idMedicalHistory: Int) {
         // Arrange
         val newVaccine = VaccineDTO(
             id = 0,
@@ -123,7 +123,7 @@ class VaccineControllerIntegrationTest {
     @DisplayName("Debe actualizar una vacuna correctamente")
     @ParameterizedTest(name = "idVaccine = {0}, newType = {1}")
     @CsvSource("1, DEWORMING")
-    fun updateVaccine(idVaccine: Int, newType: String) {
+    open fun updateVaccine(idVaccine: Int, newType: String) {
         // Arrange
         val url = "/vaccines/get-one-by-id"
         val resultBefore = mockMvc.perform(

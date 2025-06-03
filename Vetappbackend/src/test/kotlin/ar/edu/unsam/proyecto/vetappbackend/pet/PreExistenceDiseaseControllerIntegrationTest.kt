@@ -23,7 +23,7 @@ import kotlin.Int
 @ActiveProfiles("test")
 @Tag("integration")
 @SpringBootTest
-class PreExistenceDiseaseControllerIntegrationTest {
+open class PreExistenceDiseaseControllerIntegrationTest {
 
     @Autowired private lateinit var mockMvc: MockMvc
 
@@ -31,7 +31,7 @@ class PreExistenceDiseaseControllerIntegrationTest {
 
     @Test
     @DisplayName("Debe obtener todos las enfermedades preexistentes correctamente")
-    fun getAllPreExistenceDisease() {
+    open fun getAllPreExistenceDisease() {
         val url = "/pre-existence-disease/get-all"
         val result = mockMvc.perform(get(url))
             .andExpect(status().isOk)
@@ -48,7 +48,7 @@ class PreExistenceDiseaseControllerIntegrationTest {
     @ParameterizedTest(name = "idPreExistenceDisease = {0}")
     @CsvSource("1")
     @Transactional
-    fun getOnePreExistenceDiseaseByIdExistent(idPreExistenceDisease: Int) {
+    open fun getOnePreExistenceDiseaseByIdExistent(idPreExistenceDisease: Int) {
         val url = "/pre-existence-disease/get-one-by-id"
         val result = mockMvc.perform(get(url).param("idPreExistenceDisease", idPreExistenceDisease.toString())).andExpect(status().isOk).andReturn()
         val content = result.response.contentAsString
@@ -60,7 +60,7 @@ class PreExistenceDiseaseControllerIntegrationTest {
     @CsvSource("-1, 0, 99")
     @DisplayName("Debe retornar error cuando el ID de una enfermedad pre-existente es incorrecto")
     @Transactional
-    fun getOnePreExistenceDiseaseByIdNonExistent(idPreExistenceDisease: Int) {
+    open fun getOnePreExistenceDiseaseByIdNonExistent(idPreExistenceDisease: Int) {
         val url = "/pre-existence-disease/get-one-by-id"
         val result = mockMvc.perform(get(url)
             .param("idPreExistenceDisease", idPreExistenceDisease.toString()))
@@ -74,7 +74,7 @@ class PreExistenceDiseaseControllerIntegrationTest {
     @DisplayName("Debe crear una nueva enfermedad pre-existente correctamente")
     @ParameterizedTest(name = "medicalHistoryId = {0}")
     @CsvSource("4")
-    fun createPreExistenceDisease(idMedicalHistory: Int) {
+    open fun createPreExistenceDisease(idMedicalHistory: Int) {
         // Arrange
         val newPreExistenceDisease = PreExistenceDiseaseDTO(
             id = 0,
@@ -95,7 +95,7 @@ class PreExistenceDiseaseControllerIntegrationTest {
     @DisplayName("No puede crear una nueva enfermedad pre-existente correctamente, historial medico inexistente")
     @ParameterizedTest(name = "medicalHistoryId = {0}")
     @CsvSource("-1, 0, 99")
-    fun createPreExistenceDiseaseNonExistent(idMedicalHistory: Int) {
+    open fun createPreExistenceDiseaseNonExistent(idMedicalHistory: Int) {
         // Arrange
         val newPreExistenceDisease = PreExistenceDiseaseDTO(
             id = 0,
@@ -116,7 +116,7 @@ class PreExistenceDiseaseControllerIntegrationTest {
     @DisplayName("Debe actualizar una enfermedad pre-existente correctamente")
     @ParameterizedTest(name = "idPreExistenceDisease = {0}, newSeverity = {1}, newType = {2}")
     @CsvSource("1, Critical, LEUKEMIA")
-    fun updatePreExistenceDiseaseExistent(idPreExistenceDisease: Int, newSeverity: String, newType: String) {
+    open fun updatePreExistenceDiseaseExistent(idPreExistenceDisease: Int, newSeverity: String, newType: String) {
         // Arrange
         val url = "/pre-existence-disease/get-one-by-id"
         val resultBefore = mockMvc.perform(

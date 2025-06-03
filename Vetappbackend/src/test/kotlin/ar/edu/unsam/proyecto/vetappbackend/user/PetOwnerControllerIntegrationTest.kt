@@ -1,5 +1,4 @@
 package ar.edu.unsam.proyecto.vetappbackend.user
-import org.junit.jupiter.api.Assertions.assertTrue
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.toDTO
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.PetOwnerRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,7 +29,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integration")
-class PetOwnerControllerIntegrationTest {
+open class PetOwnerControllerIntegrationTest {
 
     @Autowired private lateinit var mockMvc: MockMvc
 
@@ -38,12 +37,12 @@ class PetOwnerControllerIntegrationTest {
 
     @Autowired private lateinit var petOwnerRepository: PetOwnerRepository
 
-    @BeforeEach fun setup() { }
+    @BeforeEach open fun setup() { }
 
 
     @Test
     @DisplayName("Debe devolver una lista de dueños de las mascotas")
-    fun returnAllPetOwners() {
+    open fun returnAllPetOwners() {
         val url = "/pet-owner/get-all"
         val result = mockMvc.perform(get(url)).andExpect(status().isOk).andExpect(jsonPath("$.length()").isNumber).andReturn()
         println(result.response.contentAsString)
@@ -53,7 +52,7 @@ class PetOwnerControllerIntegrationTest {
     @ParameterizedTest(name = "ID valid petowner = {0}, Username = {1}")
     @CsvSource("1, Eche",  "2, Caro",  "3, Tami",  "4, LuckR")
     @DisplayName("Debe retornar el dueños de la mascota cuando el ID es válido")
-    fun returnPetOwnerFindById(idPetOwner: Int, username: String) {
+    open fun returnPetOwnerFindById(idPetOwner: Int, username: String) {
 
         val url = "/pet-owner/get-one-by-id"
 
@@ -77,7 +76,7 @@ class PetOwnerControllerIntegrationTest {
     @ParameterizedTest(name = "ID invalid petowner = {0}")
     @CsvSource("-1, 0, 900")
     @DisplayName("Debe devolver error 404 cuando el dueño de la mascota no existe")
-    fun returnPetOwnerWhenNoExists(idPetOwner: Int){
+    open fun returnPetOwnerWhenNoExists(idPetOwner: Int){
 
         val result = mockMvc.perform(
             get("/pet-owner/get-one-by-id").param("idPetOwner", idPetOwner.toString()))
@@ -91,7 +90,7 @@ class PetOwnerControllerIntegrationTest {
     @ParameterizedTest(name = "ID valid petowner = {0}, Username = {1}, NewUsername")
     @CsvSource("1, Eche, ElEche")
     @DisplayName("Debe actualizar el username del dueño de la mascota correctamente")
-    fun returnPutUsernamePetOwner(idPetOwner: Int, username: String, newUsername: String) {
+    open fun returnPutUsernamePetOwner(idPetOwner: Int, username: String, newUsername: String) {
         val putUrl = "/pet-owner/update"
         val getUrl = "/pet-owner/get-one-by-id"
 
@@ -118,7 +117,7 @@ class PetOwnerControllerIntegrationTest {
     @ParameterizedTest(name = "ID valid petowner = {0}, Username = {1}, NewUsername = {2}")
     @CsvSource("2, Caro, Tami")
     @DisplayName("No debe actualizar el username del dueño de la mascota si el nuevo username está ocupado")
-    fun returnExceptionPutUsernamePetOwner(idPetOwner: Int, username: String, newUsername: String) {
+    open fun returnExceptionPutUsernamePetOwner(idPetOwner: Int, username: String, newUsername: String) {
         val putUrl = "/pet-owner/update"
         val getUrl = "/pet-owner/get-one-by-id"
 
@@ -140,7 +139,7 @@ class PetOwnerControllerIntegrationTest {
     @ParameterizedTest(name = "ID valid petowner = {0}, NamePet = {1}")
     @CsvSource("4, Morena")
     @Transactional
-    fun getAllPetsOwner(idPetOwner: Int, namePet: String) {
+    open fun getAllPetsOwner(idPetOwner: Int, namePet: String) {
         // Arrange
         val url = "/pet-owner/get-all-pets"
         // Act
