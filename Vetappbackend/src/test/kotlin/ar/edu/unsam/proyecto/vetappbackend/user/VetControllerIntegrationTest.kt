@@ -38,7 +38,7 @@ import java.util.*
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Tag("integration")
-class VetControllerIntegrationTest {
+open class VetControllerIntegrationTest {
 
     @Autowired
     private lateinit var authCredentialsRepository: AuthCredentialsRepository
@@ -65,13 +65,13 @@ class VetControllerIntegrationTest {
     lateinit var objectMapper: ObjectMapper //Convierto objetos a JSON.
 
     @BeforeEach
-    fun setup() {
+    open fun setup() {
         // Puedo inicializar datos de prueba en la base de datos.
     }
 
     @Test
     @DisplayName("Debe devolver una lista de veterinarios")
-    fun retornar_todosLos_veterionarios() {
+    open fun retornar_todosLos_veterionarios() {
 
         // Arrange
         val url = "/vet/get-all"
@@ -92,7 +92,7 @@ class VetControllerIntegrationTest {
     )
 
     @DisplayName("Debe retornar un veterinario cuando el ID es válido")
-    fun retornar_un_veterinario_segun_id(id: Int, nombreEsperado: String) {
+    open fun retornar_un_veterinario_segun_id(id: Int, nombreEsperado: String) {
 
         // Arrange
         val url = "/vet/get-one-by-id"
@@ -130,7 +130,7 @@ class VetControllerIntegrationTest {
     @ParameterizedTest(name = "ID veterinario inexistente = {0}")
     @CsvSource("145")
     @DisplayName("Debe devolver error 404 cuando el veterinario no existe")
-    fun retornar_un_veterinario_whenNoExists(id: String){
+    open fun retornar_un_veterinario_whenNoExists(id: String){
 
         val resultado = mockMvc.perform(
             get("/vet/get-one-by-id")
@@ -147,7 +147,7 @@ class VetControllerIntegrationTest {
     @ParameterizedTest(name = "ID veterinario = {0}, nombre esperado = {1}")
     @CsvSource("5, Claudio")
     @DisplayName("Debe actualizar el nombre del veterinario correctamente")
-    fun actualizar_veterinario_exitoso(idVet: Int, nombreEsperado: String) {
+    open fun actualizar_veterinario_exitoso(idVet: Int, nombreEsperado: String) {
 
         // Arrange
         val putUrl = "/vet/update"
@@ -186,7 +186,7 @@ class VetControllerIntegrationTest {
     @ParameterizedTest(name = "ID veterinario inexistente = {0}")
     @CsvSource("9999")
     @DisplayName("No debe actualizar si el veterinario no existe")
-    fun actualizar_veterinario_inexistente(idVetInexistente: Int) {
+    open fun actualizar_veterinario_inexistente(idVetInexistente: Int) {
 
         // Arrange
         val putUrl = "/vet/update"
@@ -239,7 +239,7 @@ class VetControllerIntegrationTest {
     )
     @Transactional
     @DisplayName("Debe dar 200 al eliminar un veterinario correctamente")
-    fun eliminar_veterinario_exitoso(idVet: Int, expect: Int) {
+    open fun eliminar_veterinario_exitoso(idVet: Int, expect: Int) {
 
         // Arrange
         val deleteUrl = "/vet/delete"
@@ -269,7 +269,7 @@ class VetControllerIntegrationTest {
         "9999"
     )
     @DisplayName("No debe eliminar un veterinario inexistente y devolver error 404")
-    fun eliminar_veterinario_inexistente(idVet: Int) {
+    open fun eliminar_veterinario_inexistente(idVet: Int) {
 
         //Arrange
         val deleteUrl = "/vet/delete"
@@ -285,7 +285,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver todas las mascotas asociadas a un veterinario existente")
     @Transactional
-    fun getAllPets_de_veterinario_existente() {
+    open fun getAllPets_de_veterinario_existente() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-pets"
@@ -307,7 +307,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe fallar al intentar obtener mascotas de un veterinario inexistente")
     @Transactional
-    fun getAllPets_de_veterinario_inexistente() {
+    open fun getAllPets_de_veterinario_inexistente() {
         // Arrange
         val idVet = -1
         val url = "/vet/get-all-pets"
@@ -323,7 +323,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver a Oli como mascota  por nombre, vacunas pendientes y turnos")
     @Transactional
-    fun getAllByFilterPet_de_veterinario_existente_con_filtros() {
+    open fun getAllByFilterPet_de_veterinario_existente_con_filtros() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-pets-by-filter"
@@ -354,7 +354,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver todas las mascotas asociadas a un veterinario cuando se pasa el filtro vacío")
     @Transactional
-    fun getAllByFilterPet_de_veterinario_existente_sin_filtros() {
+    open fun getAllByFilterPet_de_veterinario_existente_sin_filtros() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-pets-by-filter"
@@ -381,7 +381,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver las mascotas asociadas a un veterinario que NO tienen vacunas pendientes")
     @Transactional
-    fun getAllByFilterPet_sin_vacunas_pendientes() {
+    open fun getAllByFilterPet_sin_vacunas_pendientes() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-pets-by-filter"
@@ -410,7 +410,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver los turnos médicos del día de hoy para un veterinario")
     @Transactional
-    fun getAllMedicalShiftFilter_porHoy() {
+    open fun getAllMedicalShiftFilter_porHoy() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-medical-shift-by-filter"
@@ -437,7 +437,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe fallar al intentar obtener turnos con un filtro today inválido")
     @Transactional
-    fun getAllMedicalShiftFilter_debeFallarConTodayInvalido() {
+    open fun getAllMedicalShiftFilter_debeFallarConTodayInvalido() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-medical-shift-by-filter"
@@ -464,7 +464,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver los turnos médicos de la semana actual para un veterinario")
     @Transactional
-    fun getAllMedicalShiftFilter_turnosDeEstaSemana() {
+    open fun getAllMedicalShiftFilter_turnosDeEstaSemana() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-medical-shift-by-filter"
@@ -496,7 +496,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe fallar al intentar obtener turnos con un filtro thisWeek inválido")
     @Transactional
-    fun getAllMedicalShiftFilter_debeFallarConThisWeekInvalido() {
+    open fun getAllMedicalShiftFilter_debeFallarConThisWeekInvalido() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-medical-shift-by-filter"
@@ -522,7 +522,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver los turnos médicos de una fecha específica para un veterinario")
     @Transactional
-    fun getAllMedicalShiftFilter_turnosPorFechaEspecifica() {
+    open fun getAllMedicalShiftFilter_turnosPorFechaEspecifica() {
         // Arrange
         val idVet = 5
         val url = "/vet/get-all-medical-shift-by-filter"
@@ -551,7 +551,7 @@ class VetControllerIntegrationTest {
     @Test
     @DisplayName("Debe devolver todas las notificaciones asociadas a un veterinario existente")
     @Transactional
-    fun getAllNotifications_de_veterinario_existente() {
+    open fun getAllNotifications_de_veterinario_existente() {
         // Arrange
         val idVet = 5
         val idOwner = 2
