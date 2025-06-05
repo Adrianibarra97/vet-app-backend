@@ -45,7 +45,7 @@ class NotificationService: BaseService<Notification> {
         return  this.notificationRepository.findByPetOwnerId(idPetOwner)
     }
 
-    fun createNotification(shift: MedicalShift, type: TypeOfNotification) {
+    fun createNotificationMedicalShift(shift: MedicalShift, type: TypeOfNotification) {
         val notification = NotificationFactory().fromMedicalShift(shift, type)
         this.notificationRepository.save(notification)
     }

@@ -1,12 +1,12 @@
 package ar.edu.unsam.proyecto.vetappbackend.service.user
 
-import ar.edu.unsam.proyecto.vetappbackend.domain.notification.NotificationFactory
 import ar.edu.unsam.proyecto.vetappbackend.domain.type.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.MedicalShift
 import ar.edu.unsam.proyecto.vetappbackend.dto.filter.MedicalShiftFilter
 import ar.edu.unsam.proyecto.vetappbackend.error.NotFoundException
 import ar.edu.unsam.proyecto.vetappbackend.repository.user.MedicalShiftRepository
 import ar.edu.unsam.proyecto.vetappbackend.service.BaseService
+import ar.edu.unsam.proyecto.vetappbackend.service.mail.EmailService
 import ar.edu.unsam.proyecto.vetappbackend.service.notification.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -33,21 +33,34 @@ class MedicalShiftService: BaseService<MedicalShift> {
 
     override fun create(newMedicalShift: MedicalShift) {
         this.medicalShiftRepository.save(newMedicalShift)
-        this.sendEmail(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
-        this.notificationService.createNotification(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
+        this.notificationService.createNotificationMedicalShift(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
+        try {
+            this.sendEmail(newMedicalShift, TypeOfNotification.SHIFT_CREATE)
+        } catch (e: Exception){
+            println("Error al enviar el email: Creación de un turno: ${e.message}")
+        }
     }
 
     override fun delete(medicalShiftDelete: MedicalShift) {
         this.medicalShiftRepository.delete(medicalShiftDelete)
-        this.sendEmail(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
-        this.notificationService.createNotification(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
+        this.notificationService.createNotificationMedicalShift(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
+        try {
+            this.sendEmail(medicalShiftDelete, TypeOfNotification.SHIFT_DELETE)
+        } catch (e: Exception){
+            println("Error al enviar el email: Eliminación de un turno: ${e.message}")
+        }
     }
 
     override fun update(medicalShiftUpdate: MedicalShift) {
         this.getOneById(medicalShiftUpdate.id!!)
         this.medicalShiftRepository.save(medicalShiftUpdate)
-        this.sendEmail(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
-        this.notificationService.createNotification(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
+        this.notificationService.createNotificationMedicalShift(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
+        try {
+            this.sendEmail(medicalShiftUpdate, TypeOfNotification.SHIFT_UPDATE)
+        } catch (e: Exception){
+            println("Error al enviar el email: Actualización de un turno: ${e.message}")
+        }
+
     }
 
     fun findAllByDate(date: LocalDate): List<MedicalShift> {
@@ -75,7 +88,7 @@ class MedicalShiftService: BaseService<MedicalShift> {
     }
 
     private fun sendEmail(shift: MedicalShift, type: TypeOfNotification) {
-        this.emailService.sendAppointmentNotification(
+        this.emailService.sendNotificationMedicalShift(
             shift.pet!!,
             shift.vet!!,
             shift.pet?.petOwner!!,

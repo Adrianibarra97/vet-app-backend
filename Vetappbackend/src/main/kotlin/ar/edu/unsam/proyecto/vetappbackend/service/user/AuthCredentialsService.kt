@@ -10,7 +10,7 @@ import ar.edu.unsam.proyecto.vetappbackend.repository.user.*
 import ar.edu.unsam.proyecto.vetappbackend.domain.user.*
 import ar.edu.unsam.proyecto.vetappbackend.dto.user.*
 import ar.edu.unsam.proyecto.vetappbackend.error.*
-import ar.edu.unsam.proyecto.vetappbackend.service.notification.EmailService
+import ar.edu.unsam.proyecto.vetappbackend.service.mail.EmailService
 
 @Service
 class AuthCredentialsService {
@@ -59,7 +59,7 @@ class AuthCredentialsService {
         val authCredentials: AuthCredentials = this.getOneById(idAuthCredentials).apply { password = newPassword }
         val user: UserData = this.userDataService.findByAuthCredentialsId(authCredentials.id)
         this.authCredentialsRepository.save(authCredentials)
-        this.emailService.updatePassword(user)
+        this.emailService.sendUpdatePassword(user)
     }
 
     fun verifyUsernameCreate(username: String) {
