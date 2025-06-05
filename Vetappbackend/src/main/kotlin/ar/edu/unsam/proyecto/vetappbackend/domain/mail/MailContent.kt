@@ -16,15 +16,15 @@ class MailContent {
         return when (type) {
             TypeOfNotification.SHIFT_REMINDER ->
                 "Recordatorio de turno para ${pet.name}" to
-                        """Recordatorio: la mascota "${pet.name}" tiene un turno médico hoy a las $hourString}."""
+                        """Recordatorio: la mascota "${pet.name}" tiene un turno médico hoy a las $hourString."""
 
             TypeOfNotification.SHIFT_CREATE ->
                 "Nuevo turno para ${pet.name}" to
-                        """Se ha creado con éxito un nuevo turno médico para la mascota "${pet.name}", para el día $formattedDateTime}."""
+                        """Se ha creado con éxito un nuevo turno médico para la mascota "${pet.name}", para el día $formattedDateTime."""
 
             TypeOfNotification.SHIFT_UPDATE ->
                 "Turno modificado para ${pet.name}" to
-                        """Se ha sido modificado con éxito el turno médico de la mascota "${pet.name}", para el día $formattedDateTime}."""
+                        """Se ha sido modificado con éxito el turno médico de la mascota "${pet.name}", para el día $formattedDateTime."""
 
             TypeOfNotification.SHIFT_DELETE ->
                 "Turno cancelado para ${pet.name}" to
@@ -33,7 +33,7 @@ class MailContent {
     }
 
     fun generateHtmlContent(nameRecipient: String, surnameRecipient: String, plainText: String ): String {
-        val headerImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmYy1zpAo31nzp0H0B-rbaPrPDkCNqpPrThA&s"
+        val headerImageUrl = "https://i.postimg.cc/fW99KKch/logo-vet-app-horizontal-1.png"
         //"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmYy1zpAo31nzp0H0B-rbaPrPDkCNqpPrThA&s"
 
         return """
