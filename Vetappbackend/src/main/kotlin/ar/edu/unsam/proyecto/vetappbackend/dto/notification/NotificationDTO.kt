@@ -17,7 +17,8 @@ data class NotificationResponseDTO (
     val subject: String,
     val message: String,
     val professionalEmail: String,
-    val professionalTelephone: String
+    val professionalTelephone: String,
+    val wasRead: Boolean
 )
 
 fun Notification.toDTO(): NotificationResponseDTO {
@@ -33,7 +34,8 @@ fun Notification.toDTO(): NotificationResponseDTO {
         subject = this.subject!!,
         message = this.message!!,
         professionalEmail = this.vet?.professionalEmail!!,
-        professionalTelephone = this.vet?.professionalTelephone!!
+        professionalTelephone = this.vet?.professionalTelephone!!,
+        wasRead = this.wasRead
     )
 }
 
@@ -47,7 +49,8 @@ data class NotificationRequestDTO(
     val notificationDate: String,
     val type: String,
     val subject: String,
-    val message: String
+    val message: String,
+    val wasRead: Boolean
 )
 
 fun NotificationRequestDTO.fromJSON(currentPet: Pet, currentVet: Vet, currentPetOwner: PetOwner ): Notification {
@@ -62,5 +65,6 @@ fun NotificationRequestDTO.fromJSON(currentPet: Pet, currentVet: Vet, currentPet
         type = TypeOfNotification.valueOf(notificationDTO.type),
         subject = notificationDTO.subject,
         message = notificationDTO.message,
+        wasRead = notificationDTO.wasRead
     ).apply { id = currentPet.id }
 }
