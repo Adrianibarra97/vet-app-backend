@@ -16,6 +16,8 @@ class Notification(
 
     var message: String? = null,
 
+    var wasRead: Boolean = false,
+
     var notificationDate: LocalDate? = null,
 
     @Enumerated(EnumType.STRING)
