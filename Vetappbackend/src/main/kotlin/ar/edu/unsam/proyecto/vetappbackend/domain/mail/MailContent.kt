@@ -33,7 +33,7 @@ class MailContent {
     }
 
     fun generateHtmlContent(nameRecipient: String, surnameRecipient: String, plainText: String ): String {
-        val headerImageUrl = "https://i.postimg.cc/fW99KKch/logo-vet-app-horizontal-1.png"
+        val headerImageUrl = "https://iili.io/Ff95tmG.png"
         //"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmYy1zpAo31nzp0H0B-rbaPrPDkCNqpPrThA&s"
 
         return """
